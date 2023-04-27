@@ -1,14 +1,11 @@
 package it.unicam.cs.pawm.model
 
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-@Serializable
 data class Game(
         val id: Int,
         val name: String,
         val description: String,
-
         //Credo si implementi così la relazione uno a molti
         val gamesTypes: List<GameType>
 )

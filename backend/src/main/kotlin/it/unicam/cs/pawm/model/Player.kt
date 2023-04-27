@@ -1,9 +1,7 @@
 package it.unicam.cs.pawm.model
 
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-@Serializable
 data class Player(
         val id: Int,
         val name: String,
