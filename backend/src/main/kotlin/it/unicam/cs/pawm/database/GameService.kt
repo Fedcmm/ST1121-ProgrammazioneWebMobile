@@ -16,7 +16,7 @@ class GameService : DatabaseService<Game, Int>(GameTable) {
             it[description] = newRecord.description
         }
 
-        gameTypeService.addAll(newRecord.id, newRecord.gameTypes)
+        gameTypeService.addAll(insert[GameTable.id], newRecord.gameTypes)
         insert[GameTable.id]
     }
 
