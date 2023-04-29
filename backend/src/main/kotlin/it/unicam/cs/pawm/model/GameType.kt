@@ -15,6 +15,9 @@ enum class GameType {
     //TODO add more types
 }
 
-object GameTypeTable : Table(){
+object GameTypeTable : Table() {
+    val game = reference("game", GameTable.id)
     val gameType = enumeration("gameType", GameType::class)
+
+    override val primaryKey = PrimaryKey(game, gameType)
 }
