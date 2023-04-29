@@ -4,6 +4,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 import java.time.LocalDateTime
 
+//@Serializable
 data class Record(
     val recordID: RecordID,
     val game: Game,
@@ -12,6 +13,7 @@ data class Record(
     val isVerified: Boolean
 )
 
+//@Serializable
 data class RecordID(val player: Int, val gameRoom: Int)
 
 object RecordTable : Table() {

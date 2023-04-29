@@ -2,6 +2,7 @@ package it.unicam.cs.pawm.model
 
 import org.jetbrains.exposed.sql.Table
 
+//@Serializable
 data class GameRoom(
     val id: Int,
     val name: String,
@@ -9,7 +10,7 @@ data class GameRoom(
     val password: String,
     val games: List<Game>
 )
-object GameRoomTable : Table(){
+object GameRoomTable : Table() {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 50)
     val email = varchar("email", 50)

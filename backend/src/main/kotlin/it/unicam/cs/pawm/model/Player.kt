@@ -2,6 +2,7 @@ package it.unicam.cs.pawm.model
 
 import org.jetbrains.exposed.sql.Table
 
+//@Serializable
 data class Player(
     val id: Int,
     val name: String,
