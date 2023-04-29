@@ -7,13 +7,12 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import it.unicam.cs.pawm.database.PlayerService
 
 import it.unicam.cs.pawm.model.Player
-import it.unicam.cs.pawm.service.PlayerSevice
 
 fun Application.playerRouting() {
-
-    val playerRouting = PlayerSevice()
+    val playerService = PlayerService()
 
     routing {
         route("/") {

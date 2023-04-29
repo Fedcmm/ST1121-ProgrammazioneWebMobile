@@ -7,15 +7,15 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import it.unicam.cs.pawm.database.GameRoomService
 
 import it.unicam.cs.pawm.model.GameRoom
-import it.unicam.cs.pawm.service.GameRoomService
 
 fun Application.gameRoomRouting() {
-    val gameRoomRouting = GameRoomService()
+    val gameRoomService = GameRoomService()
 
     routing {
-        route("/"){
+        route("/") {
             authenticate("auth-session", optional = false) {
                 get("/") {
                     val gameRoomSession = call.principal<GameRoomSession>()
