@@ -5,7 +5,7 @@ import it.unicam.cs.pawm.model.PlayerTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-class PlayerService : DatabaseService<Player, Int>(PlayerTable) {
+object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
 
     override suspend fun add(newRecord: Player): Int = dbQuery {
         PlayerTable.insert {
@@ -55,5 +55,13 @@ class PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[password] = updRecord.password
             }
         }
+    }
+
+    suspend fun checkCredentials(email: String, password: String): Boolean = dbQuery {
+        PlayerTable.select { (PlayerTable.email eq email) and (PlayerTable.password eq password) }.count() == 1L
+    }
+
+    suspend fun accountExists(email: String): Boolean = dbQuery {
+        PlayerTable.select { PlayerTable.email eq email }.count() == 1L
     }
 }
