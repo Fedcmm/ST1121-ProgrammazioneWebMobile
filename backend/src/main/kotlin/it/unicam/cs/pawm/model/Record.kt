@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 data class Record(
     val recordID: RecordID,
     val game: Game,
-    /*@Serializable(with = )*/ @Contextual val date: LocalDateTime, // TODO: Test
+    @Contextual val date: LocalDateTime,
     val score: Int,
     val isVerified: Boolean
 )

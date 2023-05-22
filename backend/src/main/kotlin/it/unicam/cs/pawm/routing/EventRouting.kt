@@ -5,38 +5,45 @@ import io.ktor.server.response.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import it.unicam.cs.pawm.database.GameService
+import it.unicam.cs.pawm.database.EventService
 
-import it.unicam.cs.pawm.model.Game
+import it.unicam.cs.pawm.model.Event
 
-fun Route.gameRouting() {
-    route("/game") {
+fun Route.eventRouting() {
+
+    route("/event") {
         get("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-            val game = GameService.read(id)
+            val event = EventService.read(id)
 
-            if (game != null)
-                call.respond(HttpStatusCode.OK, game)
+            if (event != null)
+                call.respond(HttpStatusCode.OK, event)
             else
                 call.respond(HttpStatusCode.NotFound)
         }
 
+        get("/all") {
+            val events = EventService.readAll()
+            call.respond(HttpStatusCode.OK, events)
+        }
+
         post("/") {
-            val game = call.receive<Game>()
-            val id = GameService.add(game)
+            val event = call.receive<Event>()
+            val id = EventService.add(event)
             call.respond(HttpStatusCode.Created, id)
         }
 
-        patch("/{id") {
-            val game = call.receive<Game>()
-            GameService.update(game)
+        patch("/{id}") {
+            val event = call.receive<Event>()
+            EventService.update(event)
             call.respond(HttpStatusCode.OK)
         }
 
         delete("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-            GameService.delete(id)
+            EventService.delete(id)
             call.respond(HttpStatusCode.OK)
         }
+
     }
 }

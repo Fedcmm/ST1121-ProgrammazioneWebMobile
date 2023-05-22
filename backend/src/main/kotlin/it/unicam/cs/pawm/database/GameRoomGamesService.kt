@@ -6,9 +6,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class GameRoomGamesService {
-
-    private val gameService = GameService()
+object GameRoomGamesService {
 
 
     init {
@@ -16,6 +14,9 @@ class GameRoomGamesService {
     }
 
 
+    /**
+     * Add a [game] to the [gameRoom] games list.
+     */
     suspend fun add(gameRoom: Int, game: Int) {
         dbQuery {
             GameRoomGamesTable.insert {
@@ -25,6 +26,9 @@ class GameRoomGamesService {
         }
     }
 
+    /**
+     * Add a list of [games] to the [gameRoom] games list.
+     */
     suspend fun addAll(gameRoom: Int, games: List<Int>) {
         dbQuery {
             GameRoomGamesTable.batchInsert(games) { game ->
@@ -34,12 +38,18 @@ class GameRoomGamesService {
         }
     }
 
+    /**
+     * Gets all games of [gameRoom] from the database.
+     */
     suspend fun read(gameRoom: Int): List<Game> = dbQuery {
         GameRoomGamesTable.select { GameRoomGamesTable.gameRoom eq gameRoom }.mapNotNull {
-            gameService.read(it[GameRoomGamesTable.game])
+            GameService.read(it[GameRoomGamesTable.game])
         }//.toMutableList()
     }
 
+    /**
+     * Deletes  [game] of [gameRoom] games list.
+     */
     suspend fun delete(gameRoom: Int, game: Int) {
         dbQuery {
             GameRoomGamesTable.deleteWhere {
@@ -48,12 +58,18 @@ class GameRoomGamesService {
         }
     }
 
+    /**
+     * Deletes all games from [gameRoom] games list.
+     */
     suspend fun deleteAll(gameRoom: Int) {
         dbQuery {
             GameRoomGamesTable.deleteWhere { this.gameRoom eq gameRoom }
         }
     }
 
+    /**
+     * Updates [games] of [gameRoom] games list.
+     */
     suspend fun update(gameRoom: Int, games: List<Game>) {
         deleteAll(gameRoom)
         dbQuery {

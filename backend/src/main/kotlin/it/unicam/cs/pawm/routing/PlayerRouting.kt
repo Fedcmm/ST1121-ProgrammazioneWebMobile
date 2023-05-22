@@ -3,62 +3,40 @@ package it.unicam.cs.pawm.routing
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import io.ktor.server.sessions.*
 import it.unicam.cs.pawm.database.PlayerService
 
 import it.unicam.cs.pawm.model.Player
 
-fun Application.playerRouting() {
-    val playerService = PlayerService()
+fun Route.playerRouting() {
+    route("/player") {
+        get("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            val player = PlayerService.read(id)
 
-    routing {
-        route("/") {
-            authenticate("auth-session", optional = false) {
-                get("/") {
-                    val playerSession = call.principal<PlayerSession>()
-                    if (playerSession == null) {
-                        call.respond(HttpStatusCode.Unauthorized, "No session")
-                        return@get
-                    }
-                    call.sessions.set(playerSession.copy(count = playerSession.count + 1))
-                    println(playerSession.name)
+            if (player != null)
+                call.respond(HttpStatusCode.OK, player)
+            else
+                call.respond(HttpStatusCode.NotFound)
+        }
 
-                    val players = playerService.readAll()
-                    call.respond(HttpStatusCode.OK, players)
-                }
-            }
+        post("/") {
+            val player = call.receive<Player>()
+            val id = PlayerService.add(player)
+            call.respond(HttpStatusCode.Created, id)
+        }
 
-            get("/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                val player = playerService.read(id)
+        patch("/{id") {
+            val player = call.receive<Player>()
+            PlayerService.update(player)
+            call.respond(HttpStatusCode.OK)
+        }
 
-                if (player != null)
-                    call.respond(HttpStatusCode.OK, player)
-                else
-                    call.respond(HttpStatusCode.NotFound)
-            }
-
-            post("/") {
-                val player = call.receive<Player>()
-                val id = playerService.add(player)
-                call.respond(HttpStatusCode.Created, id)
-            }
-
-            patch("/{id") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                val player = call.receive<Player>()
-                playerService.update(id, player)
-                call.respond(HttpStatusCode.OK)
-            }
-
-            delete("/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                playerService.delete(id)
-                call.respond(HttpStatusCode.OK)
-            }
+        delete("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            PlayerService.delete(id)
+            call.respond(HttpStatusCode.OK)
         }
     }
 }

@@ -10,6 +10,7 @@ data class Player(
     val surname: String,
     val email: String,
     val password: String
+    //Aggiungere altri campi
 )
 
 object PlayerTable : Table() {
