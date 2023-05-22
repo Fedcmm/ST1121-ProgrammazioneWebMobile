@@ -40,9 +40,8 @@ L'utente *Game* è un' entità che rappresenta un gioco Arcade, verrà gestita n
 
 
 ## Struttura Repository
-* [backend](backend) contiene il codice sorgente del backend
-* [frontend](frontend) contiene il codice sorgente del frontend
-* [docs](docs) contiene la documentazione del progetto
+* [backend](backend) contiene il codice sorgente del backend.
+* [frontend](frontend) contiene il codice sorgente del frontend.
 
 
 ## Licenza

@@ -69,14 +69,14 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
     }
 
     /**
-     * Updates the record with the specified [upRecord] in the database.
+     * Updates the record with the specified [updRecord] in the database.
      */
-    override suspend fun update(upRecord: GameRoom) {
+    override suspend fun update(updRecord: GameRoom) {
         dbQuery {
-            GameRoomTable.update({ GameRoomTable.id eq upRecord.id }) {
-                it[name] = upRecord.name
-                it[email] = upRecord.email
-                it[password] = upRecord.password
+            GameRoomTable.update({ GameRoomTable.id eq updRecord.id }) {
+                it[name] = updRecord.name
+                it[email] = updRecord.email
+                it[password] = updRecord.password
             }
         }
     }

@@ -64,13 +64,13 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
     /**
      * Updates [upRecord] in the database.
      */
-    override suspend fun update(upRecord: Game) {
-        GameTypeService.update(upRecord.id, upRecord.gameTypes)
+    override suspend fun update(updRecord: Game) {
+        GameTypeService.update(updRecord.id, updRecord.gameTypes)
 
         dbQuery {
-            GameTable.update({ GameTable.id eq upRecord.id }) {
-                it[name] = upRecord.name
-                it[description] = upRecord.description
+            GameTable.update({ GameTable.id eq updRecord.id }) {
+                it[name] = updRecord.name
+                it[description] = updRecord.description
             }
         }
     }
