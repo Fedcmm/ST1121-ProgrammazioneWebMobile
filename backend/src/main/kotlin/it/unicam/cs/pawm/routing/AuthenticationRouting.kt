@@ -17,7 +17,8 @@ fun Route.authenticationRouting() {
         post("/login") {
             val credentials = call.receive<Credentials>()
             if (!PlayerService.checkCredentials(credentials.email, credentials.password)) {
-                call.respondText("Invalid credentials")
+                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
+                return@post
             }
 
             val token = application.getJWT(credentials.email)
@@ -27,13 +28,19 @@ fun Route.authenticationRouting() {
         post("/signup") {
             val player = call.receive<Player>()
 
-            if (PlayerService.accountExists(player.email))
-                call.respondText("Account already exists")
+            if (PlayerService.accountExists(player.email)) {
+                call.respondText("Account already exists", status = HttpStatusCode.NotAcceptable)
+                return@post
+            }
 
-            if (player.name.isBlank() || player.surname.isBlank())
-                call.respondText("Invalid information")
-            if (!player.email.matches(Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")) || player.password.isBlank())
-                call.respondText("Invalid credentials")
+            if (player.name.isBlank() || player.surname.isBlank()) {
+                call.respondText("Invalid information", status = HttpStatusCode.NotAcceptable)
+                return@post
+            }
+            if (!player.email.matches(Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")) || player.password.isBlank()) {
+                call.respondText("Invalid credentials", status = HttpStatusCode.NotAcceptable)
+                return@post
+            }
 
             val id = PlayerService.add(player)
             call.respond(HttpStatusCode.Created, hashMapOf(

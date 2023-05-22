@@ -1,0 +1,25 @@
+<div class="container text-lg-start">
+    <div class="row justify-content-center">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h2>Sign up</h2>
+
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
+                </div>
+                <button type="button" class="btn btn-primary" (click)="signup()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+{{playerId}}
+{{token}}

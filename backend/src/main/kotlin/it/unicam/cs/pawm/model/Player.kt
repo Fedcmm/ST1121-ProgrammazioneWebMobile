@@ -16,8 +16,8 @@ object PlayerTable : Table() {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 50)
     val surname = varchar("surname", 50)
-    val email = varchar("email", 50)
-    val password = varchar("password", 50)
+    val email = varchar("email", 50).uniqueIndex()
+    val password = char("password", 60)
 
     override val primaryKey = PrimaryKey(id)
 }

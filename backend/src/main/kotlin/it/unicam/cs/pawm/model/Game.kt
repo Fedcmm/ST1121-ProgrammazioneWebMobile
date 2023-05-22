@@ -1,8 +1,9 @@
 package it.unicam.cs.pawm.model
 
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-//@Serializable
+@Serializable
 data class Game(
     val id: Int,
     val name: String,

@@ -1,8 +1,9 @@
 package it.unicam.cs.pawm.model
 
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-//@Serializable
+@Serializable
 data class GameRoom(
     val id: Int,
     val name: String,
@@ -14,8 +15,8 @@ data class GameRoom(
 object GameRoomTable : Table() {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 50)
-    val email = varchar("email", 50)
-    val password = varchar("password", 50)
+    val email = varchar("email", 50).uniqueIndex()
+    val password = char("password", 60)
 
     override val primaryKey = PrimaryKey(id)
 }
