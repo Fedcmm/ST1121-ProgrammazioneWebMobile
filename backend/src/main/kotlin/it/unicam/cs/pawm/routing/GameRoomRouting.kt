@@ -3,62 +3,57 @@ package it.unicam.cs.pawm.routing
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import io.ktor.server.sessions.*
+import it.unicam.cs.pawm.database.GameRoomGamesService
 import it.unicam.cs.pawm.database.GameRoomService
 
 import it.unicam.cs.pawm.model.GameRoom
 
-fun Application.gameRoomRouting() {
-    val gameRoomService = GameRoomService()
+fun Route.gameRoomRouting() {
 
-    routing {
-        route("/") {
-            authenticate("auth-session", optional = false) {
-                get("/") {
-                    val gameRoomSession = call.principal<GameRoomSession>()
-                    if (gameRoomSession == null) {
-                        call.respond(HttpStatusCode.Unauthorized, "No session")
-                        return@get
-                    }
-                    call.sessions.set(gameRoomSession.copy(count = gameRoomSession.count + 1))
-                    println(gameRoomSession.name)
+    route("/gameroom") {
+        get("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            val gameRoom = GameRoomService.read(id)
 
-                    val gameRooms = gameRoomService.readAll()
-                    call.respond(HttpStatusCode.OK, gameRooms)
-                }
-            }
+            if (gameRoom != null)
+                call.respond(HttpStatusCode.OK, gameRoom)
+            else
+                call.respond(HttpStatusCode.NotFound)
+        }
 
-            get("/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                val gameRoom = gameRoomService.read(id)
+        get("/all") {
+            val gameRooms = GameRoomService.readAll()
+            call.respond(HttpStatusCode.OK, gameRooms)
+        }
 
-                if (gameRoom != null)
-                    call.respond(HttpStatusCode.OK, gameRoom)
-                else
-                    call.respond(HttpStatusCode.NotFound)
-            }
+        get("/{id}/games") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            val games = GameRoomGamesService.read(id)
+            call.respond(HttpStatusCode.OK, games)
+        }
 
-            post("/") {
-                val gameRoom = call.receive<GameRoom>()
-                val id = gameRoomService.add(gameRoom)
-                call.respond(HttpStatusCode.Created, id)
-            }
+        get("/{id}/events") {
 
-            patch("/{id") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                val gameRoom = call.receive<GameRoom>()
-                gameRoomService.update(id, gameRoom)
-                call.respond(HttpStatusCode.OK)
-            }
+        }
 
-            delete("/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
-                gameRoomService.delete(id)
-                call.respond(HttpStatusCode.OK)
-            }
+        post("/") {
+            val gameRoom = call.receive<GameRoom>()
+            val id = GameRoomService.add(gameRoom)
+            call.respond(HttpStatusCode.Created, id)
+        }
+
+        patch("/{id}") {
+            val gameRoom = call.receive<GameRoom>()
+            GameRoomService.update(gameRoom)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        delete("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            GameRoomService.delete(id)
+            call.respond(HttpStatusCode.OK)
         }
     }
 }

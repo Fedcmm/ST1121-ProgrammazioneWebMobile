@@ -1,13 +1,16 @@
 package it.unicam.cs.pawm.model
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-//@Serializable
+@Serializable
 data class Game(
     val id: Int,
     val name: String,
     val description: String,
-    val gameTypes: List<GameType>
+    @Contextual val gameTypes: List<GameType>
+    //Aggiungere altri campi
 )
 
 object GameTable : Table() {

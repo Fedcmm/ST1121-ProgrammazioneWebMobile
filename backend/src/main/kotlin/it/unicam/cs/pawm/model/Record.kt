@@ -1,19 +1,21 @@
 package it.unicam.cs.pawm.model
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 import java.time.LocalDateTime
 
-//@Serializable
+@Serializable
 data class Record(
     val recordID: RecordID,
     val game: Game,
-    val date: LocalDateTime,
+    @Contextual val date: LocalDateTime,
     val score: Int,
     val isVerified: Boolean
 )
 
-//@Serializable
+@Serializable
 data class RecordID(val player: Int, val gameRoom: Int)
 
 object RecordTable : Table() {

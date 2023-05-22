@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class GameTypeService {
+object GameTypeService {
 
     init {
         transaction { SchemaUtils.create(GameTypeTable) }
@@ -26,7 +26,7 @@ class GameTypeService {
     }
 
     /**
-     * Adds all the [gameTypes] to the specified [game].
+     * Adds a list of [gameTypes] to [game] gameTypes list.
      */
     suspend fun addAll(game: Int, gameTypes: List<GameType>) {
         dbQuery {
@@ -38,7 +38,7 @@ class GameTypeService {
     }
 
     /**
-     * Gets all the game types of the specified [game].
+     * Gets all game types of [game].
      */
     suspend fun read(game: Int): List<GameType> = dbQuery {
         GameTypeTable.select { GameTypeTable.game eq game }.mapNotNull {
@@ -47,7 +47,7 @@ class GameTypeService {
     }
 
     /**
-     * Removes the specified [gameType] from the specified [game].
+     * Removes [gameType] from [game] gameTypes list.
      */
     suspend fun delete(game: Int, gameType: GameType) {
         dbQuery {
@@ -58,7 +58,7 @@ class GameTypeService {
     }
 
     /**
-     * Removes all the game types from the specified [game].
+     * Removes all the game types from [game] gameTypes list.
      */
     suspend fun deleteAll(game: Int) {
         dbQuery {
@@ -66,10 +66,17 @@ class GameTypeService {
         }
     }
 
+    /**
+     * Updates [gameTypes] of [game] gameTypes list.
+     */
     suspend fun update(game: Int, gameTypes: List<GameType>) {
         deleteAll(game)
-        addAll(game, gameTypes)
-        // TODO: Improve
+        dbQuery {
+            GameTypeTable.batchInsert(gameTypes) { gameType ->
+                this[GameTypeTable.game] = game
+                this[GameTypeTable.gameType] = gameType
+            }
+        }
     }
 
     private suspend fun <T> dbQuery(block: suspend () -> T) = DatabaseService.dbQuery(block)

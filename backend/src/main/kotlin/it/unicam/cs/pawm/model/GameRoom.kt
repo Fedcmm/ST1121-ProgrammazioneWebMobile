@@ -1,14 +1,18 @@
 package it.unicam.cs.pawm.model
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-//@Serializable
+@Serializable
 data class GameRoom(
     val id: Int,
     val name: String,
     val email: String,
     val password: String,
-    val games: List<Game> = mutableListOf()
+    @Contextual val games: List<Game> = mutableListOf(),
+    @Contextual val events: List<Event> = mutableListOf()
+    //Aggiungere altri campi
 )
 
 object GameRoomTable : Table() {
@@ -25,4 +29,11 @@ object GameRoomGamesTable : Table() {
     val game = reference("game", GameTable.id)
 
     override val primaryKey = PrimaryKey(gameRoom, game)
+}
+
+object GameRoomEventsTable : Table() {
+    val gameRoom = reference("gameRoom", GameRoomTable.id)
+    val event = reference("event", EventTable.id)
+
+    override val primaryKey = PrimaryKey(gameRoom, event)
 }
