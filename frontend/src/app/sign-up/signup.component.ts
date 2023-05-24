@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from "rxjs";
 import { HashService } from "../hash.service";
 
+import { Player } from "../model/Player";
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -39,20 +41,5 @@ export class SignupComponent {
       this.token = data.token;
       this.playerId = data.playerId;
     });
-  }
-}
-
-class Player {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-
-
-  constructor(name: string, surname: string, email: string, password: string) {
-    this.name = name;
-    this.surname = surname;
-    this.email = email;
-    this.password = password;
   }
 }
