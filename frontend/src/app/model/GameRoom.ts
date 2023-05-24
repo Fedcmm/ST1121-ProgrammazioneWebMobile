@@ -1,15 +1,19 @@
 //TODO inserire i controlli nei set
+import {Game} from "./Game";
+
 export class GameRoom{
     private _id: Number;
     private _name: string;
     private _email: string;
     private _password: string;
+    private _game: Array<Game>
 
-    constructor(id: Number, name: string, email: string, password: string) {
+    constructor(id: Number, name: string, email: string, password: string, game: Array<Game>) {
         this._id = id;
         this._name = name;
         this._email = email;
         this._password = password;
+        this._game = game;
     }
 
 
@@ -43,5 +47,14 @@ export class GameRoom{
 
     set password(value: string) {
         this._password = value;
+    }
+
+
+    get game(): Array<Game> {
+        return this._game;
+    }
+
+    set game(value: Array<Game>) {
+        this._game = value;
     }
 }
