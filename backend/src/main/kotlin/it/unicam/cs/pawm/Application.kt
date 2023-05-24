@@ -14,3 +14,5 @@ fun Application.module() {
     configureCORS()
     configureRouting()
 }
+
+fun Application.property(path: String) = environment.config.property(path).getString()
