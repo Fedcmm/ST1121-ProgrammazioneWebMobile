@@ -27,7 +27,7 @@ fun Route.playerRouting() {
             call.respond(HttpStatusCode.Created, id)
         }
 
-        patch("/{id") {
+        patch("/{id}") {
             val player = call.receive<Player>()
             PlayerService.update(player)
             call.respond(HttpStatusCode.OK)

@@ -11,7 +11,6 @@ import it.unicam.cs.pawm.database.GameRoomService
 import it.unicam.cs.pawm.model.GameRoom
 
 fun Route.gameRoomRouting() {
-
     route("/gameroom") {
         get("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")

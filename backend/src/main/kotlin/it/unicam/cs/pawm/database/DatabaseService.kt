@@ -6,6 +6,9 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Base class for interacting with a database table, has initialization and method declarations.
+ */
 abstract class DatabaseService<T, ID>(schema: Table) {
 
     init {
@@ -14,12 +17,12 @@ abstract class DatabaseService<T, ID>(schema: Table) {
 
 
     /**
-     * Adds [newRecord] to the database and returns its id.
+     * Adds [newRecord] to the table and returns its id.
      */
     abstract suspend fun add(newRecord: T): ID
 
     /**
-     * Gets the record with the specified [id] from the database, or `null` if none was found.
+     * Gets the record with the specified [id] from the table, or `null` if none was found.
      */
     abstract suspend fun read(id: ID): T?
 
@@ -29,7 +32,7 @@ abstract class DatabaseService<T, ID>(schema: Table) {
     abstract suspend fun readAll(): List<T>
 
     /**
-     * Deletes the record with the specified [id] from the database.
+     * Deletes the record with the specified [id] from the table.
      */
     abstract suspend fun delete(id: ID)
 
@@ -40,7 +43,7 @@ abstract class DatabaseService<T, ID>(schema: Table) {
 }
 
 /**
- * Executes the statement [block] against the database
+ * Executes the statement [block] against the database.
  */
 suspend fun <T> dbQuery(block: suspend () -> T): T =
     newSuspendedTransaction(Dispatchers.IO) { block() }

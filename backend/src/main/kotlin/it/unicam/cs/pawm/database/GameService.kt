@@ -7,10 +7,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object GameService : DatabaseService<Game, Int>(GameTable) {
 
-
-    /**
-     * Adds [newRecord] to the database and returns its id.
-     */
     override suspend fun add(newRecord: Game): Int = dbQuery {
         val insert = GameTable.insert {
             it[name] = newRecord.name
@@ -21,9 +17,6 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
         insert[GameTable.id]
     }
 
-    /**
-     * Gets [id] from the database, or `null` if none was found.
-     */
     override suspend fun read(id: Int): Game? = dbQuery {
         GameTable.select { GameTable.id eq id }.mapNotNull {
             Game(
@@ -35,9 +28,6 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
         }.singleOrNull()
     }
 
-    /**
-     * Gets all records from the database.
-     */
     override suspend fun readAll(): List<Game> = dbQuery {
         GameTable.selectAll().map {
             val id = it[GameTable.id]
@@ -50,9 +40,6 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
         }
     }
 
-    /**
-     * Deletes [id] from the database.
-     */
     override suspend fun delete(id: Int) {
         GameTypeService.deleteAll(id)
 
@@ -61,9 +48,6 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
         }
     }
 
-    /**
-     * Updates [upRecord] in the database.
-     */
     override suspend fun update(updRecord: Game) {
         GameTypeService.update(updRecord.id, updRecord.gameTypes)
 

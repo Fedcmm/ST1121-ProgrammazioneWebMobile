@@ -8,13 +8,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object GameRoomEventsService {
 
-
     init {
         transaction { SchemaUtils.create(GameRoomEventsTable) }
     }
 
+
     /**
-     * Add a [event] to the [gameRoom] events list.
+     * Adds an [event] to the [gameRoom].
      */
     suspend fun add(gameRoom: Int, event: Int) {
         dbQuery {
@@ -26,7 +26,7 @@ object GameRoomEventsService {
     }
 
     /**
-     * Add a list of [events] to the [gameRoom] events list.
+     * Adds a list of [events] to the [gameRoom].
      */
     suspend fun addAll(gameRoom: Int, events: List<Int>) {
         dbQuery {
@@ -38,7 +38,7 @@ object GameRoomEventsService {
     }
 
     /**
-     * Gets all events of [gameRoom] from the database.
+     * Gets all the events of the [gameRoom].
      */
     suspend fun read(gameRoom: Int): List<Event> = dbQuery {
         GameRoomEventsTable.select { GameRoomEventsTable.gameRoom eq gameRoom }.mapNotNull {
@@ -47,7 +47,7 @@ object GameRoomEventsService {
     }
 
     /**
-     * Deletes [event] of [gameRoom] from the database.
+     * Deletes [event] from the [gameRoom].
      */
     suspend fun delete(gameRoom: Int, event: Int) {
         dbQuery {
@@ -58,7 +58,7 @@ object GameRoomEventsService {
     }
 
     /**
-     * Deletes all event from [gameRoom] events list.
+     * Deletes all events from [gameRoom].
      */
     suspend fun deleteAll(gameRoom: Int) {
         dbQuery {
@@ -69,20 +69,10 @@ object GameRoomEventsService {
     }
 
     /**
-     * Updates [event] of [gameRoom] events list.
+     * Replaces the events of [gameRoom] with [events].
      */
-    suspend fun update(gameRoom: Int, event: List<Event>) {
+    suspend fun update(gameRoom: Int, events: List<Event>) {
         deleteAll(gameRoom)
-        dbQuery {
-            GameRoomEventsTable.batchInsert(event) { event ->
-                this[GameRoomEventsTable.gameRoom] = gameRoom
-                this[GameRoomEventsTable.event] = event.id
-            }
-        }
+        addAll(gameRoom, events.map { it.id })
     }
-
-    /**
-     * Executes the specified [block] within a database transaction.
-     */
-    private suspend fun <T> dbQuery(block: suspend () -> T): T = DatabaseService.dbQuery(block)
 }

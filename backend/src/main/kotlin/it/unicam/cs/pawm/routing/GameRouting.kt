@@ -27,7 +27,7 @@ fun Route.gameRouting() {
             call.respond(HttpStatusCode.Created, id)
         }
 
-        patch("/{id") {
+        patch("/{id}") {
             val game = call.receive<Game>()
             GameService.update(game)
             call.respond(HttpStatusCode.OK)

@@ -2,6 +2,7 @@ package it.unicam.cs.pawm.model
 
 import org.jetbrains.exposed.sql.Table
 
+@Suppress("unused")
 enum class GameType {
     ARCADE,
     DRIVING,

@@ -8,10 +8,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
 
-
-    /**
-     * Adds a new [Record] to the database and returns its id.
-     */
     override suspend fun add(newRecord: Record): RecordID = dbQuery {
         val insert = RecordTable.insert {
             it[player] = newRecord.recordID.player
@@ -24,9 +20,6 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
         RecordID(insert[RecordTable.player], insert[RecordTable.gameRoom])
     }
 
-    /**
-     * Gets [id] from the database, or `null` if none was found.
-     */
     override suspend fun read(id: RecordID): Record? = dbQuery {
         RecordTable.select { (RecordTable.player eq id.player) and (RecordTable.gameRoom eq id.gameRoom) }.mapNotNull {
             Record(
@@ -39,9 +32,6 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
         }.singleOrNull()
     }
 
-    /**
-     * Gets all records from the database.
-     */
     override suspend fun readAll(): List<Record> = dbQuery {
         RecordTable.selectAll().map {
             Record(
@@ -54,18 +44,12 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
         }
     }
 
-    /**
-     * Deletes the record with the specified [id] from the database.
-     */
     override suspend fun delete(id: RecordID) {
         dbQuery {
             RecordTable.deleteWhere { (player eq id.player) and (gameRoom eq id.gameRoom) }
         }
     }
 
-    /**
-     * Updates the record with the specified [updRecord] in the database.
-     */
     override suspend fun update(updRecord: Record) {
         dbQuery {
             RecordTable.update(

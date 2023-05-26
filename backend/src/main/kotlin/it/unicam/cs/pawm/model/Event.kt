@@ -11,7 +11,7 @@ data class Event(
     val id: Int,
     val name: String,
     val description: String,
-    @Contextual val gameRoom: GameRoom,
+    val gameRoom: GameRoom,
     @Contextual val dateStart: LocalDate,
     @Contextual val dateEnd: LocalDate,
     //Aggiungere altri campi

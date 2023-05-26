@@ -8,14 +8,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object GameRoomGamesService {
 
-
     init {
         transaction { SchemaUtils.create(GameRoomGamesTable) }
     }
 
 
     /**
-     * Add a [game] to the [gameRoom] games list.
+     * Adds a [game] to the [gameRoom].
      */
     suspend fun add(gameRoom: Int, game: Int) {
         dbQuery {
@@ -27,7 +26,7 @@ object GameRoomGamesService {
     }
 
     /**
-     * Add a list of [games] to the [gameRoom] games list.
+     * Adds a list of [games] to the [gameRoom].
      */
     suspend fun addAll(gameRoom: Int, games: List<Int>) {
         dbQuery {
@@ -39,7 +38,7 @@ object GameRoomGamesService {
     }
 
     /**
-     * Gets all games of [gameRoom] from the database.
+     * Gets all the games of the [gameRoom].
      */
     suspend fun read(gameRoom: Int): List<Game> = dbQuery {
         GameRoomGamesTable.select { GameRoomGamesTable.gameRoom eq gameRoom }.mapNotNull {
@@ -48,7 +47,7 @@ object GameRoomGamesService {
     }
 
     /**
-     * Deletes  [game] of [gameRoom] games list.
+     * Deletes [game] from the [gameRoom].
      */
     suspend fun delete(gameRoom: Int, game: Int) {
         dbQuery {
@@ -59,7 +58,7 @@ object GameRoomGamesService {
     }
 
     /**
-     * Deletes all games from [gameRoom] games list.
+     * Deletes all games from [gameRoom].
      */
     suspend fun deleteAll(gameRoom: Int) {
         dbQuery {
@@ -68,15 +67,10 @@ object GameRoomGamesService {
     }
 
     /**
-     * Updates [games] of [gameRoom] games list.
+     * Replaces the games of [gameRoom] with [games].
      */
     suspend fun update(gameRoom: Int, games: List<Game>) {
         deleteAll(gameRoom)
-        dbQuery {
-            GameRoomGamesTable.batchInsert(games) { game ->
-                this[GameRoomGamesTable.gameRoom] = gameRoom
-                this[GameRoomGamesTable.game] = game.id
-            }
-        }
+        addAll(gameRoom, games.map { it.id })
     }
 }

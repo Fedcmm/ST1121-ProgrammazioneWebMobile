@@ -1,6 +1,5 @@
 package it.unicam.cs.pawm.model
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
@@ -10,8 +9,8 @@ data class GameRoom(
     val name: String,
     val email: String,
     val password: String,
-    @Contextual val games: List<Game> = mutableListOf(),
-    @Contextual val events: List<Event> = mutableListOf()
+    val games: List<Game> = mutableListOf(),
+    val events: List<Event> = mutableListOf()
     //Aggiungere altri campi
 )
 

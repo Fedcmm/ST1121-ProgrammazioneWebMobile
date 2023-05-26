@@ -8,7 +8,8 @@ import it.unicam.cs.pawm.routing.*
 fun Application.configureRouting() {
     routing {
         authenticationRouting()
-        authenticate {
+
+        authenticate("jwt-access") {
             playerRouting()
             gameRoomRouting()
             gameRouting()

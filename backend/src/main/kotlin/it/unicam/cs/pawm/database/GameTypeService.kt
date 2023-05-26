@@ -26,7 +26,7 @@ object GameTypeService {
     }
 
     /**
-     * Adds a list of [gameTypes] to [game] gameTypes list.
+     * Adds a list of [gameTypes] to the specified [game].
      */
     suspend fun addAll(game: Int, gameTypes: List<GameType>) {
         dbQuery {
@@ -38,7 +38,7 @@ object GameTypeService {
     }
 
     /**
-     * Gets all game types of [game].
+     * Gets all the game types of [game].
      */
     suspend fun read(game: Int): List<GameType> = dbQuery {
         GameTypeTable.select { GameTypeTable.game eq game }.mapNotNull {
@@ -47,7 +47,7 @@ object GameTypeService {
     }
 
     /**
-     * Removes [gameType] from [game] gameTypes list.
+     * Removes [gameType] from [game].
      */
     suspend fun delete(game: Int, gameType: GameType) {
         dbQuery {
@@ -58,7 +58,7 @@ object GameTypeService {
     }
 
     /**
-     * Removes all the game types from [game] gameTypes list.
+     * Removes all the game types from [game].
      */
     suspend fun deleteAll(game: Int) {
         dbQuery {
@@ -67,15 +67,10 @@ object GameTypeService {
     }
 
     /**
-     * Updates [gameTypes] of [game] gameTypes list.
+     * Replaces the game types of [game] with [gameTypes].
      */
     suspend fun update(game: Int, gameTypes: List<GameType>) {
         deleteAll(game)
-        dbQuery {
-            GameTypeTable.batchInsert(gameTypes) { gameType ->
-                this[GameTypeTable.game] = game
-                this[GameTypeTable.gameType] = gameType
-            }
-        }
+        addAll(game, gameTypes)
     }
 }

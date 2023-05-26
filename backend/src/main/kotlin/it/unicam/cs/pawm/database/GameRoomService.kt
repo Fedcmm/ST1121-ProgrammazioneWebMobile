@@ -8,10 +8,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
 
-
-    /**
-     * Adds [newRecord] to the database and returns its id.
-     */
     override suspend fun add(newRecord: GameRoom): Int = dbQuery {
         val insert = GameRoomTable.insert {
             it[name] = newRecord.name
@@ -20,12 +16,10 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
         }
 
         GameRoomGamesService.addAll(insert[GameRoomTable.id], newRecord.games.map { it.id })
+        GameRoomEventsService.addAll(insert[GameRoomTable.id], newRecord.events.map { it.id })
         insert[GameRoomTable.id]
     }
 
-    /**
-     * Gets [id] from the database, or `null` if none was found.
-     */
     override suspend fun read(id: Int): GameRoom? = dbQuery {
         GameRoomTable.select { GameRoomTable.id eq id }.mapNotNull {
             GameRoom(
@@ -39,9 +33,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
         }.singleOrNull()
     }
 
-    /**
-     * Gets all records from the database.
-     */
     override suspend fun readAll(): List<GameRoom> = dbQuery {
         GameRoomTable.selectAll().map {
             val id = it[GameRoomTable.id]
@@ -56,9 +47,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
         }
     }
 
-    /**
-     * Deletes [id] from the database.
-     */
     override suspend fun delete(id: Int) {
         GameRoomGamesService.deleteAll(id)
         GameRoomEventsService.deleteAll(id)
@@ -68,9 +56,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
         }
     }
 
-    /**
-     * Updates the record with the specified [updRecord] in the database.
-     */
     override suspend fun update(updRecord: GameRoom) {
         dbQuery {
             GameRoomTable.update({ GameRoomTable.id eq updRecord.id }) {
@@ -96,7 +81,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
     }
 
     /**
-     * Removes a [event] from the specified [gameRoom].
+     * Removes an [event] from the specified [gameRoom].
      */
     suspend fun removeEvent(gameRoom: Int, event: Int) {
         GameRoomEventsService.delete(gameRoom, event)
