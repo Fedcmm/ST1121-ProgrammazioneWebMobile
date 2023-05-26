@@ -8,10 +8,18 @@ data class RefreshToken(
     val expiration: Long
 )
 
-object RefreshTokenTable : Table() {
-    val userId = integer("userId")
+object PlayerRefreshTable : Table() {
+    val playerId = reference("playerId", PlayerTable.id)
     val token = varchar("token", 300)
     val expiration = long("expiration")
 
-    override val primaryKey = PrimaryKey(userId)
+    override val primaryKey = PrimaryKey(playerId)
+}
+
+object GameRoomRefreshTable : Table() {
+    val roomId = reference("roomId", GameRoomTable.id)
+    val token = varchar("token", 300)
+    val expiration = long("expiration")
+
+    override val primaryKey = PrimaryKey(roomId)
 }

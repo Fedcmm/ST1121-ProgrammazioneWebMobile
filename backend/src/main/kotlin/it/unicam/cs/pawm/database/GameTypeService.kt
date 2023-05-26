@@ -71,6 +71,4 @@ class GameTypeService {
         addAll(game, gameTypes)
         // TODO: Improve
     }
-
-    private suspend fun <T> dbQuery(block: suspend () -> T) = DatabaseService.dbQuery(block)
 }

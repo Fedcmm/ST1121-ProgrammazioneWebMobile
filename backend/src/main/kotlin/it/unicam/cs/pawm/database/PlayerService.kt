@@ -57,10 +57,17 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         }
     }
 
-    suspend fun checkCredentials(email: String, password: String): Boolean = dbQuery {
-        PlayerTable.select { (PlayerTable.email eq email) and (PlayerTable.password eq password) }.count() == 1L
+    /**
+     * Checks if the given credentials are valid and returns the id of the user, or `-1` on failure.
+     */
+    suspend fun checkCredentials(email: String, password: String): Int = dbQuery {
+        PlayerTable.select { (PlayerTable.email eq email) and (PlayerTable.password eq password) }
+            .map { it[PlayerTable.id] }.singleOrNull() ?: -1
     }
 
+    /**
+     * Checks if an account with the given [email] exists.
+     */
     suspend fun accountExists(email: String): Boolean = dbQuery {
         PlayerTable.select { PlayerTable.email eq email }.count() == 1L
     }

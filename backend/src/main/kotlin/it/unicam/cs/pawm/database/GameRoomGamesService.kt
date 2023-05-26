@@ -63,6 +63,4 @@ class GameRoomGamesService {
             }
         }
     }
-
-    private suspend fun <T> dbQuery(block: suspend () -> T) = DatabaseService.dbQuery(block)
 }

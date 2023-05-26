@@ -8,6 +8,7 @@ ktor:
       - it.unicam.cs.pawm.ApplicationKt.module
 
 jwt:
-  privateKey: "$PRIVATE_KEY"
+  refSecret: "$REF_SECRET"
+  accSecret: "$ACC_SECRET"
   issuer: "http://localhost:8080/"
   audience: ""

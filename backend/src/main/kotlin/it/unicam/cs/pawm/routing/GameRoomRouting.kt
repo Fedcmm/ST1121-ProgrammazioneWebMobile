@@ -11,7 +11,7 @@ import it.unicam.cs.pawm.database.GameRoomService
 
 import it.unicam.cs.pawm.model.GameRoom
 
-fun Application.gameRoomRouting() {
+/*fun Application.gameRoomRouting() {
     val gameRoomService = GameRoomService()
 
     routing {
@@ -61,4 +61,4 @@ fun Application.gameRoomRouting() {
             }
         }
     }
-}
+}*/
