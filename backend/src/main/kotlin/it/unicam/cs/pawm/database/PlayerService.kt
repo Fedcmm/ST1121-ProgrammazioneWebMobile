@@ -7,9 +7,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
 
-    /**
-     * Adds a new [newRecord] to the database and returns its id.
-     */
     override suspend fun add(newRecord: Player): Int = dbQuery {
         PlayerTable.insert {
             it[name] = newRecord.name
@@ -19,9 +16,6 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         } get PlayerTable.id
     }
 
-    /**
-     * Gets the record with the specified [id] from the database, or `null` if none was found.
-     */
     override suspend fun read(id: Int): Player? = dbQuery {
         PlayerTable.select { PlayerTable.id eq id }.mapNotNull {
             Player(
@@ -34,9 +28,6 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         }.singleOrNull()
     }
 
-    /**
-     * Gets all player from the database.
-     */
     override suspend fun readAll(): List<Player> = dbQuery {
         PlayerTable.selectAll().map {
             Player(
@@ -49,18 +40,12 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         }
     }
 
-    /**
-     * Deletes [id] from the database.
-     */
     override suspend fun delete(id: Int) {
         dbQuery {
             PlayerTable.deleteWhere { PlayerTable.id eq id }
         }
     }
 
-    /**
-     * Updates [updRecord] in the database.
-     */
     override suspend fun update(updRecord: Player) {
         dbQuery {
             PlayerTable.update({ PlayerTable.id eq updRecord.id }) {
@@ -73,14 +58,15 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
     }
 
     /**
-     * Checks if the credentials are valid.
+     * Checks if the given credentials are valid and returns the id of the user, or `-1` on failure.
      */
-    suspend fun checkCredentials(email: String, password: String): Boolean = dbQuery {
-        PlayerTable.select { (PlayerTable.email eq email) and (PlayerTable.password eq password) }.count() == 1L
+    suspend fun checkCredentials(email: String, password: String): Int = dbQuery {
+        PlayerTable.select { (PlayerTable.email eq email) and (PlayerTable.password eq password) }
+            .map { it[PlayerTable.id] }.singleOrNull() ?: -1
     }
 
     /**
-     * Checks if the email is already in use.
+     * Checks if an account with the given [email] exists.
      */
     suspend fun accountExists(email: String): Boolean = dbQuery {
         PlayerTable.select { PlayerTable.email eq email }.count() == 1L

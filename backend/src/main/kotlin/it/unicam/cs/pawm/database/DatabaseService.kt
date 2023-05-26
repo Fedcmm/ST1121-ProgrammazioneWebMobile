@@ -37,13 +37,10 @@ abstract class DatabaseService<T, ID>(schema: Table) {
      * Updates the record [updRecord].
      */
     abstract suspend fun update(updRecord: T)
-
-
-    companion object {
-        /**
-         * Executes the statement [block] against the database
-         */
-        suspend fun <T> dbQuery(block: suspend () -> T): T =
-            newSuspendedTransaction(Dispatchers.IO) { block() }
-    }
 }
+
+/**
+ * Executes the statement [block] against the database
+ */
+suspend fun <T> dbQuery(block: suspend () -> T): T =
+    newSuspendedTransaction(Dispatchers.IO) { block() }
