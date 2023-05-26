@@ -7,8 +7,8 @@ import io.ktor.server.application.*
 import it.unicam.cs.pawm.property
 import java.time.Instant
 
-const val REFRESH_DURATION = 60L
-const val ACCESS_DURATION = 30L
+const val REFRESH_DURATION = 60L // seconds
+const val ACCESS_DURATION = 30L // seconds
 
 
 /**
@@ -33,9 +33,9 @@ fun Application.verifyRefresh(token: String, email: String) = verifyToken(token,
 fun Application.verifyAccess(token: String, email: String) = verifyToken(token, property("jwt.accSecret"), email)
 
 /**
- * Creates a new token with the given [duration] (in seconds), signed with HS256.
+ * Creates a new token with the given [duration] (in seconds), signed with HS256 using the specified [secret].
  */
-fun Application.createToken(secret: String, duration: Long, email: String): String {
+fun Application.createToken(secret: String, duration: Long, email: String): String { // TODO (26/05/23): Change duration to expiresAt
     val issuer = property("jwt.issuer")
     val audience = property("jwt.audience")
 
@@ -47,12 +47,5 @@ fun Application.createToken(secret: String, duration: Long, email: String): Stri
         .sign(Algorithm.HMAC256(secret))
 }
 
-/**
- * Creates a new refresh token.
- */
 fun Application.createRefresh(email: String) = createToken(property("jwt.refSecret"), REFRESH_DURATION, email)
-
-/**
- * Creates a new access token.
- */
 fun Application.createAccess(email: String) = createToken(property("jwt.accSecret"), ACCESS_DURATION, email)

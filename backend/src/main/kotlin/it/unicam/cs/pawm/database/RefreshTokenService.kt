@@ -57,4 +57,40 @@ object GameRoomRefreshService {
     init {
         transaction { SchemaUtils.create(GameRoomRefreshTable) }
     }
+
+
+    suspend fun add(refreshToken: RefreshToken) {
+        dbQuery {
+            GameRoomRefreshTable.insert {
+                it[roomId] = refreshToken.userId
+                it[token] = refreshToken.token
+                it[expiration] = refreshToken.expiration
+            }
+        }
+    }
+
+    suspend fun read(id: Int, token: String): RefreshToken? = dbQuery {
+        GameRoomRefreshTable.select { (GameRoomRefreshTable.roomId eq id) and (GameRoomRefreshTable.token eq token) }.firstNotNullOfOrNull {
+            RefreshToken(
+                it[GameRoomRefreshTable.roomId],
+                it[GameRoomRefreshTable.token],
+                it[GameRoomRefreshTable.expiration]
+            )
+        }
+    }
+
+    suspend fun update(id: Int, token: String) {
+        dbQuery {
+            GameRoomRefreshTable.update({ (GameRoomRefreshTable.roomId eq id) and (GameRoomRefreshTable.token eq token) }) {
+                it[this.token] = token
+                it[expiration] = Instant.now().plusSeconds(REFRESH_DURATION).epochSecond
+            }
+        }
+    }
+
+    suspend fun delete(id: Int) {
+        dbQuery {
+            GameRoomRefreshTable.deleteWhere { roomId eq id }
+        }
+    }
 }
