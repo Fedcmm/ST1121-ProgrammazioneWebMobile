@@ -11,7 +11,6 @@ export class GameRoom{
         this._password = password;
     }
 
-
     get name(): string {
         return this._name;
     }
