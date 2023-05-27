@@ -3,34 +3,67 @@ import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from '@angular/common';
 
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
-import {SignupComponent} from "./sign-up/signup.component";
-import {SignInComponent} from "./sign-in/sign-in.component";
+
+import {SignUpPlayerComponent} from "./player/sign-up/sign-up.component";
+import {SignInPlayerComponent} from "./player/sign-in/sign-in.component";
+import {NewRecordComponent} from "./player/new-record/new-record.component";
+
+import {SignUpGameRoomComponent} from "./game-room/sign-up/sign-up.component";
+import {SignInGameRoomComponent} from "./game-room/sign-in/sign-in.component";
+import {CreateEventComponent} from "./game-room/create-event/create-event.component";
+import {VerifyRecordComponent} from "./game-room/verify-record/verify-record.component";
 
 const routes: Routes = [
-    {
+    /*{
         path: '',
         redirectTo: '/signup',
         pathMatch: 'full'
+    },*/
+
+    //region Player
+    {
+        path: 'player/sign-up',
+        component: SignUpPlayerComponent
     },
     {
-        path: 'signup',
-        component: SignupComponent
+        path: 'player/sign-in',
+        component: SignInPlayerComponent
     },
     {
-        path: 'signin',
-        component: SignInComponent
+        path: 'player/new-record',
+        component: NewRecordComponent
     },
+    //endregion
+
+    //region GameRoom
+    {
+        path: 'game-room/sign-up',
+        component: SignUpGameRoomComponent
+    },
+    {
+        path: 'game-room/sign-in',
+        component: SignInGameRoomComponent
+    },
+    {
+        path: 'game-room/create-event',
+        component: CreateEventComponent
+    },
+    {
+        path: 'game-room/verify-record',
+        component: VerifyRecordComponent
+    },
+    //endregion
+
     {
         path: '**',
         component: PageNotFoundComponent
     }
 ];
 
+
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule
-    ]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

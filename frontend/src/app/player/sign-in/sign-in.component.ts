@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from "rxjs";
-import { HashService } from "../hash.service";
+import { HashService } from "../../hash.service";
 
-import { Player } from "../model/Player";
+import { Player } from "../../model/Player";
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
 
-export class SignInComponent {
+export class SignInPlayerComponent {
     name = "";
     surname = "";
     email = "";
@@ -23,7 +23,7 @@ export class SignInComponent {
     ) {
     }
 
-    signin() {
+    signIn() {
         this.disableButton = true;
         let body = new Player("name", "surname", this.email, this.hashService.hashPassword(this.password));
 

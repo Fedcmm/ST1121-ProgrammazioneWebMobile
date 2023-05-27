@@ -1,26 +1,16 @@
 //TODO inserire i controlli nei set
 export class Player {
-    private _id: Number;
     private _name: string;
     private _surname: string;
     private _email: string;
     private _password: string;
 
 
-    constructor(id: Number, name: string, surname: string, email: string, password: string) {
-        this._id = id;
+    constructor(name: string, surname: string, email: string, password: string) {
         this._name = name;
         this._surname = surname;
         this._email = email;
         this._password = password;
-    }
-
-    get id(): Number {
-        return this._id;
-    }
-
-    set id(value: Number) {
-        this._id = value;
     }
 
     get name(): string {

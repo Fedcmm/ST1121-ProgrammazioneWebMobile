@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from "rxjs";
-import { HashService } from "../hash.service";
+import { HashService } from "../../hash.service";
 
-import { Player } from "../model/Player";
+import { Player } from "../../model/Player";
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
-export class SignupComponent {
+export class SignUpPlayerComponent {
 
   email = "";
   password = "";
@@ -26,7 +26,7 @@ export class SignupComponent {
   ) {
   }
 
-  signup() {
+  signUp() {
     this.disableButton = true;
     let body = new Player("name", "surname", this.email, this.hashService.hashPassword(this.password));
 
