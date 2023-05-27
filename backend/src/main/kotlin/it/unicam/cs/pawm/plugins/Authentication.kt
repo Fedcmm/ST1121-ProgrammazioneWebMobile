@@ -11,7 +11,6 @@ import it.unicam.cs.pawm.property
 
 fun Application.configureAuthentication() {
     val issuer = property("jwt.issuer")
-    val audience = property("jwt.audience")
     val secret = property("jwt.accSecret")
 
     authentication {
@@ -20,7 +19,6 @@ fun Application.configureAuthentication() {
                 .require(Algorithm.HMAC256(secret))
                 .acceptLeeway(3)
                 .withIssuer(issuer)
-                .withAudience(audience)
                 .build())
 
             validate { credential ->

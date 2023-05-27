@@ -37,10 +37,8 @@ fun Application.verifyAccess(token: String, email: String) = verifyToken(token, 
  */
 fun Application.createToken(secret: String, duration: Long, email: String): String { // TODO (26/05/23): Change duration to expiresAt
     val issuer = property("jwt.issuer")
-    val audience = property("jwt.audience")
 
     return JWT.create()
-        .withAudience(audience)
         .withIssuer(issuer)
         .withClaim("email", email)
         .withExpiresAt(Instant.now().plusSeconds(duration))
