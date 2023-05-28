@@ -49,9 +49,11 @@ fun Route.authenticationRouting() {
                 return@post
             }
 
-            val tokens = application.createTokens(id, credentials.email)
+            PlayerRefreshService.delete(id)
 
+            val tokens = application.createTokens(id, credentials.email)
             PlayerRefreshService.add(RefreshToken(id, tokens.refreshToken, Instant.now().plusSeconds(REFRESH_DURATION).epochSecond))
+
             call.response.addRefreshCookie(tokens.refreshToken)
             call.respond(hashMapOf(
                 "id" to id.toString(),
@@ -66,7 +68,7 @@ fun Route.authenticationRouting() {
         }
 
         post("{id}/refresh") {
-            val email = call.receive<String>()
+            val email = call.receive<String>() // TODO (28/05/23): Maybe remove
 
             val oldRefresh = validateRefresh() ?: return@post
             val id = oldRefresh.getClaim("id").asInt()

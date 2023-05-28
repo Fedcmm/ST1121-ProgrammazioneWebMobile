@@ -39,9 +39,10 @@ fun Application.createTokens(id: Int, email: String): TokenPair {
         .withClaim("id", id)
         .withClaim("email", email)
 
+    val refresh = builder.sign(Algorithm.HMAC256(property("jwt.refSecret")))
     return TokenPair(
-        builder.sign(Algorithm.HMAC256(property("jwt.refSecret"))),
-        builder.withExpiresAt(Instant.now().plusSeconds(ACCESS_DURATION)).sign(Algorithm.HMAC256(property("jwt.accSecret")))
+        builder.withExpiresAt(Instant.now().plusSeconds(ACCESS_DURATION)).sign(Algorithm.HMAC256(property("jwt.accSecret"))),
+        refresh
     )
 }
 

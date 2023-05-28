@@ -30,7 +30,7 @@ fun Route.playerRouting() {
             call.respond(HttpStatusCode.Created, id)
         }
 
-        patch("/{id}") {
+        patch("/") {
             val id = getIdFromToken()
             val player = call.receive<Player>()
             PlayerService.update(id, player)
