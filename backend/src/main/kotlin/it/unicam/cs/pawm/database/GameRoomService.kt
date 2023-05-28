@@ -56,9 +56,9 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
         }
     }
 
-    override suspend fun update(updRecord: GameRoom) {
+    override suspend fun update(id: Int, updRecord: GameRoom) {
         dbQuery {
-            GameRoomTable.update({ GameRoomTable.id eq updRecord.id }) {
+            GameRoomTable.update({ GameRoomTable.id eq id }) {
                 it[name] = updRecord.name
                 it[email] = updRecord.email
                 it[password] = updRecord.password

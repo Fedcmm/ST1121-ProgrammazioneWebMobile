@@ -1,8 +1,8 @@
 package it.unicam.cs.pawm.routing
 
+import com.auth0.jwt.interfaces.DecodedJWT
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.http.content.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -12,32 +12,14 @@ import it.unicam.cs.pawm.database.PlayerRefreshService
 import it.unicam.cs.pawm.database.PlayerService
 import it.unicam.cs.pawm.model.Player
 import it.unicam.cs.pawm.model.RefreshToken
-import it.unicam.cs.pawm.utils.*
+import it.unicam.cs.pawm.utils.REFRESH_DURATION
+import it.unicam.cs.pawm.utils.createTokens
+import it.unicam.cs.pawm.utils.verifyRefresh
 import kotlinx.serialization.Serializable
-import java.io.File
 import java.time.Instant
 
 fun Route.authenticationRouting() {
     route("/player") {
-        post("/login") {
-            val credentials = call.receive<Credentials>()
-            val id = PlayerService.checkCredentials(credentials.email, credentials.password)
-            if (id < 0) {
-                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
-                return@post
-            }
-
-            val refresh = application.createRefresh(credentials.email)
-            call.response.addRefreshCookie(refresh)
-            PlayerRefreshService.add(RefreshToken(id, refresh, Instant.now().plusSeconds(REFRESH_DURATION).epochSecond))
-
-            val access = application.createAccess(credentials.email)
-            call.respond(hashMapOf(
-                "id" to id.toString(),
-                "token" to access
-            ))
-        }
-
         post("/signup") {
             val player = call.receive<Player>()
 
@@ -59,17 +41,41 @@ fun Route.authenticationRouting() {
             call.respond(HttpStatusCode.Created)
         }
 
+        post("/login") {
+            val credentials = call.receive<Credentials>()
+            val id = PlayerService.checkCredentials(credentials.email, credentials.password)
+            if (id < 0) {
+                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
+                return@post
+            }
+
+            val tokens = application.createTokens(id, credentials.email)
+
+            PlayerRefreshService.add(RefreshToken(id, tokens.refreshToken, Instant.now().plusSeconds(REFRESH_DURATION).epochSecond))
+            call.response.addRefreshCookie(tokens.refreshToken)
+            call.respond(hashMapOf(
+                "id" to id.toString(),
+                "token" to tokens.accessToken
+            ))
+        }
+
+        post("/logout") {
+            val id = validateRefresh()?.getClaim("id")?.asInt() ?: return@post
+            PlayerRefreshService.delete(id)
+            call.respond(HttpStatusCode.OK)
+        }
+
         post("{id}/refresh") {
             val email = call.receive<String>()
-            val id = call.parameters["id"]!!.toInt()
 
-            if (!validateRefresh(id, email)) return@post
+            val oldRefresh = validateRefresh() ?: return@post
+            val id = oldRefresh.getClaim("id").asInt()
 
-            val refresh = application.createRefresh(email)
-            PlayerRefreshService.update(id, refresh)
+            val tokens = application.createTokens(id, email)
 
-            call.response.addRefreshCookie(refresh)
-            call.respond(hashMapOf("token" to application.createAccess(email)))
+            PlayerRefreshService.update(id, tokens.refreshToken)
+            call.response.addRefreshCookie(tokens.refreshToken)
+            call.respond(hashMapOf("token" to tokens.accessToken))
         }
     }
 }
@@ -83,20 +89,23 @@ private fun ApplicationResponse.addRefreshCookie(refresh: String) {
     )
 }
 
-private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(id: Int, email: String): Boolean {
-    val oldToken = application.verifyRefresh(call.request.cookies["refresh_token"]!!, email)
-    if (oldToken == null) {
-        call.respondText("Token is not valid", status = HttpStatusCode.Unauthorized)
-        PlayerRefreshService.delete(id)
-        return false
+private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): DecodedJWT? {
+    val cookieToken = call.request.cookies["refresh_token"] ?: run {
+        call.respondText("Refresh token is missing", status = HttpStatusCode.Unauthorized)
+        return null
+    }
+    val oldToken = application.verifyRefresh(cookieToken) ?: run {
+        call.respondText("Invalid refresh token", status = HttpStatusCode.Unauthorized)
+        //PlayerRefreshService.delete(id)
+        return null
     }
 
-    val dbToken = PlayerRefreshService.read(id, oldToken.token)
+    val dbToken = PlayerRefreshService.read(oldToken.getClaim("id").asInt())
     if (dbToken == null || dbToken.expiration < Instant.now().epochSecond) {
         call.respondText("Token is expired", status = HttpStatusCode.Unauthorized)
-        PlayerRefreshService.delete(id)
-        return false
+        PlayerRefreshService.delete(oldToken.getClaim("id").asInt())
+        return null
     }
 
-    return true
+    return oldToken
 }

@@ -8,6 +8,11 @@ data class RefreshToken(
     val expiration: Long
 )
 
+data class TokenPair(
+    val accessToken: String,
+    val refreshToken: String
+)
+
 object PlayerRefreshTable : Table() {
     val playerId = reference("playerId", PlayerTable.id)
     val token = varchar("token", 300)

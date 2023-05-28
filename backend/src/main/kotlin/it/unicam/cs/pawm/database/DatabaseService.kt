@@ -37,9 +37,9 @@ abstract class DatabaseService<T, ID>(schema: Table) {
     abstract suspend fun delete(id: ID)
 
     /**
-     * Updates the record [updRecord].
+     * Updates the record with the specified [id] with the values of [updRecord].
      */
-    abstract suspend fun update(updRecord: T)
+    abstract suspend fun update(id: ID, updRecord: T)
 }
 
 /**

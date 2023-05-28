@@ -26,8 +26,8 @@ object PlayerRefreshService {
         }
     }
 
-    suspend fun read(id: Int, token: String): RefreshToken? = dbQuery {
-        PlayerRefreshTable.select { (PlayerRefreshTable.playerId eq id) and (PlayerRefreshTable.token eq token) }.firstNotNullOfOrNull {
+    suspend fun read(id: Int): RefreshToken? = dbQuery {
+        PlayerRefreshTable.select { (PlayerRefreshTable.playerId eq id) }.firstNotNullOfOrNull {
             RefreshToken(
                 it[PlayerRefreshTable.playerId],
                 it[PlayerRefreshTable.token],
@@ -40,7 +40,6 @@ object PlayerRefreshService {
         dbQuery {
             PlayerRefreshTable.update({ (PlayerRefreshTable.playerId eq id) and (PlayerRefreshTable.token eq token) }) {
                 it[this.token] = token
-                it[expiration] = Instant.now().plusSeconds(REFRESH_DURATION).epochSecond
             }
         }
     }
@@ -69,8 +68,8 @@ object GameRoomRefreshService {
         }
     }
 
-    suspend fun read(id: Int, token: String): RefreshToken? = dbQuery {
-        GameRoomRefreshTable.select { (GameRoomRefreshTable.roomId eq id) and (GameRoomRefreshTable.token eq token) }.firstNotNullOfOrNull {
+    suspend fun read(id: Int): RefreshToken? = dbQuery {
+        GameRoomRefreshTable.select { (GameRoomRefreshTable.roomId eq id) }.firstNotNullOfOrNull {
             RefreshToken(
                 it[GameRoomRefreshTable.roomId],
                 it[GameRoomRefreshTable.token],

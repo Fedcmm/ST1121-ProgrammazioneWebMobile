@@ -4,6 +4,10 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.util.pipeline.*
+import it.unicam.cs.pawm.model.TokenPair
 import it.unicam.cs.pawm.property
 import java.time.Instant
 
@@ -12,38 +16,39 @@ const val ACCESS_DURATION = 30L // seconds
 
 
 /**
- * Verifies the [token] and returns it if it's valid, null otherwise.
+ * Verifies the refresh [token] and returns a [DecodedJWT] if it's valid, null otherwise.
  */
-fun Application.verifyToken(token: String, secret: String, email: String): DecodedJWT? {
-    val issuer = property("jwt.issuer")
-
-    return try {
-        JWT.require(Algorithm.HMAC256(secret))
-            .withIssuer(issuer)
-            .withClaim("email", email)
-            .acceptLeeway(3)
+fun Application.verifyRefresh(token: String): DecodedJWT? =
+    try {
+        JWT.require(Algorithm.HMAC256(property("jwt.refSecret")))
+            .withIssuer(property("jwt.issuer"))
+            .withClaimPresence("id")
+            .withClaimPresence("email")
             .build()
             .verify(token)
     } catch (e: Exception) {
         null
     }
-}
-
-fun Application.verifyRefresh(token: String, email: String) = verifyToken(token, property("jwt.refSecret"), email)
-fun Application.verifyAccess(token: String, email: String) = verifyToken(token, property("jwt.accSecret"), email)
 
 /**
- * Creates a new token with the given [duration] (in seconds), signed with HS256 using the specified [secret].
+ * Creates a pair of access and refresh tokens for the user with the given [id] and [email].
  */
-fun Application.createToken(secret: String, duration: Long, email: String): String { // TODO (26/05/23): Change duration to expiresAt
-    val issuer = property("jwt.issuer")
-
-    return JWT.create()
-        .withIssuer(issuer)
+fun Application.createTokens(id: Int, email: String): TokenPair {
+    val builder = JWT.create()
+        .withIssuer(property("jwt.issuer"))
+        .withClaim("id", id)
         .withClaim("email", email)
-        .withExpiresAt(Instant.now().plusSeconds(duration))
-        .sign(Algorithm.HMAC256(secret))
+
+    return TokenPair(
+        builder.sign(Algorithm.HMAC256(property("jwt.refSecret"))),
+        builder.withExpiresAt(Instant.now().plusSeconds(ACCESS_DURATION)).sign(Algorithm.HMAC256(property("jwt.accSecret")))
+    )
 }
 
-fun Application.createRefresh(email: String) = createToken(property("jwt.refSecret"), REFRESH_DURATION, email)
-fun Application.createAccess(email: String) = createToken(property("jwt.accSecret"), ACCESS_DURATION, email)
+/**
+ * Returns the claim with name "id" from the access token of an authenticated [JWTPrincipal].
+ */
+fun PipelineContext<Unit, ApplicationCall>.getIdFromToken(): Int {
+    val principal = call.principal<JWTPrincipal>()!!
+    return principal.getClaim("id", Int::class)!!
+}

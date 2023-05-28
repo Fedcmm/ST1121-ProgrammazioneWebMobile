@@ -46,9 +46,9 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         }
     }
 
-    override suspend fun update(updRecord: Player) {
+    override suspend fun update(id: Int, updRecord: Player) {
         dbQuery {
-            PlayerTable.update({ PlayerTable.id eq updRecord.id }) {
+            PlayerTable.update({ PlayerTable.id eq id }) {
                 it[name] = updRecord.name
                 it[surname] = updRecord.surname
                 it[email] = updRecord.email

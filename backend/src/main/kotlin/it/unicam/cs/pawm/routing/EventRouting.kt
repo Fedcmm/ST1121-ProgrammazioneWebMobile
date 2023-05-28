@@ -10,10 +10,12 @@ import it.unicam.cs.pawm.database.EventService
 import it.unicam.cs.pawm.model.Event
 
 fun Route.eventRouting() {
-
     route("/event") {
         get("/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
             val event = EventService.read(id)
 
             if (event != null)
@@ -34,16 +36,24 @@ fun Route.eventRouting() {
         }
 
         patch("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@patch
+            }
             val event = call.receive<Event>()
-            EventService.update(event)
+
+            EventService.update(id, event)
             call.respond(HttpStatusCode.OK)
         }
 
         delete("/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("Invalid ID")
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@delete
+            }
+
             EventService.delete(id)
             call.respond(HttpStatusCode.OK)
         }
-
     }
 }

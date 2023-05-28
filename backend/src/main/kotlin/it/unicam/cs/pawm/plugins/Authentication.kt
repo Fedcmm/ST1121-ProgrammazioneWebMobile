@@ -17,6 +17,7 @@ fun Application.configureAuthentication() {
         jwt("jwt-access") {
             verifier(JWT
                 .require(Algorithm.HMAC256(secret))
+                .withClaimPresence("id")
                 .acceptLeeway(3)
                 .withIssuer(issuer)
                 .build())

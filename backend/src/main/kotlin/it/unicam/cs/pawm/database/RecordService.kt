@@ -50,10 +50,10 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
         }
     }
 
-    override suspend fun update(updRecord: Record) {
+    override suspend fun update(id: RecordID, updRecord: Record) {
         dbQuery {
             RecordTable.update(
-                { (RecordTable.player eq updRecord.recordID.player) and (RecordTable.gameRoom eq updRecord.recordID.gameRoom) }
+                { (RecordTable.player eq id.player) and (RecordTable.gameRoom eq id.gameRoom) }
             ) {
                 it[game] = updRecord.game.id
                 it[date] = updRecord.date

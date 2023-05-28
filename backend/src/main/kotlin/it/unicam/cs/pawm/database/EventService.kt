@@ -50,9 +50,9 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
         }
     }
 
-    override suspend fun update(updRecord: Event) {
+    override suspend fun update(id: Int, updRecord: Event) {
         dbQuery {
-            EventTable.update({ EventTable.id eq updRecord.id }) {
+            EventTable.update({ EventTable.id eq id }) {
                 it[name] = updRecord.name
                 it[description] = updRecord.description
                 it[gameRoom] = updRecord.gameRoom.id
