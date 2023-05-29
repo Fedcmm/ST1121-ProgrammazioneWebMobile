@@ -1,50 +1,62 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, catchError} from "rxjs";
-import {HashService} from "../../hash.service";
-
-import {Player} from "../../model/Player"
-import {GameRoom} from "../../model/GameRoom"
-import {Record} from "../../model/Record"
-import {Game} from "../../model/Game";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-new-record',
     templateUrl: './new-record.component.html',
     styleUrls: ['./new-record.component.css']
 })
-export class NewRecordComponent {
-    /*
-    Il player è autenticato, come inserisco le sue informazioni?
-    player =;
-    */
-    gameRoom = "";
-    game = "";
-    date: Date = new Date();
-    score = "";
+export class NewRecordComponent implements OnInit {
+    gameRooms: string[] = [];
+    selectedGameRoom: string = '';
+    games: string[] = [];
+    selectedGame: string = '';
+    score: number = 0;
+    date: Date = new Date()
 
-    disableButton = false;
+    constructor(private http: HttpClient) {}
 
-    constructor(
-        private http: HttpClient,
-        private hashService: HashService
-    ) {
+    ngOnInit(): void {
+        this.getGameRooms();
     }
-/*
-    newRecord() {
-        this.disableButton = true;
-        let body = new Record(this.player, this.gameRoom, this.game, this.date, this.score, false)
 
-        this.http.post('http://localhost:8080/record/new', body).pipe(
-            catchError((err) => {
-                console.log(err);
-                return new Observable();
-            })
-        ).subscribe((data: any) => {
-            console.log(data);
-            this.disableButton = false;
-        });
+    getGameRooms(): void {
+        this.http.get<string[]>('url_del_backend/sale_giochi').subscribe(
+            response => {
+                this.gameRooms = response;
+            },
+            error => {
+                console.error('Error getting game rooms:', error);
+            }
+        );
     }
-    */
 
+    getGames(): void {
+        this.http.get<string[]>('url_del_backend/giochi?gameRoom=' + this.selectedGameRoom).subscribe(
+            response => {
+                this.games = response;
+            },
+            error => {
+                console.error('Error getting games:', error);
+            }
+        );
+    }
+
+    saveRecord(): void {
+        const record = {
+            gameRoom: this.selectedGameRoom,
+            game: this.selectedGame,
+            score: this.score
+        };
+
+        this.http.post('url_del_backend/salva_record', record).subscribe(
+            () => {
+                console.log('Record salvato.');
+            },
+            error => {
+                console.error('Errore: ', error);
+                // Eh, mo qua ti voglio vedere a gestire l'errore.
+            }
+        );
+    }
 }

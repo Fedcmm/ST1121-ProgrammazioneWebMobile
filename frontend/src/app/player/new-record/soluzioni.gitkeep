@@ -1,0 +1,7 @@
+Problema: scelta del gioco.
+Come deve avvenire la scelta del gioco?
+Selezioni "New Record" -> Compaiono una serie di WildCard contenenti le sale giochi ->
+Selezioni la sala giochi -> Compaiono i giochi disponibili in quella sala ->
+Selezioni il gioco -> inserisci lo score -> fine.
+
+Forse troppi click, ma il menu a tendina fa cagare.

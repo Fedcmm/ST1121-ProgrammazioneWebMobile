@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {CommonModule} from '@angular/common';
 
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
@@ -14,11 +13,11 @@ import {CreateEventComponent} from "./game-room/create-event/create-event.compon
 import {VerifyRecordComponent} from "./game-room/verify-record/verify-record.component";
 
 const routes: Routes = [
-    /*{
+    {
         path: '',
         redirectTo: '/signup',
         pathMatch: 'full'
-    },*/
+    },
 
     //region Player
     {

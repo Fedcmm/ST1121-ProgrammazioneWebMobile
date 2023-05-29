@@ -1,50 +1,41 @@
-/*import url('src/assets/Fonts/PressStart2P-Regular.ttf');
-*/
-body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: #f4f4f4;
-}
-
-.container {
-    max-width: 500px;
-    margin: 0 auto;
+.arcade-new-record {
+    background-color: #000;
+    color: #fff;
     padding: 20px;
-    background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
+    font-family: "Press Start 2P", cursive;
     text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.arcade-new-record h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-.form-group label {
+.arcade-new-record .label {
     display: block;
-    font-weight: bold;
+    font-size: 14px;
     margin-bottom: 5px;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+.arcade-new-record .value {
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-.form-group button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
+.arcade-new-record button {
+    background-color: #f44336;
     color: #fff;
     border: none;
+    padding: 10px 20px;
+    font-size: 16px;
     border-radius: 3px;
     cursor: pointer;
 }
 
-.form-group button:hover {
-    background-color: #45a049;
+.arcade-new-record p {
+    font-size: 14px;
+    margin-top: 20px;
 }

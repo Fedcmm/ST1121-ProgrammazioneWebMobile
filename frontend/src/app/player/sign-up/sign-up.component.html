@@ -1,22 +1,13 @@
-<div class="container text-lg-start">
-    <div class="row justify-content-center">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <h2>Sign up</h2>
-
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="email">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
-                </div>
-                <button type="button" class="btn btn-primary" (click)="signUp()">Submit</button>
-            </form>
-        </div>
-    </div>
+<div class="arcade-player-sign-up">
+    <h2>Player Sign In</h2>
+    <form>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Inserisci la tua e-mail">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Inserisci la tua  password">
+        <button type="button" class="btn btn-primary" (click)="signUp()">Submit</button>
+    </form>
+    <p>Have you an account? <a href="#">Sign In</a></p>
 </div>
 
 <br><br>

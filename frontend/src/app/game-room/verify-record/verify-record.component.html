@@ -1,1 +1,24 @@
-<p>verify-record works!</p>
+<div class="verify-record">
+    <h2>Verify Record</h2>
+
+    <ul>
+        <li *ngFor="let record of records">
+            <span>{{ record.GameRoom }}</span>
+            <span>{{ record.Game }}</span>
+            <span>{{ record.Player }}</span>
+            <span>{{ record.Score }}</span>
+            <span>{{ record.Date }}</span>
+            <button (click)="selectedRecord = record">Verify</button>
+        </li>
+    </ul>
+
+    <div *ngIf="selectedRecord">
+        <h3>Selected Record</h3>
+        <p><strong>GameRoom:</strong> {{ selectedRecord.GameRoom }}</p>
+        <p><strong>Game:</strong> {{ selectedRecord.Game }}</p>
+        <p><strong>Player:</strong> {{ selectedRecord.Player }}</p>
+        <p><strong>Score:</strong> {{ selectedRecord.Score }}</p>
+        <p><strong>Date:</strong> {{ selectedRecord.Date }}</p>
+        <button class="verify-button" (click)="verifyRecord()">Verify Record</button>
+    </div>
+</div>

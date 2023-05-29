@@ -1,48 +1,47 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.container {
-    max-width: 400px;
-    margin: 0 auto;
+.arcade-gameroom-sign-up {
+    background-color: #000;
+    color: #fff;
     padding: 20px;
-    background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
+    font-family: "Press Start 2P", cursive;
     text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.arcade-gameroom-sign-up h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-.form-group label {
+.arcade-gameroom-sign-up .form-group {
+    margin-bottom: 20px;
+}
+
+.arcade-gameroom-sign-up label {
     display: block;
-    font-weight: bold;
+    font-size: 14px;
     margin-bottom: 5px;
 }
 
-.form-group input {
+.arcade-gameroom-sign-up input[type="email"],
+.arcade-gameroom-sign-up input[type="password"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff;
+    font-family: "Press Start 2P", cursive;
+    font-size: 16px;
 }
 
-.form-group button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
+.arcade-gameroom-sign-up button {
+    background-color: #f44336;
     color: #fff;
     border: none;
+    padding: 10px 20px;
+    font-size: 16px;
     border-radius: 3px;
     cursor: pointer;
-}
-
-.form-group button:hover {
-    background-color: #45a049;
 }
