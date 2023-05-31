@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, catchError} from "rxjs";
 import {HashService} from "../../hash.service";
 
-import {GameRoom} from "../../model/GameRoom"
+import {GameRoom} from "../../../model/GameRoom"
 
 @Component({
     selector: 'app-sign-up',

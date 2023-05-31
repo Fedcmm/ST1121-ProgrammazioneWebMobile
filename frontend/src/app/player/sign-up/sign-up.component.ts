@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError } from "rxjs";
 import { HashService } from "../../hash.service";
 
-import { Player } from "../../model/Player";
+import { Player } from "../../../model/Player";
 
 @Component({
   selector: 'app-signup',
