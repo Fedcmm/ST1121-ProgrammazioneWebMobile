@@ -7,12 +7,13 @@ import {GameRoom} from '../model/GameRoom';
     providedIn: 'root'
 })
 export class GameRoomService {
-
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
 
+
     constructor(private http: HttpClient) {
     }
+
 
     getGameRooms(): Observable<GameRoom[]> {
         const url = `${this.apiUrl}`;

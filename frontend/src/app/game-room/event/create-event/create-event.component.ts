@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Event} from '../../../../model/Event';
 import {EventService} from "../../../../service/event-service.service";
-import * as jwt_decode from "jwt-decode";
 
 @Component({
     selector: 'app-create-event',
@@ -14,8 +13,6 @@ export class CreateEventComponent {
     name: string = '';
     description: string = '';
 
-    //TODO: risolvere il problema di sto coso qua sotto
-    gameRoomId: number = jwt_decode(localStorage.getItem('token')).gameRoomId;
     startDate: Date = new Date();
     endDate: Date = new Date();
 
@@ -23,16 +20,17 @@ export class CreateEventComponent {
     }
 
     createEvent(): Subscription {
-        const event = new Event(this.name, this.description, this.gameRoomId, this.startDate, this.endDate);
-        return this.eventService.createEvent(event).subscribe(
-            (response: Event) => {
+        const event = new Event(this.name, this.description, -1, this.startDate, this.endDate);
+        return this.eventService.createEvent(event).subscribe({
+            next: (response: Event) =>
+            {
                 event.id = response.id;
                 console.log('Nuovo evento creato con ID:', event.id);
             },
-            (error: any) => {
+            error: (error: any) => {
                 //TODO: Gestire l'errore: utente già presente e blablabla
                 console.error('Errore durante la creazione dell\'evento:', error);
             }
-        );
+        });
     }
 }

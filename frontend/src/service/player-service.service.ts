@@ -4,13 +4,16 @@ import { Observable } from 'rxjs';
 import { Player } from '../model/Player';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PlayerServiceService {
-  // TODO: mettere l'url giusto
-  private apiUrl = 'url_da_cambiare';
-  constructor(private http: HttpClient) {
-  }
+    // TODO: mettere l'url giusto
+    private apiUrl = 'url_da_cambiare';
+
+
+    constructor(private http: HttpClient) {
+    }
+
 
     getPlayers(gameRoomId: number): Observable<Player[]> {
         const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;

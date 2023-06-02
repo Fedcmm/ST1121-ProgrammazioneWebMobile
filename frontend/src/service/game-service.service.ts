@@ -9,8 +9,11 @@ import {Game} from '../model/Game';
 export class GameService {
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
+
+
     constructor(private http: HttpClient) {
     }
+
 
     getGames(gameRoomId: number): Observable<Game[]> {
         const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;

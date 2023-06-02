@@ -1,51 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../../service/event-service.service';
 import { Event } from '../../../../model/Event';
-import * as jwt_decode from 'jwt-decode';
+
 @Component({
-  selector: 'app-delete-event',
-  templateUrl: './delete-events.component.html',
-  styleUrls: ['./delete-events.component.css']
+    selector: 'app-delete-event',
+    templateUrl: './delete-events.component.html',
+    styleUrls: ['./delete-events.component.css']
 })
 export class DeleteEventsComponent implements OnInit {
-  //TODO: risolvere il problema di sto coso qua sotto
-  gameRoomId: number = jwt_decode(localStorage.getItem('token')).gameRoomId;
 
-  events: Event[] = [];
-  eventsToDelete: Event[] = [];
+    events: Event[] = [];
+    eventsToDelete: Event[] = [];
 
-  constructor(private eventService: EventService) {}
 
-  ngOnInit() {
-    this.eventService.getEvents(this.gameRoomId);
-  }
+    constructor(private eventService: EventService) {}
 
-  /**
-   * Sposta l'elemento selezionato dall'array "events" all'array "eventsToDelete" e viceversa.
-   * @param event
-   */
-  moveToEventsToDelete(event: any) {
-    if (event.target.checked) {
-      this.eventsToDelete.push(event);
-    } else {
-      const index = this.eventsToDelete.indexOf(event);
-      if (index !== -1) {
-        this.eventsToDelete.splice(index, 1);
-      }
+
+    ngOnInit() {
+        this.eventService.getEvents().subscribe({
+            next: (events: Event[]) => {
+                this.events = events;
+            }
+        });
     }
-  }
 
-  /**
-   * Cancella gli eventi selezionati.
-   */
-  deleteSelectedEvents() {
-    this.eventsToDelete.forEach((event) => {
-      this.eventService.deleteEvent(event.id).subscribe(() => {
-        const index = this.events.indexOf(event);
-        if (index !== -1) {
-          this.events.splice(index, 1);
+    /**
+     * Sposta l'elemento selezionato dall'array "events" all'array "eventsToDelete" e viceversa.
+     * @param event
+     */
+    moveToEventsToDelete(event: any) {
+        if (event.target.checked) {
+            this.eventsToDelete.push(event);
+        } else {
+            const index = this.eventsToDelete.indexOf(event);
+            if (index !== -1) {
+                this.eventsToDelete.splice(index, 1);
+            }
         }
-      });
-    });
-  }
+    }
+
+    /**
+     * Cancella gli eventi selezionati.
+     */
+    deleteSelectedEvents() {
+        this.eventsToDelete.forEach((event) => {
+            this.eventService.deleteEvent(event.id).subscribe(() => {
+                const index = this.events.indexOf(event);
+                if (index !== -1) {
+                    this.events.splice(index, 1);
+                }
+            });
+        });
+    }
 }

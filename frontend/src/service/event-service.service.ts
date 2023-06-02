@@ -10,8 +10,10 @@ export class EventService{
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
 
+
     constructor(private http: HttpClient) {
     }
+
 
     getEvents(gameRoomId: number): Observable<Event[]> {
         const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
