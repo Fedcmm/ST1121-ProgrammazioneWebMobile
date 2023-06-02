@@ -4,15 +4,15 @@ import {GameRoom} from "./GameRoom";
 import {Game} from "./Game";
 
 export class Record{
-    private _player: Player;
-    private _gameRoom: GameRoom;
-    private _game: Game;
+    private _player: number;
+    private _gameRoom: number;
+    private _game: number;
     private _date: Date;
-    private _score: Number;
+    private _score: number;
     private _isVerified: boolean;
 
 
-    constructor(player: Player, gameRoom: GameRoom, game: Game, date: Date, score: Number, isVerified: boolean) {
+    constructor(player: number, gameRoom: number, game: number, date: Date, score: number, isVerified: boolean) {
         this._player = player;
         this._gameRoom = gameRoom;
         this._game = game;
@@ -22,27 +22,27 @@ export class Record{
     }
 
 
-    get player(): Player {
+    get player(): number {
         return this._player;
     }
 
-    set player(value: Player) {
+    set player(value: number) {
         this._player = value;
     }
 
-    get gameRoom(): GameRoom {
+    get gameRoom(): number {
         return this._gameRoom;
     }
 
-    set gameRoom(value: GameRoom) {
+    set gameRoom(value: number) {
         this._gameRoom = value;
     }
 
-    get game(): Game {
+    get game(): number {
         return this._game;
     }
 
-    set game(value: Game) {
+    set game(value: number) {
         this._game = value;
     }
 
@@ -54,11 +54,11 @@ export class Record{
         this._date = value;
     }
 
-    get score(): Number {
+    get score(): number {
         return this._score;
     }
 
-    set score(value: Number) {
+    set score(value: number) {
         this._score = value;
     }
 

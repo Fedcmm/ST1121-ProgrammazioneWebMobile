@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ViewEventsComponent } from './view-event.component';
 
-import { DeleteEventComponent } from './delete-event.component';
-
-describe('DeleteEventComponent', () => {
-  let component: DeleteEventComponent;
-  let fixture: ComponentFixture<DeleteEventComponent>;
+describe('ViewEventsComponent', () => {
+  let component: ViewEventsComponent;
+  let fixture: ComponentFixture<ViewEventsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteEventComponent ]
+      declarations: [ ViewEventsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DeleteEventComponent);
+    fixture = TestBed.createComponent(ViewEventsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

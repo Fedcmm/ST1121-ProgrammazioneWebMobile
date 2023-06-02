@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
+import * as jwt_decode from "jwt-decode";
+import { GameRoomService } from 'src/service/game-room-service.service';
+import {GameService} from "../../../../service/game-service.service";
+import {RecordService} from "../../../../service/record-service.service";
+import {Record} from "../../../../model/Record";
 
 @Component({
     selector: 'app-new-record',
@@ -7,57 +12,41 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./new-record.component.css']
 })
 export class NewRecordComponent implements OnInit {
-    gameRooms: string[] = [];
-    selectedGameRoom: string = '';
-    games: string[] = [];
-    selectedGame: string = '';
+
+    //TODO: risolvere il problema di sto coso qua sotto
+    playerId: number = jwt_decode(localStorage.getItem('token')).playerId;
+    selectedGameRoom: number = 0;
+    selectedGame: number = 0;
     score: number = 0;
     date: Date = new Date()
+    
+    //Mi dava errore se non li dichiaravo
+    private recordService: any;
+    private gameService: any;
+    games: any;
 
-    constructor(private http: HttpClient) {}
+    constructor(private gameRoomService: GameRoomService, gameService: GameService, recordService: RecordService ) {}
 
     ngOnInit(): void {
-        this.getGameRooms();
-    }
-
-    getGameRooms(): void {
-        //Non mi quadra
-        this.http.get<string[]>('http://localhost:4200/gameroom/all').subscribe(
-            response => {
-                this.gameRooms = response;
-            },
-            error => {
-                console.error('Error getting game rooms:', error);
-            }
-        );
+        this.gameRoomService.getGameRooms();
     }
 
     getGames(): void {
-        this.http.get<string[]>('http://localhost:4200/gameroom/{id}/games' + this.selectedGameRoom).subscribe(
-            response => {
-                this.games = response;
-            },
-            error => {
-                console.error('Error getting games:', error);
-            }
-        );
+        this.gameService.getGames(this.selectedGameRoom);
+    }
+    
+    createRecord(): void {
+        this.saveRecord(new Record(this.playerId, this.selectedGameRoom, this.selectedGame, this.date, this.score, false));
     }
 
-    saveRecord(): void {
-        const record = {
-            gameRoom: this.selectedGameRoom,
-            game: this.selectedGame,
-            score: this.score
-        };
-
-        this.http.post('url_del_backend/salva_record', record).subscribe(
-            () => {
-                console.log('Record salvato.');
+    saveRecord(record: Record): void {
+        this.recordService.createRecord(record).subscribe(
+            (response: Record) => {
+                record.player = response.player;
+                record.gameRoom = response.gameRoom;
+                record.game = response.game;
+                console.log('Nuovo record creato con ID:');
             },
-            error => {
-                console.error('Errore: ', error);
-                // Eh, mo qua ti voglio vedere a gestire l'errore.
-            }
-        );
+            (error: any) => {
     }
 }

@@ -6,7 +6,7 @@ import {Game} from '../model/Game';
 @Injectable({
     providedIn: 'root'
 })
-export class GameServiceService {
+export class GameService {
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
     constructor(private http: HttpClient) {

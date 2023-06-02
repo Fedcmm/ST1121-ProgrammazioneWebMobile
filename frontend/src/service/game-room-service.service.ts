@@ -6,7 +6,7 @@ import {GameRoom} from '../model/GameRoom';
 @Injectable({
     providedIn: 'root'
 })
-export class GameRoomServiceService {
+export class GameRoomService {
 
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';

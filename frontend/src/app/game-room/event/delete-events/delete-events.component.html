@@ -3,7 +3,7 @@
     <p>Seleziona l'evento da eliminare:</p>
     <ul>
         <li *ngFor="let event of events">
-            <input type="checkbox" (change)="moveToEventToDelete(event)">
+            <input type="checkbox" (change)="moveToEventsToDelete(event)">
             <span>{{ event.name }}</span>
         </li>
     </ul>

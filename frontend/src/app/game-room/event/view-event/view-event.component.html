@@ -1,0 +1,11 @@
+<div class="arcade-game-room-view-event">
+    <h2>Visualizza Eventi</h2>
+    <ul>
+        <li *ngOnInit="let event of events">
+            <span>{{ event.name }}</span>
+            <span>{{ event.description }}</span>
+            <span>{{ event.start }}</span>
+            <span>{{ event.end }}</span>
+        </li>
+    </ul>
+</div>

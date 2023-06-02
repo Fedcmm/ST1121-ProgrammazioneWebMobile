@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
         <app-game-room-records/>
       </div>
       <div *ngIf="selectedSection === 'games'">
-        <app-game-room-games></app-game-room-games>
+        <app-game-room-games/>
       </div>
     </div>
   `,

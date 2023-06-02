@@ -2,7 +2,7 @@
 import {GameRoom} from "./GameRoom";
 
 export class Event{
-    private _id: number = 0;
+    private _id: number;
     private _name: string;
     private _description: string;
     private _gameRoomId: number;
@@ -10,6 +10,7 @@ export class Event{
     private _endDate: Date;
 
     constructor(name: string, description: string, gameRoom: number, startDate: Date, endDate: Date) {
+        this._id = 0;
         this._name = name;
         this._description = description;
         this._gameRoomId = gameRoom;

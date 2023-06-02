@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../../service/event-service.service';
 import { Event } from '../../../../model/Event';
+import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-delete-event',
-  templateUrl: './delete-event.component.html',
-  styleUrls: ['./delete-event.component.css']
+  templateUrl: './delete-events.component.html',
+  styleUrls: ['./delete-events.component.css']
 })
-export class DeleteEventComponent implements OnInit {
+export class DeleteEventsComponent implements OnInit {
+  //TODO: risolvere il problema di sto coso qua sotto
+  gameRoomId: number = jwt_decode(localStorage.getItem('token')).gameRoomId;
+
   events: Event[] = [];
   eventsToDelete: Event[] = [];
 
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    this.eventService.getEvents(this.extractGameRoomIdFromToken()); // Recupero gli eventi della GameRoom dal backend all'inizio del componente
+    this.eventService.getEvents(this.gameRoomId);
   }
 
   /**
@@ -43,11 +47,5 @@ export class DeleteEventComponent implements OnInit {
         }
       });
     });
-  }
-
-  extractGameRoomIdFromToken(): number {
-    // Estrarre il GameRoomId dal token di sessione
-    // Restituisci il GameRoomId estratto
-    return 0;
   }
 }
