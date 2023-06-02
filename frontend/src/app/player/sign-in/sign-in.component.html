@@ -1,11 +1,19 @@
 <div class="arcade-player-sign-in">
     <h2>Player Sign In</h2>
-    <form>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Inserisci la tua e-mail">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Inserisci la tua  password">
-        <button type="submit">Sign In</button>
+
+    <form (submit)="signIn()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Enter email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit" [disabled]="disableButton">Sign In</button>
     </form>
-    <p>Non hai un account? <a href="#">Sign Up</a></p>
+
+    <p>Don't have an account? <a href="#">Sign Up</a></p>
 </div>

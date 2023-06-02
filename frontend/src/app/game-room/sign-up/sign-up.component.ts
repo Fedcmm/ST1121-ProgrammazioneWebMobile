@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, catchError} from "rxjs";
 import {HashService} from "../../hash.service";
 
 import {GameRoom} from "../../../model/GameRoom"
@@ -30,17 +29,17 @@ export class SignUpGameRoomComponent {
 
     signUp() {
         this.disableButton = true;
-        let body = new GameRoom("name", this.email, this.hashService.hashPassword(this.password));
+        let body = new GameRoom(-1, "name", this.email, this.hashService.hash(this.password));
 
-        this.http.post('http://localhost:8080/gameRoom/signup', body).pipe(
-            catchError((err) => {
-                console.log(err);
-                return new Observable();
-            })
-        ).subscribe((data: any) => {
-            console.log(data);
-            this.disableButton = false;
+        this.http.post('http://localhost:8080/gameRoom/signup', body).subscribe({
+            next: (data: any) => {
+                console.log(data);
+                this.disableButton = false;
+            },
+            error: (error: any) => {
+                console.error(error);
+                this.disableButton = false;
+            }
         });
     }
-
 }

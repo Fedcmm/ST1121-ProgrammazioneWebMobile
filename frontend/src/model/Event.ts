@@ -1,8 +1,8 @@
 //TODO inserire i controlli nei set
 import {GameRoom} from "./GameRoom";
 
-export class Event{
-    private _id: number;
+export class Event {
+    private _id: number = 0;
     private _name: string;
     private _description: string;
     private _gameRoomId: number;

@@ -8,7 +8,7 @@ export class HashService {
 
   constructor() { }
 
-  hashPassword(password: string): string {
+  hash(password: string): string {
     return bcrypt.hashSync(password, 8);
   }
 }

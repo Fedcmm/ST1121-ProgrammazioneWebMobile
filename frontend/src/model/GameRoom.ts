@@ -1,6 +1,6 @@
 //TODO inserire i controlli nei set
 
-export class GameRoom{
+export class GameRoom {
     private _id: number;
     private _name: string;
     private _email: string;

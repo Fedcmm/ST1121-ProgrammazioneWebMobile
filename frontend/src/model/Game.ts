@@ -1,7 +1,7 @@
 //TODO inserire i controlli nei set
 import {GameType} from "./GameType";
 
-export class Game{
+export class Game {
     private _id: Number;
     private _name: string;
     private _description: string;

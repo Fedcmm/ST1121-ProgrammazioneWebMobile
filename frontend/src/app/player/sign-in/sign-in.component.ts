@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError } from "rxjs";
+import { Router } from "@angular/router";
 import { HashService } from "../../hash.service";
 
-import { Player } from "../../../model/Player";
+import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -11,32 +12,39 @@ import { Player } from "../../../model/Player";
 })
 
 export class SignInPlayerComponent {
-    name = "";
-    surname = "";
+
     email = "";
     password = "";
 
     disableButton = false;
+
     constructor(
         private http: HttpClient,
-        private hashService: HashService
-    ) {
-    }
+        private hashService: HashService,
+        private router: Router
+    ) {}
 
     signIn() {
         this.disableButton = true;
-        let body = new Player("name", "surname", this.email, this.hashService.hashPassword(this.password));
+        let body = {
+            email: this.email,
+            password: this.hashService.hash(this.password)
+        };
 
-        this.http.post('http://localhost:8080/player/signin', body).pipe(
-            catchError((err) => {
-                console.log(err);
-                return new Observable();
-            })
-        ).subscribe((data: any) => {
-            console.log(data);
-            this.disableButton = false;
-            this.email = data.email;
-            this.password = data.password;
-        });
+        this.http.post('http://localhost:8080/player/login', body)
+            .subscribe({
+                next: (data: any) => {
+                    console.log(data);
+                    AuthenticationInterceptor.token = data.token;
+                    this.disableButton = false;
+
+                    this.router.navigate(['/player/profile']);
+                },
+                error: (error: any) => {
+                    console.error(error);
+                    this.disableButton = false;
+                }
+            }
+        );
     }
 }

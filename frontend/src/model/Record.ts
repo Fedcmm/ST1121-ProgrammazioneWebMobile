@@ -3,7 +3,7 @@ import {Player} from "./Player";
 import {GameRoom} from "./GameRoom";
 import {Game} from "./Game";
 
-export class Record{
+export class Record {
     private _player: number;
     private _gameRoom: number;
     private _game: number;

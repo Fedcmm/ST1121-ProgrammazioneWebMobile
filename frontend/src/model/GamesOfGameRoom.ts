@@ -1,6 +1,6 @@
 import {Game} from "./Game";
 
-export class GamesOfGameRoom{
+export class GamesOfGameRoom {
     private _games: Array<Game>;
 
     constructor(games: Array<Game>) {

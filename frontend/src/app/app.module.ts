@@ -6,10 +6,11 @@ import { FormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import {RouterOutlet} from "@angular/router";
+import { RouterOutlet } from "@angular/router";
 
 import { PageNotFoundComponent } from "./util/page-not-found/page-not-found.component";
 import { NavBarComponent } from "./util/nav-bar/nav-bar.component";
+import { AuthenticationInterceptorProvider } from "./util/authentication.interceptor";
 
 import { SignUpPlayerComponent } from "./player/sign-up/sign-up.component";
 import { SignInPlayerComponent } from "./player/sign-in/sign-in.component";
@@ -30,6 +31,8 @@ import { GameRoomGamesComponent } from './game-room/games/game-room-games.compon
 import { GameRoomRecordComponent } from './game-room/record/view-records/game-room-record.component';
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
 import { DeleteRecordComponent } from './game-room/record/delete-record/delete-record.component';
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -67,7 +70,7 @@ import { DeleteRecordComponent } from './game-room/record/delete-record/delete-r
         AppRoutingModule,
         RouterOutlet
     ],
-    providers: [],
+    providers: [AuthenticationInterceptorProvider],
     bootstrap: [AppComponent]
 })
 export class AppModule {
