@@ -3,7 +3,7 @@ import { EventService } from '../../../../service/event-service.service';
 import { Event } from '../../../../model/Event';
 
 @Component({
-    selector: 'app-delete-event',
+    selector: 'app-delete-events',
     templateUrl: './delete-events.component.html',
     styleUrls: ['./delete-events.component.css']
 })

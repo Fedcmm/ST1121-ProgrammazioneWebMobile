@@ -6,7 +6,7 @@ import { Player } from '../model/Player';
 @Injectable({
     providedIn: 'root'
 })
-export class PlayerServiceService {
+export class PlayerService {
     // TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
 
@@ -20,7 +20,7 @@ export class PlayerServiceService {
         return this.http.get<Player[]>(url);
     }
 
-    getPlayer(playerId: number): Observable<Player> {
+    getPlayer(playerId?: number): Observable<Player> {
         const url = `${this.apiUrl}/${playerId}`;
         return this.http.get<Player>(url);
     }

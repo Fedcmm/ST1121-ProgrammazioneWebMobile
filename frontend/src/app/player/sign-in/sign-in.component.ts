@@ -38,7 +38,7 @@ export class SignInPlayerComponent {
                     AuthenticationInterceptor.token = data.token;
                     this.disableButton = false;
 
-                    this.router.navigate(['/player/profile']);
+                    this.router.navigate(['/player/profile']).catch(console.error);
                 },
                 error: (error: any) => {
                     console.error(error);

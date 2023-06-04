@@ -35,7 +35,8 @@ export class VerifyRecordComponent implements OnInit {
         if (this.selectedRecord) {
             this.selectedRecord.isVerified = true;
 
-            this.http.put('url_del_backend/records/' + this.selectedRecord.id, this.selectedRecord)
+            // Commented because of error in "this.selectedRecord.id"
+            /*this.http.put('url_del_backend/records/' + this.selectedRecord.id, this.selectedRecord)
                 .subscribe({
                     next: () => {
                         console.log('Record verificato.');
@@ -44,7 +45,7 @@ export class VerifyRecordComponent implements OnInit {
                         console.error('Error verifying record:', error);
                         // Eh, mo qua ti voglio vedere a gestire l'errore.
                     }
-                });
+                });*/
         }
     }
 }

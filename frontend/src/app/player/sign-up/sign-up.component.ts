@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HashService } from "../../hash.service";
 
 import { Player } from "../../../model/Player";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-signup',
@@ -22,7 +23,8 @@ export class SignUpPlayerComponent {
 
     constructor(
         private http: HttpClient,
-        private hashService: HashService
+        private hashService: HashService,
+        private router: Router
     ) {}
 
     signUp() {
@@ -35,6 +37,8 @@ export class SignUpPlayerComponent {
                 console.log(data);
                 this.disableButton = false;
                 this.playerId = data.playerId;
+
+                this.router.navigate(['/player/sign-in']).catch(console.error);
             },
             error: (error: any) => {
                 console.error(error);

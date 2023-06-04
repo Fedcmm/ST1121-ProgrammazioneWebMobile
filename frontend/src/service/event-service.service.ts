@@ -6,7 +6,7 @@ import {Event} from '../model/Event';
 @Injectable({
     providedIn: 'root'
 })
-export class EventService{
+export class EventService {
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
 
@@ -15,7 +15,7 @@ export class EventService{
     }
 
 
-    getEvents(gameRoomId: number): Observable<Event[]> {
+    getEvents(gameRoomId?: number): Observable<Event[]> {
         const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
         return this.http.get<Event[]>(url);
     }
