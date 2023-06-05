@@ -2,23 +2,23 @@
 import {GameType} from "./GameType";
 
 export class Game {
-    private _id: Number;
+    private _id: number;
     private _name: string;
     private _description: string;
     private _gameType: Array<GameType>;
 
-    constructor(id: Number, name: string, description: string, gameType: Array<GameType>) {
+    constructor(id: number, name: string, description: string, gameType: Array<GameType>) {
         this._id = id;
         this._name = name;
         this._description = description;
         this._gameType = gameType;
     }
 
-    get id(): Number {
+    get id(): number {
         return this._id;
     }
 
-    set id(value: Number) {
+    set id(value: number) {
         this._id = value;
     }
 

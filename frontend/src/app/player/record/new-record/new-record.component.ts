@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { GameRoomService } from 'src/service/game-room-service.service';
+import {GameRoomService} from 'src/service/game-room-service.service';
 import {GameService} from "../../../../service/game-service.service";
 import {RecordService} from "../../../../service/record-service.service";
 import {Record} from "../../../../model/Record";
+import {map} from "rxjs";
 
 @Component({
     selector: 'app-new-record',
@@ -12,26 +13,36 @@ import {Record} from "../../../../model/Record";
 })
 export class NewRecordComponent implements OnInit {
 
-    selectedGameRoom: number = 0;
-    selectedGame: number = 0;
+    selectedGameRoom: number = -1;
+    selectedGame: number = -1;
     score: number = 0;
     date: Date = new Date()
-    
-    games: any;
+
+    gameRooms: { id: number, name: string }[] = [];
+    games: { id: number, name: string }[] = [];
 
     constructor(
         private gameRoomService: GameRoomService,
         private gameService: GameService,
-        private recordService: RecordService) {}
+        private recordService: RecordService) {
+    }
 
     ngOnInit() {
-        this.gameRoomService.getGameRooms();
+        this.gameRoomService.getGameRooms().pipe(
+            map(gameRooms => gameRooms.map(({ id, name }) => ({ id, name })))
+        ).subscribe(gameRooms => {
+            this.gameRooms = gameRooms;
+        });
     }
 
-    getGames() {
-        this.gameService.getGames(this.selectedGameRoom);
+    getGamesInfo() {
+        this.gameService.getGames(this.selectedGameRoom).pipe(
+            map(games => games.map(({id, name}) => ({id, name})))).
+        subscribe(games => {
+            this.games = games;
+        });
     }
-    
+
     createRecord() {
         this.saveRecord(new Record(-1, this.selectedGameRoom, this.selectedGame, this.date, this.score, false));
     }
