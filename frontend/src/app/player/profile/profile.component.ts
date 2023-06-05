@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Player } from "../../../model/Player";
-import { PlayerService } from "../../../service/player.service";
+import { Player } from "src/model/Player";
+import { PlayerService } from "src/service/player.service";
 
 @Component({
     selector: 'app-profile',

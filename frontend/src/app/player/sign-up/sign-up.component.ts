@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HashService } from "../../hash.service";
+import { HashService } from "src/app/hash.service";
 
-import { Player } from "../../../model/Player";
+import { Player } from "src/model/Player";
 import { Router } from "@angular/router";
 
 @Component({

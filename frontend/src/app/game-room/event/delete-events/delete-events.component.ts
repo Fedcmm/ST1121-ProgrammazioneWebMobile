@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../../../service/event-service.service';
-import { Event } from '../../../../model/Event';
+import { EventService } from 'src/service/event.service';
+import { Event } from 'src/model/Event';
 
 @Component({
     selector: 'app-delete-events',

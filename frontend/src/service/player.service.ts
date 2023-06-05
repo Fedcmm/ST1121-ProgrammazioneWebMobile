@@ -20,10 +20,20 @@ export class PlayerService {
         return this.http.get<Player[]>(url);
     }
 
-    getPlayer(playerId?: number): Observable<Player> {
+    getPlayer(playerId: number): Observable<Player> {
         const url = `${this.apiUrl}/${playerId}`;
         return this.http.get<Player>(url);
     }
+
+    getPlayerName(playerId: number): string {
+        // Implementa la logica per ottenere il nome del player dal suo ID
+        return "Player Name";
+    }
+
+    navigateToPlayerProfile(playerId: number): void {
+        // Implementa la logica per reindirizzare alla pagina del profilo del player
+    }
+
 
     createPlayer(player: Player): Observable<Player> {
         const url = `${this.apiUrl}`;

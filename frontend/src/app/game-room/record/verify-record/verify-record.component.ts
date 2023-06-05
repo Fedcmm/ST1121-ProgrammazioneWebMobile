@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Record} from "../../../../model/Record";
+import {Record} from "src/model/Record";
 
 @Component({
     selector: 'app-verify-record',

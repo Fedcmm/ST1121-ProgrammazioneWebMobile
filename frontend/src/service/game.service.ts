@@ -25,6 +25,15 @@ export class GameService {
         return this.http.get<Game>(url);
     }
 
+    getGameName(gameId: number): string {
+        // Implementa la logica per ottenere il nome del game dal suo ID
+        return "Game Name";
+    }
+
+    navigateToGameProfile(gameId: number): void {
+        // Implementa la logica per reindirizzare alla pagina del profilo del game
+    }
+
     createGame(game: Game): Observable<Game> {
         const url = `${this.apiUrl}`;
         return this.http.post<Game>(url, game);

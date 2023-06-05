@@ -24,6 +24,15 @@ export class GameRoomService {
         return this.http.get<GameRoom>(`${this.apiUrl}/${gameRoomId}`);
     }
 
+    getGameRoomName(gameRoomId: number): string {
+        // Implementa la logica per ottenere il nome della gameroom dal suo ID
+        return "Game Room Name";
+    }
+
+    navigateToGameRoomProfile(gameRoomId: number): void {
+        // Implementa la logica per reindirizzare alla pagina del profilo della gameroom
+    }
+
     createGameRoom(gameRoom: GameRoom): Observable<GameRoom> {
         return this.http.post<GameRoom>(`${this.apiUrl}`, gameRoom);
     }

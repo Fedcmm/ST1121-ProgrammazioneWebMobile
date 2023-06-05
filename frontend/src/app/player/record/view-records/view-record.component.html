@@ -1,1 +1,21 @@
-<p>view-record works!</p>
+<div class="arcade-new-record">
+    <h2>Record</h2>
+
+    <div *ngIf="verifiedRecords.length === 0">
+        <p>No verified records found.</p>
+    </div>
+
+    <div *ngFor="let record of verifiedRecords">
+        <div class="label">Player:</div>
+        <div class="value" (click)="navigateToPlayerProfile(record.player)">{{ getPlayerName(record.player) }}</div>
+        <div class="label">Game Room:</div>
+        <div class="value" (click)="navigateToGameRoomProfile(record.gameRoom)">{{ getGameRoomName(record.gameRoom) }}</div>
+        <div class="label">Game:</div>
+        <div class="value" (click)="navigateToGameProfile(record.game)">{{ getGameName(record.game) }}</div>
+        <div class="label">Date:</div>
+        <div class="value">{{ record.date}}</div>
+        <div class="label">Score:</div>
+        <div class="value">{{ record.score }}</div>
+        <button *ngIf="record.isVerified" (click)="deleteRecord(record)">Delete</button>
+    </div>
+</div>

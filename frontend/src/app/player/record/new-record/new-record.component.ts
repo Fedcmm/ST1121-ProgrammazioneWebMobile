@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {GameRoomService} from 'src/service/game-room-service.service';
-import {GameService} from "../../../../service/game-service.service";
-import {RecordService} from "../../../../service/record-service.service";
-import {Record} from "../../../../model/Record";
+import {GameRoomService} from 'src/service/game-room.service';
+import {GameService} from "src/service/game.service";
+import {RecordService} from "src/service/record.service";
+import {Record} from "src/model/Record";
 import {map} from "rxjs";
 
 @Component({
