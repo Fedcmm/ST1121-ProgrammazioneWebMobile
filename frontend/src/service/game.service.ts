@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Game} from '../model/Game';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { HashService } from "src/app/hash.service";
+import { Game } from 'src/model/Game';
 
 @Injectable({
     providedIn: 'root'
@@ -11,12 +12,15 @@ export class GameService {
     private apiUrl = 'url_da_cambiare';
 
 
-    constructor(private http: HttpClient) {
-    }
+
+    constructor(
+        private http: HttpClient,
+        private hashService: HashService
+    ){ }
 
 
-    getGames(gameRoomId: number): Observable<Game[]> {
-        const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
+    getGames(gameId: number): Observable<Game[]> {
+        const url = `${this.apiUrl}?gameId=${gameId}`;
         return this.http.get<Game[]>(url);
     }
 
@@ -25,9 +29,10 @@ export class GameService {
         return this.http.get<Game>(url);
     }
 
-    getGameName(gameId: number): string {
-        // Implementa la logica per ottenere il nome del game dal suo ID
-        return "Game Name";
+    getGameName(gameId: number): Observable<string> {
+        return this.getGame(gameId).pipe(
+            map(game => game.name)
+        );
     }
 
     navigateToGameProfile(gameId: number): void {
@@ -37,6 +42,16 @@ export class GameService {
     createGame(game: Game): Observable<Game> {
         const url = `${this.apiUrl}`;
         return this.http.post<Game>(url, game);
+    }
+
+
+    //TODO: Cosa deve restituire?
+    signIn(username: string, password: string): Observable<any> {
+        const body = {
+            username: username,
+            password: this.hashService.hash(password)
+        };
+        return this.http.post<any>(this.apiUrl, body);
     }
 
     updateGame(game: Game): Observable<Game> {

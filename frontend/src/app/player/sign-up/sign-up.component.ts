@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HashService } from "src/app/hash.service";
-
-import { Player } from "src/model/Player";
-import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PlayerService} from "src/service/player.service";;
 
 @Component({
     selector: 'app-signup',
@@ -11,39 +8,37 @@ import { Router } from "@angular/router";
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpPlayerComponent {
-
-    name = "";
-    surname = "";
-    email = "";
-    password = "";
-    playerId = "";
-
-    disableButton = false;
-
+    signUpForm: FormGroup;
 
     constructor(
-        private http: HttpClient,
-        private hashService: HashService,
-        private router: Router
-    ) {}
-
-    signUp() {
-        this.disableButton = true;
-        let body = new Player(-1, this.name, this.surname, this.email, this.hashService.hash(this.password));
-
-        this.http.post('http://localhost:8080/player/signup', body).subscribe({
-            next: (data: any) =>
-            {
-                console.log(data);
-                this.disableButton = false;
-                this.playerId = data.playerId;
-
-                this.router.navigate(['/player/sign-in']).catch(console.error);
-            },
-            error: (error: any) => {
-                console.error(error);
-                this.disableButton = false;
-            }
+        private formBuilder: FormBuilder,
+        private playerService: PlayerService
+    ) {
+        this.signUpForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            surname: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required]
         });
+    }
+
+    signUp(){
+        if (this.signUpForm.invalid) {
+            return;
+        }
+
+        const name = this.signUpForm.get('name')?.value;
+        const surname = this.signUpForm.get('surname')?.value;
+        const email = this.signUpForm.get('email')?.value;
+        const password = this.signUpForm.get('password')?.value;
+
+        this.playerService.signUp(name, surname,email, password).subscribe(
+            response => {
+                // restituisco la sessione
+            },
+            error => {
+                // Errori vari: Password errata, username non esistente, ...
+            }
+        );
     }
 }

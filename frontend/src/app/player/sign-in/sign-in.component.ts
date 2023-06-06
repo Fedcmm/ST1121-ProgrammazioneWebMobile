@@ -1,49 +1,38 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from "@angular/router";
-import { HashService } from "../../hash.service";
-
-import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PlayerService } from "src/service/player.service";
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.css']
 })
-
 export class SignInPlayerComponent {
-
-    email = "";
-    password = "";
-
-    disableButton = false;
+    signInForm: FormGroup;
 
     constructor(
-        private http: HttpClient,
-        private hashService: HashService,
-        private router: Router
-    ) {}
+        private formBuilder: FormBuilder,
+        private playerService: PlayerService
+    ) {
+        this.signInForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
 
-    signIn() {
-        this.disableButton = true;
-        let body = {
-            email: this.email,
-            password: this.hashService.hash(this.password)
-        };
+    signIn(): void {
+        if (this.signInForm.invalid) {
+            return;
+        }
+        const username = this.signInForm.get('username')?.value;
+        const password = this.signInForm.get('password')?.value;
 
-        this.http.post('http://localhost:8080/player/login', body)
-            .subscribe({
-                next: (data: any) => {
-                    console.log(data);
-                    AuthenticationInterceptor.token = data.token;
-                    this.disableButton = false;
-
-                    this.router.navigate(['/player/profile']).catch(console.error);
-                },
-                error: (error: any) => {
-                    console.error(error);
-                    this.disableButton = false;
-                }
+        this.playerService.signIn(username, password).subscribe(
+            response => {
+                // restituisco la sessione
+            },
+            error => {
+                // Errori vari: Password errata, username non esistente, ...
             }
         );
     }

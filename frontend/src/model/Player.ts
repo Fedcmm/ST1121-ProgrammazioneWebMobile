@@ -52,14 +52,14 @@ export class Player {
 
     set email(value: string) {
         if (value == null || value == "" || value == undefined) {
-            throw new Error("Surname cannot be empty");
+            throw new Error("Email cannot be empty");
         }
         this._email = value;
     }
 
     set password(value: string) {
         if (value == null || value == "" || value == undefined) {
-            throw new Error("Surname cannot be empty");
+            throw new Error("Password cannot be empty");
         }
         this._password = value;
     }

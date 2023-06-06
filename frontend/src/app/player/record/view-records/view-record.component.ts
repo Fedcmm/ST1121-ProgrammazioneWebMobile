@@ -9,8 +9,8 @@ import {map} from "rxjs";
 
 @Component({
     selector: 'app-view-record',
-    templateUrl: 'view-record.component.html',
-    styleUrls: ['view-record.component.css']
+    templateUrl: './view-record.component.html',
+    styleUrls: ['./view-record.component.css']
 })
 export class ViewRecordComponent {
     public verifiedRecords: Record[] = [];

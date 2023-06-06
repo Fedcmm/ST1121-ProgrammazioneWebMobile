@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Player } from '../model/Player';
+import {map, Observable} from 'rxjs';
+import { Player } from 'src/model/Player';
+import {HashService} from "src/app/hash.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,12 +12,13 @@ export class PlayerService {
     private apiUrl = 'url_da_cambiare';
 
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient,
+        private hashService: HashService
+    ) {}
 
-
-    getPlayers(gameRoomId: number): Observable<Player[]> {
-        const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
+    getPlayers(playerId: number): Observable<Player[]> {
+        const url = `${this.apiUrl}?playerId=${playerId}`;
         return this.http.get<Player[]>(url);
     }
 
@@ -25,19 +27,32 @@ export class PlayerService {
         return this.http.get<Player>(url);
     }
 
-    getPlayerName(playerId: number): string {
-        // Implementa la logica per ottenere il nome del player dal suo ID
-        return "Player Name";
+    getPlayerName(playerId: number): Observable<string> {
+        return this.getPlayer(playerId).pipe(
+            map(player => player.name)
+        );
     }
 
     navigateToPlayerProfile(playerId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo del player
+        //Reindirizza al componente o alla path
     }
 
 
     createPlayer(player: Player): Observable<Player> {
-        const url = `${this.apiUrl}`;
-        return this.http.post<Player>(url, player);
+        return this.http.post<Player>(this.apiUrl, player);
+    }
+
+    //TODO: Cosa deve restituire?
+    signIn(username: string, password: string): Observable<any> {
+        const body = {
+            username: username,
+            password: this.hashService.hash(password)
+        };
+        return this.http.post<any>(this.apiUrl, body);
+    }
+
+    signUp(name: string, surname: string, email: string, password: string): Observable<Player> {
+        return this.createPlayer(new Player(-1, name, surname, email, this.hashService.hash(password)));
     }
 
     updatePlayer(player: Player): Observable<Player> {

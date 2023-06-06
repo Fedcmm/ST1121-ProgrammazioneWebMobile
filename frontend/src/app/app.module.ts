@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -68,7 +68,8 @@ import { DeleteRecordComponent } from './game-room/record/delete-record/delete-r
         FormsModule,
         NgbModule,
         AppRoutingModule,
-        RouterOutlet
+        RouterOutlet,
+        ReactiveFormsModule
     ],
     providers: [AuthenticationInterceptorProvider],
     bootstrap: [AppComponent]
