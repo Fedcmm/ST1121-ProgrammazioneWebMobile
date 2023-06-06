@@ -1,1 +1,21 @@
-<h1>Player profile</h1>
+<div class="arcade-player-profile">
+    <h2>Player profile</h2>
+    <h2>{{ player?.name }}</h2>
+
+    <h3>Records</h3>
+    <div class="record" *ngFor="let record of records">
+        <div class="label">Game Room:
+            <a [routerLink]="'/game-room/' + record.gameRoom" class="value">{{ getGameRoomName(record.gameRoom) }}</a>
+        </div>
+
+        <div class="label">Game:
+            <a [routerLink]="'/game/' + record.game" class="value">{{ getGameName(record.game) }}</a>
+        </div>
+
+        <div class="label">Date:</div>
+        <div class="value">{{ record.date | date : "dd/MM/yyyy hh:mm" }}</div>
+
+        <div class="label">Score:</div>
+        <div class="value">{{ record.score }}</div>
+    </div>
+</div>

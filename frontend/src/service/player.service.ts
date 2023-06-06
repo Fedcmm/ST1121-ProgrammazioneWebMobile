@@ -22,7 +22,7 @@ export class PlayerService {
         return this.http.get<Player[]>(url);
     }
 
-    getPlayer(playerId: number): Observable<Player> {
+    getPlayer(playerId?: number): Observable<Player> {
         const url = `${this.apiUrl}/${playerId}`;
         return this.http.get<Player>(url);
     }

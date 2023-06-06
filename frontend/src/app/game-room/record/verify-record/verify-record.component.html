@@ -3,22 +3,22 @@
 
     <ul>
         <li *ngFor="let record of records">
-            <span>{{ record.GameRoom }}</span>
-            <span>{{ record.Game }}</span>
-            <span>{{ record.Player }}</span>
-            <span>{{ record.Score }}</span>
-            <span>{{ record.Date }}</span>
+            <span>{{ record.gameRoom }}</span>
+            <span>{{ record.game }}</span>
+            <span>{{ record.player }}</span>
+            <span>{{ record.score }}</span>
+            <span>{{ record.date }}</span>
             <button (click)="selectedRecord = record">Verify</button>
         </li>
     </ul>
 
     <div *ngIf="selectedRecord">
         <h3>Selected Record</h3>
-        <p><strong>GameRoom:</strong> {{ selectedRecord.GameRoom }}</p>
-        <p><strong>Game:</strong> {{ selectedRecord.Game }}</p>
-        <p><strong>Player:</strong> {{ selectedRecord.Player }}</p>
-        <p><strong>Score:</strong> {{ selectedRecord.Score }}</p>
-        <p><strong>Date:</strong> {{ selectedRecord.Date }}</p>
+        <p><strong>GameRoom:</strong> {{ selectedRecord.gameRoom }}</p>
+        <p><strong>Game:</strong> {{ selectedRecord.game }}</p>
+        <p><strong>Player:</strong> {{ selectedRecord.player }}</p>
+        <p><strong>Score:</strong> {{ selectedRecord.score }}</p>
+        <p><strong>Date:</strong> {{ selectedRecord.date }}</p>
         <button class="verify-button" (click)="verifyRecord()">Verify Record</button>
     </div>
 </div>

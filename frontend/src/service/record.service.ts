@@ -26,7 +26,7 @@ export class RecordService {
         return this.http.get<Record>(url);
     }
 
-    getPlayerRecords(playerId: number): Observable<Record[]> {
+    getPlayerRecords(playerId?: number): Observable<Record[]> {
         const url = `${this.apiUrl}/player/?playerId=${playerId}`;
         return this.http.get<Record[]>(url);
     }
