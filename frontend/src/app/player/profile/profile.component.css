@@ -15,15 +15,6 @@
     margin-bottom: 10px;
 }
 
-.arcade-player-profile .record {
-    padding: 20px;
-    margin: 5px;
-    border: #fff thin solid;
-    border-radius: 5px;
-    text-align: start;
-    display: inline-block;
-}
-
 .arcade-player-profile .label {
     display: block;
     font-size: 14px;
@@ -33,13 +24,4 @@
 .arcade-player-profile .value {
     font-size: 16px;
     margin-bottom: 10px;
-}
-
-.arcade-player-profile a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.arcade-player-profile a:hover {
-    color: #f44336;
 }

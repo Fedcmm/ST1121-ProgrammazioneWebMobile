@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterOutlet } from "@angular/router";
 
-import { PageNotFoundComponent } from "./util/page-not-found/page-not-found.component";
 import { NavBarComponent } from "./util/nav-bar/nav-bar.component";
 import { AuthenticationInterceptorProvider } from "./util/authentication.interceptor";
 
 import { SignUpPlayerComponent } from "./player/sign-up/sign-up.component";
 import { SignInPlayerComponent } from "./player/sign-in/sign-in.component";
 import { NewRecordComponent } from "./player/record/new-record/new-record.component";
-import { ViewRecordComponent } from './player/record/view-records/view-record.component';
+import { ViewRecordsComponent } from './player/record/view-records/view-records.component';
 import { ProfileComponent } from './player/profile/profile.component';
 import { InfoComponent } from './player/info/info.component';
 
@@ -36,7 +35,6 @@ import { DeleteRecordComponent } from './game-room/record/delete-record/delete-r
 @NgModule({
     declarations: [
         AppComponent,
-        PageNotFoundComponent,
         NavBarComponent,
         //region Player
         SignUpPlayerComponent,
@@ -55,7 +53,7 @@ import { DeleteRecordComponent } from './game-room/record/delete-record/delete-r
         GameRoomRecordComponent,
         DeleteEventsComponent,
         DeleteRecordComponent,
-        ViewRecordComponent,
+        ViewRecordsComponent,
         ProfileComponent,
         InfoComponent,
         ViewEventsComponent,

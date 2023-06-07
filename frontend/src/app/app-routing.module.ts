@@ -7,6 +7,7 @@ import { SignUpPlayerComponent } from "./player/sign-up/sign-up.component";
 import { SignInPlayerComponent } from "./player/sign-in/sign-in.component";
 import { ProfileComponent } from "./player/profile/profile.component";
 import { NewRecordComponent } from "./player/record/new-record/new-record.component";
+import { ViewRecordsComponent } from "./player/record/view-records/view-records.component";
 
 import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
@@ -40,6 +41,10 @@ const routes: Routes = [
     {
         path: 'player/new-record',
         component: NewRecordComponent
+    },
+    {
+        path: 'player/view-records',
+        component: ViewRecordsComponent
     },
     //endregion
 

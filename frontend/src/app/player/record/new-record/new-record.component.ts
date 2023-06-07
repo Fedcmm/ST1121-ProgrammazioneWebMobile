@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {GameRoomService} from 'src/service/game-room.service';
-import {GameService} from "src/service/game.service";
-import {RecordService} from "src/service/record.service";
-import {Record} from "src/model/Record";
-import {map} from "rxjs";
+import { GameRoomService } from 'src/service/game-room.service';
+import { GameService } from "src/service/game.service";
+import { RecordService } from "src/service/record.service";
+import { Record } from "src/model/Record";
+import { map } from "rxjs";
 
 @Component({
     selector: 'app-new-record',
@@ -21,26 +21,32 @@ export class NewRecordComponent implements OnInit {
     gameRooms: { id: number, name: string }[] = [];
     games: { id: number, name: string }[] = [];
 
+
     constructor(
         private gameRoomService: GameRoomService,
         private gameService: GameService,
         private recordService: RecordService) {
     }
 
+
     ngOnInit() {
-        this.gameRoomService.getGameRooms().pipe(
-            map(gameRooms => gameRooms.map(({ id, name }) => ({ id, name })))
-        ).subscribe(gameRooms => {
-            this.gameRooms = gameRooms;
-        });
+        this.gameRoomService.getGameRooms()
+            .pipe(map(gameRooms => gameRooms.map(
+                ({ id, name }) => ({ id, name })
+            )))
+            .subscribe(gameRooms => {
+                this.gameRooms = gameRooms;
+            });
     }
 
     getGamesInfo() {
-        this.gameService.getGames(this.selectedGameRoom).pipe(
-            map(games => games.map(({id, name}) => ({id, name})))).
-        subscribe(games => {
-            this.games = games;
-        });
+        this.gameService.getGames(this.selectedGameRoom)
+            .pipe(map(games => games.map(
+                ({ id, name }) => ({ id, name })
+            )))
+            .subscribe(games => {
+               this.games = games;
+            });
     }
 
     createRecord() {

@@ -1,17 +1,23 @@
 .arcade-new-record {
-    background-color: #000;
-    color: #fff;
     padding: 20px;
     border-radius: 5px;
-    font-family: "Press Start 2P", cursive;
     text-align: center;
-    max-width: 300px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .arcade-new-record h2 {
     font-size: 24px;
     margin-bottom: 20px;
+}
+
+.arcade-new-record .record {
+    padding: 20px;
+    margin: 5px;
+    border: #fff thin solid;
+    border-radius: 5px;
+    text-align: start;
+    display: inline-block;
 }
 
 .arcade-new-record .label {
@@ -23,6 +29,15 @@
 .arcade-new-record .value {
     font-size: 16px;
     margin-bottom: 10px;
+}
+
+.arcade-new-record a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.arcade-new-record a:hover {
+    color: #f44336;
 }
 
 .arcade-new-record button {

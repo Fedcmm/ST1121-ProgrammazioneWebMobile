@@ -14,8 +14,8 @@ export class EventService {
     constructor(private http: HttpClient) {
     }
 
-    getEvents(eventId: number): Observable<Event[]> {
-        const url = `${this.apiUrl}?eventId=${eventId}`;
+    getEvents(): Observable<Event[]> {
+        const url = `${this.apiUrl}`;
         return this.http.get<Event[]>(url);
     }
 
