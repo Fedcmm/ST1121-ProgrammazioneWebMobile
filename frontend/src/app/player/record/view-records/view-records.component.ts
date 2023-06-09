@@ -1,18 +1,11 @@
-import {Component} from '@angular/core';
-import {map} from "rxjs";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {Player} from "src/model/Player";
 import {Record} from 'src/model/Record';
 import {RecordService} from 'src/service/record.service';
 import {PlayerService} from "src/service/player.service";
 import {GameRoomService} from "src/service/game-room.service";
 import {GameService} from "src/service/game.service";
-import {Player} from "../../../../model/Player";
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Record } from 'src/model/Record';
-import { RecordService } from 'src/service/record.service';
-import { PlayerService } from "src/service/player.service";
-import { GameRoomService } from "src/service/game-room.service";
-import { GameService } from "src/service/game.service";
 
 import {map} from "rxjs";
 
@@ -25,8 +18,9 @@ export class ViewRecordsComponent implements OnInit {
     @Input() isPlayerProfile = false;
     @Output() receivedRecords = new EventEmitter<Record[]>();
 
-    verifiedRecords: Record[] = []
-
+    player: Player | undefined;
+    verifiedRecords: Record[] = [];
+    notVerifiedRecords: Record[] = [];
 
     constructor(
         private recordService: RecordService,
@@ -102,7 +96,9 @@ export class ViewRecordsComponent implements OnInit {
         return nameToReturn;
     }
 
-    deleteRecord(record: Record) {
-        // Implementa la logica per eliminare il record
-    }
+    /*
+        deleteRecord(record: Record) {
+            // Implementa la logica per eliminare il record
+        }
+     */
 }
