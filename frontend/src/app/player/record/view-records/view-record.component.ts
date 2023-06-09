@@ -1,11 +1,13 @@
 import {Component} from '@angular/core';
+import {map} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 import {Record} from 'src/model/Record';
 import {RecordService} from 'src/service/record.service';
 import {PlayerService} from "src/service/player.service";
 import {GameRoomService} from "src/service/game-room.service";
 import {GameService} from "src/service/game.service";
+import {Player} from "../../../../model/Player";
 
-import {map} from "rxjs";
 
 @Component({
     selector: 'app-view-record',
@@ -13,13 +15,16 @@ import {map} from "rxjs";
     styleUrls: ['./view-record.component.css']
 })
 export class ViewRecordComponent {
-    public verifiedRecords: Record[] = [];
+    player?: Player;
+    verifiedRecords: Record[] = [];
+    notVerifiedRecords: Record[] = [];
 
     constructor(
         private recordService: RecordService,
         private playerService: PlayerService,
         private gameRoomService: GameRoomService,
-        private gameService: GameService
+        private gameService: GameService,
+        private route: ActivatedRoute
     ) {
     }
 
@@ -28,10 +33,28 @@ export class ViewRecordComponent {
     }
 
     getVerifiedRecords(): void {
-        //TODO
-        this.recordService.getVerifiedRecords(-1).subscribe(records => {
-            this.verifiedRecords = records.filter(record => record.isVerified);
+        let id = this.route.snapshot.paramMap.get("id");
+
+        this.playerService.getPlayer(id ? parseInt(id) : undefined).subscribe({
+            next: (player: Player) => {
+                this.player = player;
+            },
+            error: console.error
         });
+
+        this.recordService.getPlayerRecords(id ? parseInt(id) : undefined
+        ).pipe(
+            map(records => {
+                const verifiedRecords = records.filter(record => record.isVerified);
+                const notVerifiedRecords = records.filter(record => !record.isVerified);
+                return {verifiedRecords, notVerifiedRecords};
+            })
+        ).subscribe({
+            next: ({verifiedRecords, notVerifiedRecords}) => {
+                this.verifiedRecords = verifiedRecords;
+                this.notVerifiedRecords = notVerifiedRecords;
+            }
+        })
     }
 
     getPlayerName(playerId: number): string {
@@ -46,46 +69,35 @@ export class ViewRecordComponent {
         return nameToReturn;
     }
 
-    getGameRoomName(gameRoomId: number): string {
-        let nameToReturn = ""
-        this.gameRoomService.getGameRoom(gameRoomId).pipe(
-            map(gameRoom => gameRoom.name))
-            .subscribe(
-                gameRoom => {
-                    nameToReturn = gameRoom;
-                }
-            );
-        return nameToReturn;
+    getGameRoomName(roomId
+                        :
+                        number
+    ):
+        string {
+        let result = ""
+        this.gameRoomService.getGameRoom(roomId).subscribe({
+            next: (gameRoom) => {
+                result = gameRoom.name
+            },
+            error: console.error
+        });
+
+        return result;
     }
 
-    getGameName(gameId: number): string {
-        let nameToReturn = ""
-        this.gameService.getGame(gameId).pipe(
-            map(getGame => getGame.name))
-            .subscribe(
-                getGame => {
-                    nameToReturn = getGame;
-                }
-            );
-        return nameToReturn;
+    getGameName(gameId
+                    :
+                    number
+    ):
+        string {
+        let result = ""
+        this.gameService.getGame(gameId).subscribe({
+            next: (game) => {
+                result = game.name
+            },
+            error: console.error
+        });
+
+        return result;
     }
-
-    navigateToPlayerProfile(playerId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo del player
-    }
-
-    navigateToGameRoomProfile(gameRoomId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo della gameroom
-    }
-
-    navigateToGameProfile(gameId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo del game
-    }
-
-    deleteRecord(record: Record): void {
-        // Implementa la logica per eliminare il record
-    }
-
-
-    protected readonly PlayerService = PlayerService;
 }

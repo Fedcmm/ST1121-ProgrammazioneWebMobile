@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+
 import { Player } from "src/model/Player";
 import { Record } from "src/model/Record";
 import { PlayerService } from "src/service/player.service";
@@ -13,14 +14,8 @@ import { GameService } from "src/service/game.service";
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    player?: Player = new Player(-1, "name", "surname", "email", "pass")
-    records: Record[] = [new Record(3, 3, 3, new Date(), 234, true),
-    new Record(4, 34, 32, new Date(), 230000, false),
-        new Record(4, 34, 32, new Date(), 230000, false),
-        new Record(4, 34, 32, new Date(), 230000, false),
-        new Record(4, 34, 32, new Date(), 230000, false),
-        new Record(4, 34, 32, new Date(), 230000, false)]
-    
+    player?: Player;
+    records: Record[] = [];
     
     constructor(
         private playerService: PlayerService,

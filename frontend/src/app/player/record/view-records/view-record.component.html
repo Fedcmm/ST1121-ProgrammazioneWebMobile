@@ -5,17 +5,40 @@
         <p>No verified records found.</p>
     </div>
 
-    <div *ngFor="let record of verifiedRecords">
-        <div class="label">Player:</div>
-        <div class="value" (click)="navigateToPlayerProfile(record.player)">{{ getPlayerName(record.player) }}</div>
-        <div class="label">Game Room:</div>
-        <div class="value" (click)="navigateToGameRoomProfile(record.gameRoom)">{{ getGameRoomName(record.gameRoom) }}</div>
-        <div class="label">Game:</div>
-        <div class="value" (click)="navigateToGameProfile(record.game)">{{ getGameName(record.game) }}</div>
-        <div class="label">Date:</div>
-        <div class="value">{{ record.date}}</div>
-        <div class="label">Score:</div>
-        <div class="value">{{ record.score }}</div>
-        <button *ngIf="record.isVerified" (click)="deleteRecord(record)">Delete</button>
+    <div class="record" *ngFor="let record of verifiedRecords">
+        <div class="label">Player:
+            <a [routerLink]="'/player/' + record.player" class="value">{{ getPlayerName(record.player) }}</a>
+        </div>
+        <div class="label">Game Room:
+            <a [routerLink]="'/game-room/' + record.gameRoom" class="value">{{ getGameRoomName(record.gameRoom) }}</a>
+        </div>
+        <div class="label">Game:
+            <a [routerLink]="'/game/' + record.game">{{ getGameName(record.game) }}</a>
+        </div>
+        <div class="label">Date:
+            <div class="value">{{ record.date}}</div>
+        </div>
+        <div class="label">Score:
+            <div class="value">{{ record.score }}</div>
+        </div>
     </div>
+
+    <div class="record" *ngFor="let record of notVerifiedRecords">
+        <div class="label">Player:
+            <a [routerLink]="'/player/' + record.player" class="value">{{ getPlayerName(record.player) }}</a>
+        </div>
+        <div class="label">Game Room:
+            <a [routerLink]="'/game-room/' + record.gameRoom" class="value">{{ getGameRoomName(record.gameRoom) }}</a>
+        </div>
+        <div class="label">Game:
+            <a [routerLink]="'/game/' + record.game">{{ getGameName(record.game) }}</a>
+        </div>
+        <div class="label">Date:
+            <div class="value">{{ record.date}}</div>
+        </div>
+        <div class="label">Score:
+            <div class="value">{{ record.score }}</div>
+        </div>
+    </div>
+
 </div>

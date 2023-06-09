@@ -1,1 +1,11 @@
-<p>game-room-games works!</p>
+<div class="arcade-games">
+    <div class="view-games" *ngFor="let game of games">
+        <div class="label">Game:
+            <span>{{ game.name }}</span>
+            <a [routerLink]="'/game/' + '{' + game.id + '}'" class="value">{{ getGameName(game.id) }}</a>
+        </div>
+        <div class="label">Descrizione:
+            <span>{{ game.description }}</span>
+        </div>
+    </div>
+</div>

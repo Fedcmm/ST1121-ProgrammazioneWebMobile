@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { HashService } from "src/app/hash.service";
-import { Game } from 'src/model/Game';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map, Observable} from 'rxjs';
+import {HashService} from "src/app/hash.service";
+import {Game} from 'src/model/Game';
 
 @Injectable({
     providedIn: 'root'
@@ -12,15 +12,14 @@ export class GameService {
     private apiUrl = 'url_da_cambiare';
 
 
-
     constructor(
-        private http: HttpClient,
-        private hashService: HashService
-    ){ }
+        private http: HttpClient
+    ) {
+    }
 
 
-    getGames(gameId: number): Observable<Game[]> {
-        const url = `${this.apiUrl}?gameId=${gameId}`;
+    getGames(): Observable<Game[]> {
+        const url = `${this.apiUrl}/games`;
         return this.http.get<Game[]>(url);
     }
 
@@ -29,10 +28,15 @@ export class GameService {
         return this.http.get<Game>(url);
     }
 
-    getGameName(gameId: number): Observable<string> {
-        return this.getGame(gameId).pipe(
-            map(game => game.name)
-        );
+    getGameName(gameId: number): string {
+        let name = "";
+        this.getGame(gameId).subscribe({
+            next: (game) => {
+                name = game.name
+            }
+        });
+
+        return name;
     }
 
     navigateToGameProfile(gameId: number): void {
@@ -42,16 +46,6 @@ export class GameService {
     createGame(game: Game): Observable<Game> {
         const url = `${this.apiUrl}`;
         return this.http.post<Game>(url, game);
-    }
-
-
-    //TODO: Cosa deve restituire?
-    signIn(username: string, password: string): Observable<any> {
-        const body = {
-            username: username,
-            password: this.hashService.hash(password)
-        };
-        return this.http.post<any>(this.apiUrl, body);
     }
 
     updateGame(game: Game): Observable<Game> {

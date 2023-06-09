@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
-import {HashService} from "src/app/hash.service";
+import { HashService } from "src/app/hash.service";
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +17,8 @@ export class PlayerService {
         private hashService: HashService
     ) {}
 
-    getPlayers(playerId: number): Observable<Player[]> {
-        const url = `${this.apiUrl}?playerId=${playerId}`;
+    getPlayers(): Observable<Player[]> {
+        const url = `${this.apiUrl}/players`;
         return this.http.get<Player[]>(url);
     }
 
@@ -27,10 +27,15 @@ export class PlayerService {
         return this.http.get<Player>(url);
     }
 
-    getPlayerName(playerId: number): Observable<string> {
-        return this.getPlayer(playerId).pipe(
-            map(player => player.name)
-        );
+    getPlayerName(playerId: number): string {
+        let name : string = "";
+        this.getPlayer(playerId).subscribe({
+            next: (player) => {
+                name = player.name
+            }
+        });
+
+        return name;
     }
 
     navigateToPlayerProfile(playerId: number): void {

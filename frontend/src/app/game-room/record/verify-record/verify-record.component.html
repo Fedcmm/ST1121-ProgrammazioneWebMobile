@@ -3,12 +3,21 @@
 
     <ul>
         <li *ngFor="let record of records">
-            <span>{{ record.gameRoom }}</span>
-            <span>{{ record.game }}</span>
-            <span>{{ record.player }}</span>
-            <span>{{ record.score }}</span>
-            <span>{{ record.date }}</span>
-            <button (click)="selectedRecord = record">Verify</button>
+            <div class="GameRoom"> <strong>GameRoom:</strong>
+                <a [routerLink]="'/game-room/' + record.gameRoom" class = "value"> {{ getGameRoomName(record.gameRoom)}} </a>
+            </div>
+            <div class="Game"> <strong>Game:</strong>
+                <a [routerLink]="'/game/' + record.game" class = "value"> {{ getGameName(record.game)}} </a>
+            </div>
+            <div class="Player"> <strong>Player:</strong>
+                <a [routerLink]="'/player/' + record.player" class = "value"> {{ getPlayerName(record.player)}} </a>
+            </div>
+            <div class="Score"> <strong>Score:</strong>
+                {{ record.score }}
+            </div>
+            <div class="Date"> <strong>Date:</strong>
+                {{ record.date }}
+            </div>
         </li>
     </ul>
 

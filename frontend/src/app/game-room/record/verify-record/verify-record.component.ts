@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute} from "@angular/router";
 import {Record} from "src/model/Record";
+import {RecordService} from "src/service/record.service";
+import {GameRoomService} from "src/service/game-room.service";
+import {GameService} from "src/service/game.service";
+import {PlayerService} from "src/service/player.service";
 
 @Component({
     selector: 'app-verify-record',
@@ -9,43 +13,50 @@ import {Record} from "src/model/Record";
 })
 export class VerifyRecordComponent implements OnInit {
     records: Record[] = [];
-    selectedRecord: Record | undefined;
+    selectedRecord: Record | undefined
 
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private recordService: RecordService,
+        private gameRoomService: GameRoomService,
+        private gameService: GameService,
+        private playerService: PlayerService,
+        private route: ActivatedRoute
+    ) { }
 
 
     ngOnInit() {
-        this.getRecords();
+        let id: string | null = this.route.snapshot.paramMap.get("id");
+
+        this.getGameRoomRecords(id ? parseInt(id) : undefined);
     }
 
-    getRecords(): void {
-        this.http.get('http://localhost:8080/record/').subscribe({
-                next: (response: any) => {
-                    this.records = response;
-                },
-                error: (error: any) => {
-                    console.error('Error getting records:', error);
-                }
-            });
+    getGameRoomName(gameRoomId: number): string {
+        return this.gameRoomService.getGameRoomName(gameRoomId);
     }
 
+    getGameName(gameRoomId: number): string {
+        return this.gameService.getGameName(gameRoomId);
+    }
+
+    getPlayerName(gameRoomId: number): string {
+        return this.playerService.getPlayerName(gameRoomId);
+    }
+
+    getGameRoomRecords(gameRoomId: number | undefined): void {
+        this.recordService.getGameRoomRecords(gameRoomId).subscribe({
+            next: records => {
+                this.records = records;
+            },
+            error: console.error
+        });
+    }
+
+    //TODO: Da sistemare
     verifyRecord(): void {
         if (this.selectedRecord) {
             this.selectedRecord.isVerified = true;
-
-            // Commented because of error in "this.selectedRecord.id"
-            /*this.http.put('url_del_backend/records/' + this.selectedRecord.id, this.selectedRecord)
-                .subscribe({
-                    next: () => {
-                        console.log('Record verificato.');
-                    },
-                    error: error => {
-                        console.error('Error verifying record:', error);
-                        // Eh, mo qua ti voglio vedere a gestire l'errore.
-                    }
-                });*/
+            this.recordService.updateRecord(this.selectedRecord);
         }
     }
 }

@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GameRoom} from '../model/GameRoom';
+import { HttpClient } from '@angular/common/http';
+import { HashService } from "src/app/hash.service";
+import { Observable } from 'rxjs';
+
+import { GameRoom } from 'src/model/GameRoom';
+import {Game} from "src/model/Game";
 
 @Injectable({
     providedIn: 'root'
@@ -11,26 +14,45 @@ export class GameRoomService {
     private apiUrl = 'url_da_cambiare';
 
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient,
+        private hashService: HashService
+    ) { }
 
 
     getGameRooms(): Observable<GameRoom[]> {
-        const url = `${this.apiUrl}`;
+        const url : string = `${this.apiUrl}`;
         return this.http.get<GameRoom[]>(url);
     }
 
     getGameRoom(gameRoomId: number): Observable<GameRoom> {
-        return this.http.get<GameRoom>(`${this.apiUrl}/${gameRoomId}`);
+        const url: string = `${this.apiUrl}/${gameRoomId}`;
+        return this.http.get<GameRoom>(url);
     }
 
     getGameRoomName(gameRoomId: number): string {
-        // Implementa la logica per ottenere il nome della gameroom dal suo ID
-        return "Game Room Name";
+        let name : string = "";
+        this.getGameRoom(gameRoomId).subscribe({
+            next: (gameRoom) => {
+                name = gameRoom.name
+            }
+        });
+
+        return name;
     }
 
-    navigateToGameRoomProfile(gameRoomId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo della gameroom
+    //TODO: Aggiungere al backend
+    getGamesOfGameRoom(gameRoomId: number | undefined): Observable<Game[]> {
+        return this.http.get<Game[]>(`${this.apiUrl}/${gameRoomId}/games`);
+    }
+
+    //TODO: Cosa deve restituire?
+    signIn(username: string, password: string): Observable<any> {
+        const body = {
+            username: username,
+            password: this.hashService.hash(password)
+        };
+        return this.http.post<any>(this.apiUrl, body);
     }
 
     createGameRoom(gameRoom: GameRoom): Observable<GameRoom> {
