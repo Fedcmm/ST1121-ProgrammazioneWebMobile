@@ -1,0 +1,12 @@
+<div class="delete-event">
+    <h2>Elimina evento</h2>
+    <p>Seleziona l'evento da eliminare:</p>
+    <ul>
+        <li *ngFor="let event of events">
+            <input type="checkbox" (change)="moveToEventsToDelete(event)">
+            <span>{{ event.name }}</span>
+        </li>
+    </ul>
+
+    <button (click)="deleteSelectedEvents()">Elimina</button>
+</div>

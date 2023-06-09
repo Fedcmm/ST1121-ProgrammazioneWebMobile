@@ -1,0 +1,30 @@
+<div class="arcade-new-record">
+    <h2>New Record</h2>
+
+    <div class="form-group">
+        <label for="gameRoom">Select Game Room:</label>
+        <select id="gameRoom" name="gameRoom" [(ngModel)]="selectedGameRoom">
+            <option *ngFor="let gameRoom of gameRooms" [value]="gameRoom">{{ gameRoom }}</option>
+        </select>
+    </div>
+
+    <div class="form-group" *ngIf="selectedGameRoom !== -1">
+        <label for="game">Select Game:</label>
+
+        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGamesInfo()>
+            <option *ngFor="let game of games" [value]="game">{{ game }}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="score">Enter Score:</label>
+        <input type="number" id="score" name="score" [(ngModel)]="score" placeholder="Enter your score" required>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Enter Date:</label>
+        <input type="date" id="date" name="date" [(ngModel)]="date" placeholder="Enter the date" required>
+    </div>
+
+    <button class="save-button" type="submit" (click)="createRecord()">Save Record</button>
+</div>

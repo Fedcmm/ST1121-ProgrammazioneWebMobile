@@ -1,0 +1,18 @@
+<div class="arcade-game-room-view-event">
+    <h2>Visualizza Eventi</h2>
+    <div class="view-event" *ngFor="let event of events">
+        <div class="label">Game Room:
+            <span>{{ event.name }}</span>
+            <a [routerLink]="'/game-room/' + event.gameRoom" class="value">{{ getGameRoomName(event.gameRoom) }}</a>
+        </div>
+        <div class="label">Descrizione:
+            <span>{{ event.description }}</span>
+        </div>
+        <div class="label">Inizio:
+            <span>{{ event.startDate }}</span>
+        </div>
+        <div class="label">Fine:
+            <span>{{ event.endDate }}</span>
+        </div>
+    </div>
+</div>

@@ -24,12 +24,12 @@ L'utente *Admin* è un' entità che rappresenta un amministratore del sito.
 * #### Player
 L'utente *Player* deve essere autenticato, quindi necessita di un account, una volta
   registrato e autenticato potrà: inserire, modificare ed eliminare i punteggi di un gioco Arcade.
-  Inoltre potrà seguire dei topic di gioco, in modo da ricevere notifiche quando vengono pubblicati nuovi punteggi.
+  Inoltre potrà seguire dei topic di gioco e delle GameRoom.
 * #### GameRoom
-L'utente *GameRoom* è un' entità che rappresenta una sala giochi.
+L'utente *GameRoom* rappresenta una sala giochi.
 Potrà convalidare i punteggi inseriti dagli utenti *Player* e pubblicare eventi o news.
 * #### Game
-L'utente *Game* è un' entità che rappresenta un gioco Arcade, verrà gestita nel database
+*Game* è un' entità che rappresenta un gioco Arcade, verrà gestita nel database
   dall'utente *Admin*, potrà essere seguita dagli utenti *Player* e le *GameRoom* potranno includerla nel loro catalogo di giochi.
 
 

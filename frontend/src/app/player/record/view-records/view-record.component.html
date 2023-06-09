@@ -1,0 +1,44 @@
+<div class="arcade-new-record">
+    <h2>Record</h2>
+
+    <div *ngIf="verifiedRecords.length === 0">
+        <p>No verified records found.</p>
+    </div>
+
+    <div class="record" *ngFor="let record of verifiedRecords">
+        <div class="label">Player:
+            <a [routerLink]="'/player/' + record.player" class="value">{{ getPlayerName(record.player) }}</a>
+        </div>
+        <div class="label">Game Room:
+            <a [routerLink]="'/game-room/' + record.gameRoom" class="value">{{ getGameRoomName(record.gameRoom) }}</a>
+        </div>
+        <div class="label">Game:
+            <a [routerLink]="'/game/' + record.game">{{ getGameName(record.game) }}</a>
+        </div>
+        <div class="label">Date:
+            <div class="value">{{ record.date}}</div>
+        </div>
+        <div class="label">Score:
+            <div class="value">{{ record.score }}</div>
+        </div>
+    </div>
+
+    <div class="record" *ngFor="let record of notVerifiedRecords">
+        <div class="label">Player:
+            <a [routerLink]="'/player/' + record.player" class="value">{{ getPlayerName(record.player) }}</a>
+        </div>
+        <div class="label">Game Room:
+            <a [routerLink]="'/game-room/' + record.gameRoom" class="value">{{ getGameRoomName(record.gameRoom) }}</a>
+        </div>
+        <div class="label">Game:
+            <a [routerLink]="'/game/' + record.game">{{ getGameName(record.game) }}</a>
+        </div>
+        <div class="label">Date:
+            <div class="value">{{ record.date}}</div>
+        </div>
+        <div class="label">Score:
+            <div class="value">{{ record.score }}</div>
+        </div>
+    </div>
+
+</div>

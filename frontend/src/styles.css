@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "Press Start 2P";
+    src: url("assets/fonts/PressStart2P-Regular.ttf");
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: "Press Start 2P", cursive;
+}
