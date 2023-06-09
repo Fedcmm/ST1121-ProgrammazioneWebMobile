@@ -2,23 +2,30 @@
     <h2>Verify Record</h2>
 
     <ul>
-        <li *ngFor="let record of records">
-            <span>{{ record.gameRoom }}</span>
-            <span>{{ record.game }}</span>
-            <span>{{ record.player }}</span>
-            <span>{{ record.score }}</span>
-            <span>{{ record.date }}</span>
-            <button (click)="selectedRecord = record">Verify</button>
+        <li *ngFor="let record of notVerifiedRecords">
+            <div class="GameRoom"> GameRoom:
+                <a [routerLink]="'/game-room/' + record.gameRoom" class = "value"> {{ getGameRoomName(record.gameRoom)}} </a>
+            </div>
+
+            <div class="Game"> Game:
+                <a [routerLink]="'/game/' + record.game" class = "value"> {{ getGameName(record.game)}} </a>
+            </div>
+
+            <div class="Player"> Player:
+                <a [routerLink]="'/player/' + record.player" class = "value"> {{ getPlayerName(record.player)}} </a>
+            </div>
+
+            <div class="Score"> <strong>Score:</strong>
+                {{ record.score }}
+            </div>
+
+            <div class="Date"> Date:
+                {{ record.date }}
+            </div>
+
+            <div class="Button">
+                <button (click)="verifyRecord(record)">Verify</button>
+            </div>
         </li>
     </ul>
-
-    <div *ngIf="selectedRecord">
-        <h3>Selected Record</h3>
-        <p><strong>GameRoom:</strong> {{ selectedRecord.gameRoom }}</p>
-        <p><strong>Game:</strong> {{ selectedRecord.game }}</p>
-        <p><strong>Player:</strong> {{ selectedRecord.player }}</p>
-        <p><strong>Score:</strong> {{ selectedRecord.score }}</p>
-        <p><strong>Date:</strong> {{ selectedRecord.date }}</p>
-        <button class="verify-button" (click)="verifyRecord()">Verify Record</button>
-    </div>
 </div>

@@ -16,8 +16,9 @@ export class CreateEventComponent {
     startDate: Date = new Date();
     endDate: Date = new Date();
 
-    constructor(private eventService: EventService) {
-    }
+    constructor(
+        private eventService: EventService
+    ) { }
 
     createEvent(): Subscription {
         const event = new Event(this.name, this.description, -1, this.startDate, this.endDate);

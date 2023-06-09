@@ -14,8 +14,8 @@ export class EventService {
     constructor(private http: HttpClient) {
     }
 
-    getEvents(): Observable<Event[]> {
-        const url = `${this.apiUrl}`;
+    getEvents(gameRoomId?: number): Observable<Event[]> {
+        const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
         return this.http.get<Event[]>(url);
     }
 

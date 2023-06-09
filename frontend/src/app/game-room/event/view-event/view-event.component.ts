@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+
 import { Event } from 'src/model/Event';
 import { EventService } from 'src/service/event.service';
+import { GameRoomService} from "src/service/game-room.service";
 
 @Component({
     selector: 'app-view-event',
@@ -9,14 +12,33 @@ import { EventService } from 'src/service/event.service';
 })
 export class ViewEventsComponent implements OnInit {
     events: Event[] = []; // Array di eventi da visualizzare
+    constructor(
+        private eventService: EventService,
+        private gameRoomService: GameRoomService,
+        private route: ActivatedRoute
+    ) {}
 
-    constructor(private eventService: EventService) {}
+    ngOnInit() {
+        let id = this.route.snapshot.paramMap.get("id");
 
-    ngOnInit(): void {
-        this.loadEvents();
+        this.eventService.getEvents(id ? parseInt(id): undefined).subscribe({
+            next: (events: Event[]) => {
+                this.events = events;
+            },
+            error: console.error
+        });
     }
 
-    loadEvents() {
-        //TODO: Implementare la chiamata al servizio per ottenere gli eventi
+
+    getGameRoomName(roomId: number): string {
+        let result = ""
+        this.gameRoomService.getGameRoom(roomId).subscribe({
+            next: (gameRoom) => {
+                result = gameRoom.name
+            },
+            error: console.error
+        });
+
+        return result;
     }
 }

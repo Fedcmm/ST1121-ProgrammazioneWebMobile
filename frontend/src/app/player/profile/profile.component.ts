@@ -13,10 +13,10 @@ import { GameService } from "src/service/game.service";
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    player?: Player
-    records: Record[] = []
-    
-    
+    player?: Player;
+    records: Record[] = [];
+
+
     constructor(
         private playerService: PlayerService,
         private recordService: RecordService,
@@ -35,9 +35,35 @@ export class ProfileComponent implements OnInit {
             },
             error: console.error
         });
+        this.recordService.getPlayerRecords(id ? parseInt(id) : undefined).subscribe({
+            next: (records: Record[]) => {
+                this.records = records;
+            },
+            error: console.error
+        });
     }
 
-    onRecordsReceived(records: Record[]) {
-        this.records = records;
+    getGameRoomName(roomId: number): string {
+        let result = ""
+        this.gameRoomService.getGameRoom(roomId).subscribe({
+            next: (gameRoom) => {
+                result = gameRoom.name
+            },
+            error: console.error
+        });
+
+        return result;
+    }
+
+    getGameName(gameId: number): string {
+        let result = ""
+        this.gameService.getGame(gameId).subscribe({
+            next: (game) => {
+                result = game.name
+            },
+            error: console.error
+        });
+
+        return result;
     }
 }
