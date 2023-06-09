@@ -23,10 +23,23 @@ export class GameRoomRecordComponent {
         private route: ActivatedRoute
     ) { }
 
+
     ngOnInit() {
         let id: string | null = this.route.snapshot.paramMap.get("id");
 
         this.getGameRoomRecords(id ? parseInt(id) : undefined);
+    }
+
+    getGameRoomName(gameRoomId: number): string {
+        return this.gameRoomService.getGameRoomName(gameRoomId);
+    }
+
+    getGameName(gameRoomId: number): string {
+        return this.gameService.getGameName(gameRoomId);
+    }
+
+    getPlayerName(gameRoomId: number): string {
+        return this.playerService.getPlayerName(gameRoomId);
     }
 
     getGameRoomRecords(gameRoomId: number | undefined): void {
@@ -42,15 +55,5 @@ export class GameRoomRecordComponent {
         });
     }
 
-    getGameRoomName(gameRoomId: number): string {
-        return this.gameRoomService.getGameRoomName(gameRoomId);
-    }
 
-    getGameName(gameRoomId: number): string {
-        return this.gameService.getGameName(gameRoomId);
-    }
-
-    getPlayerName(gameRoomId: number): string {
-        return this.playerService.getPlayerName(gameRoomId);
-    }
 }

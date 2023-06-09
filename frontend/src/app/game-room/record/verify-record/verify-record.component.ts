@@ -5,6 +5,7 @@ import {RecordService} from "src/service/record.service";
 import {GameRoomService} from "src/service/game-room.service";
 import {GameService} from "src/service/game.service";
 import {PlayerService} from "src/service/player.service";
+import {map} from "rxjs";
 
 @Component({
     selector: 'app-verify-record',
@@ -12,9 +13,7 @@ import {PlayerService} from "src/service/player.service";
     styleUrls: ['./verify-record.component.css']
 })
 export class VerifyRecordComponent implements OnInit {
-    records: Record[] = [];
-    selectedRecord: Record | undefined
-
+    notVerifiedRecords: Record[] = [];
 
     constructor(
         private recordService: RecordService,
@@ -44,20 +43,20 @@ export class VerifyRecordComponent implements OnInit {
     }
 
     getGameRoomRecords(gameRoomId: number | undefined): void {
-        this.recordService.getGameRoomRecords(gameRoomId).subscribe({
-            next: records => {
-                this.records = records;
-            },
-            error: console.error
+        this.recordService.getGameRoomRecords(gameRoomId).pipe(
+            map(records => {
+                return records.filter(record => !record.isVerified);
+            })
+        ).subscribe({
+            next: (notVerifiedRecords) => {
+                this.notVerifiedRecords = notVerifiedRecords;
+            }
         });
     }
 
     //TODO: Da sistemare
-    verifyRecord(): void {
-        if (this.selectedRecord) {
-            this.selectedRecord.isVerified = true;
-            this.recordService.updateRecord(this.selectedRecord);
-        }
+    verifyRecord(record: Record): void {
+        record.isVerified = true;
+        this.recordService.updateRecord(record)
     }
 }
-
