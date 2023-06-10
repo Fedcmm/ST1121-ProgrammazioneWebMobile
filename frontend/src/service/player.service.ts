@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
-import { HashService } from "src/app/hash.service";
+import { HashService, Password } from "src/app/hash.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PlayerService {
-    // TODO: mettere l'url giusto
-    private apiUrl = 'url_da_cambiare';
+    private apiUrl = 'http://localhost:8080/player';
 
 
     constructor(
@@ -42,22 +41,20 @@ export class PlayerService {
         //Reindirizza al componente o alla path
     }
 
-
-    createPlayer(player: Player): Observable<Player> {
-        return this.http.post<Player>(this.apiUrl, player);
+    getSalt(email: string): Observable<any> {
+        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
     }
 
-    //TODO: Cosa deve restituire?
-    signIn(username: string, password: string): Observable<any> {
+    signIn(username: string, password: string, salt: string): Observable<any> {
         const body = {
-            username: username,
-            password: this.hashService.hash(password)
+            email: username,
+            password: this.hashService.hashWithSalt(password, salt)
         };
-        return this.http.post<any>(this.apiUrl, body);
+        return this.http.post(`${this.apiUrl}/login`, body);
     }
 
-    signUp(name: string, surname: string, email: string, password: string): Observable<Player> {
-        return this.createPlayer(new Player(-1, name, surname, email, this.hashService.hash(password)));
+    signUp(name: string, surname: string, email: string, password: Password): Observable<any> {
+        return this.http.post(`${this.apiUrl}/signup`, new Player(-1, name, surname, email, password));
     }
 
     updatePlayer(player: Player): Observable<Player> {

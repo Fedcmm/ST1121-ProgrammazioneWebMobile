@@ -17,7 +17,7 @@ import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-r
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'player/sign-up',
+        redirectTo: 'player/sign-in',
         pathMatch: 'full'
     },
 

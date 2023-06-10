@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
+import { HashService } from "src/app/hash.service";
 
 @Component({
     selector: 'app-signup',
@@ -15,32 +16,36 @@ export class SignUpPlayerComponent {
     constructor(
         private formBuilder: FormBuilder,
         private playerService: PlayerService,
+        private hashService: HashService,
         private router: Router
     ) {
         this.signUpForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            surname: ['', Validators.required],
-            email: ['', Validators.required],
-            password: ['', Validators.required]
+            name: '',
+            surname: '',
+            email: '',
+            password: ''
         });
     }
 
 
     signUp() {
-        if (this.signUpForm.invalid)
+        if (this.signUpForm.invalid) {
+            console.log("Invalid form")
             return;
+        }
 
         const name = this.signUpForm.get('name')?.value;
         const surname = this.signUpForm.get('surname')?.value;
         const email = this.signUpForm.get('email')?.value;
-        const password = this.signUpForm.get('password')?.value;
+        const password = this.hashService.hash(this.signUpForm.get('password')?.value);
+        console.log(password)
 
         this.playerService.signUp(name, surname, email, password).subscribe({
             next: response => {
-                this.router.navigate(['/login']).catch(console.error);
+                this.router.navigate(['player/sign-in']).catch(console.error);
             },
             error: error => {
-                // Errori vari: Password errata, username non esistente, ...
+                console.error(error);
             }
         });
     }

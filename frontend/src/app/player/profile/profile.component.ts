@@ -43,27 +43,7 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    getGameRoomName(roomId: number): string {
-        let result = ""
-        this.gameRoomService.getGameRoom(roomId).subscribe({
-            next: (gameRoom) => {
-                result = gameRoom.name
-            },
-            error: console.error
-        });
-
-        return result;
-    }
-
-    getGameName(gameId: number): string {
-        let result = ""
-        this.gameService.getGame(gameId).subscribe({
-            next: (game) => {
-                result = game.name
-            },
-            error: console.error
-        });
-
-        return result;
+    onRecordsReceived(records: Record[]) {
+        this.records = records;
     }
 }

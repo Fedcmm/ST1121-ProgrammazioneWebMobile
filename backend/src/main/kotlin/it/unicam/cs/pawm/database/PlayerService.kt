@@ -13,6 +13,7 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
             it[surname] = newRecord.surname
             it[email] = newRecord.email
             it[password] = newRecord.password
+            it[passwordSalt] = newRecord.passwordSalt
         } get PlayerTable.id
     }
 
@@ -23,7 +24,8 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[PlayerTable.name],
                 it[PlayerTable.surname],
                 it[PlayerTable.email],
-                it[PlayerTable.password]
+                it[PlayerTable.password],
+                it[PlayerTable.passwordSalt]
             )
         }.singleOrNull()
     }
@@ -35,7 +37,8 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[PlayerTable.name],
                 it[PlayerTable.surname],
                 it[PlayerTable.email],
-                it[PlayerTable.password]
+                it[PlayerTable.password],
+                it[PlayerTable.passwordSalt]
             )
         }
     }
@@ -53,8 +56,13 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[surname] = updRecord.surname
                 it[email] = updRecord.email
                 it[password] = updRecord.password
+                it[passwordSalt] = updRecord.passwordSalt
             }
         }
+    }
+
+    suspend fun getPasswordSalt(email: String): String? = dbQuery {
+        PlayerTable.select { PlayerTable.email eq email }.map { it[PlayerTable.passwordSalt] }.singleOrNull()
     }
 
     /**

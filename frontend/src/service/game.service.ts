@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
-import {HashService} from "src/app/hash.service";
-import {Game} from 'src/model/Game';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Game } from 'src/model/Game';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +17,8 @@ export class GameService {
     }
 
 
-    getGames(): Observable<Game[]> {
-        const url = `${this.apiUrl}/games`;
+    getGames(gameRoomId: number): Observable<Game[]> {
+        const url = `${this.apiUrl}/${gameRoomId}/games`;
         return this.http.get<Game[]>(url);
     }
 

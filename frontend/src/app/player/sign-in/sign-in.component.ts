@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
 import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
@@ -18,8 +18,8 @@ export class SignInPlayerComponent {
         private router: Router
     ) {
         this.signInForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+            username: '',
+            password: ''
         });
     }
 
@@ -30,14 +30,21 @@ export class SignInPlayerComponent {
         const username = this.signInForm.get('username')?.value;
         const password = this.signInForm.get('password')?.value;
 
-        this.playerService.signIn(username, password).subscribe({
+        this.playerService.getSalt(username).subscribe({
             next: response => {
-                AuthenticationInterceptor.token = response.token;
-                this.router.navigate(['/player/profile']).catch(console.error);
+                this.playerService.signIn(username, password, response.salt).subscribe({
+                    next: response => {
+                        AuthenticationInterceptor.token = response.token;
+                        this.router.navigate(['/player/profile']).catch(console.error);
+                    },
+                    error: error => {
+                        // Errori vari: Password errata, username non esistente, ...
+                    }
+                });
             },
             error: error => {
-                // Errori vari: Password errata, username non esistente, ...
+                console.error(error)
             }
-        });
+        })
     }
 }

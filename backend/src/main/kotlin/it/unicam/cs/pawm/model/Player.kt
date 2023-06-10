@@ -9,7 +9,8 @@ data class Player(
     val name: String,
     val surname: String,
     val email: String,
-    val password: String
+    val password: String,
+    val passwordSalt: String,
     //Aggiungere altri campi
 )
 
@@ -19,6 +20,7 @@ object PlayerTable : Table() {
     val surname = varchar("surname", 50)
     val email = varchar("email", 50).uniqueIndex()
     val password = char("password", 60)
+    val passwordSalt = varchar("passwordSalt", 60)
 
     override val primaryKey = PrimaryKey(id)
 }

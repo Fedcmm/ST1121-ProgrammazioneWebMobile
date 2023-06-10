@@ -41,6 +41,17 @@ fun Route.authenticationRouting() {
             call.respond(HttpStatusCode.Created)
         }
 
+        get("/salt") {
+            val email = call.request.queryParameters["email"] ?: run {
+                call.respondText("Missing email", status = HttpStatusCode.BadRequest)
+                return@get
+            }
+
+            PlayerService.getPasswordSalt(email)?.let {
+                call.respond(hashMapOf("salt" to it))
+            } ?: call.respondText("Account not found", status = HttpStatusCode.NotFound)
+        }
+
         post("/login") {
             val credentials = call.receive<Credentials>()
             val id = PlayerService.checkCredentials(credentials.email, credentials.password)
@@ -67,7 +78,7 @@ fun Route.authenticationRouting() {
             call.respond(HttpStatusCode.OK)
         }
 
-        post("{id}/refresh") {
+        post("/refresh") {
             val email = call.receive<String>() // TODO (28/05/23): Maybe remove
 
             val oldRefresh = validateRefresh() ?: return@post

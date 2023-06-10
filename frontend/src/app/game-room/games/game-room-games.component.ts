@@ -1,15 +1,15 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {GameRoomService} from "src/service/game-room.service";
-import {GameService} from "src/service/game.service";
-import {Game} from "src/model/Game";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { GameRoomService } from "src/service/game-room.service";
+import { GameService } from "src/service/game.service";
+import { Game } from "src/model/Game";
 
 @Component({
     selector: 'app-game-room-games',
     templateUrl: './game-room-games.component.html',
     styleUrls: ['./game-room-games.component.css']
 })
-export class GameRoomGamesComponent {
+export class GameRoomGamesComponent implements OnInit {
     games: Game[] = []; // Array dei giochi da visualizzare
     constructor(
         private gameRoomService: GameRoomService,
@@ -46,13 +46,6 @@ export class GameRoomGamesComponent {
     }
 
     getGameName(gameId: number): string {
-        let gameNameToReturn = ""
-        this.gameService.getGameName(gameId).subscribe({
-                next: (gameName) => {
-                    gameNameToReturn = gameName
-                }
-            }
-        )
-        return gameNameToReturn;
+        return this.gameService.getGameName(gameId);
     }
 }
