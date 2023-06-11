@@ -33,8 +33,8 @@ export class SignInPlayerComponent {
         this.playerService.getSalt(username).subscribe({
             next: response => {
                 this.playerService.signIn(username, password, response.salt).subscribe({
-                    next: response => {
-                        AuthenticationInterceptor.token = response.token;
+                    next: ({ token }) => {
+                        AuthenticationInterceptor.token = token;
                         this.router.navigate(['/player/profile']).catch(console.error);
                     },
                     error: error => {

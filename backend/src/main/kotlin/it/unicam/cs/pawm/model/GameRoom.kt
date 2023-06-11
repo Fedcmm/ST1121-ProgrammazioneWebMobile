@@ -5,10 +5,11 @@ import org.jetbrains.exposed.sql.Table
 
 @Serializable
 data class GameRoom(
-    val id: Int,
+    val id: Int = -1,
     val name: String,
     val email: String,
     val password: String,
+    val passwordSalt: String,
     val games: List<Game> = mutableListOf(),
     val events: List<Event> = mutableListOf()
     //Aggiungere altri campi
@@ -19,6 +20,7 @@ object GameRoomTable : Table() {
     val name = varchar("name", 50)
     val email = varchar("email", 50).uniqueIndex()
     val password = char("password", 60)
+    val passwordSalt = varchar("passwordSalt", 60)
 
     override val primaryKey = PrimaryKey(id)
 }

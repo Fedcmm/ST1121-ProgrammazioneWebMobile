@@ -1,6 +1,5 @@
 package it.unicam.cs.pawm.model
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
@@ -9,7 +8,7 @@ data class Game(
     val id: Int,
     val name: String,
     val description: String,
-    @Contextual val gameTypes: List<GameType>
+    val gameTypes: List<GameType>
     //Aggiungere altri campi
 )
 

@@ -4,7 +4,8 @@ import { GameRoomService } from 'src/service/game-room.service';
 import { GameService } from "src/service/game.service";
 import { RecordService } from "src/service/record.service";
 import { Record } from "src/model/Record";
-import { map } from "rxjs";
+import { GameRoom } from "src/model/GameRoom";
+import { Game } from "src/model/Game";
 
 @Component({
     selector: 'app-new-record',
@@ -13,53 +14,47 @@ import { map } from "rxjs";
 })
 export class NewRecordComponent implements OnInit {
 
-    selectedGameRoom: number = -1;
-    selectedGame: number = -1;
+    selectedGameRoom?: GameRoom;
+    selectedGame?: Game;
     score: number = 0;
     date: Date = new Date()
 
-    gameRooms: { id: number, name: string }[] = [];
-    games: { id: number, name: string }[] = [];
+    gameRooms: GameRoom[] = [];
+    games: Game[] = [];
 
 
     constructor(
         private gameRoomService: GameRoomService,
         private gameService: GameService,
-        private recordService: RecordService) {
-    }
+        private recordService: RecordService
+    ) {}
 
 
     ngOnInit() {
-        this.gameRoomService.getGameRooms()
-            .pipe(map(gameRooms => gameRooms.map(
-                ({ id, name }) => ({ id, name })
-            )))
-            .subscribe(gameRooms => {
+        this.gameRoomService.getGameRooms().subscribe({
+            next: gameRooms => {
                 this.gameRooms = gameRooms;
-            });
+            }
+        });
     }
 
     getGamesInfo() {
-        this.gameService.getGames(this.selectedGameRoom)
-            .pipe(map(games => games.map(
-                ({ id, name }) => ({ id, name })
-            )))
-            .subscribe(games => {
-               this.games = games;
-            });
+        this.gameService.getGames(this.selectedGameRoom!.id).subscribe({
+            next: games => {
+                this.games = games;
+            }
+        });
     }
 
     createRecord() {
-        this.saveRecord(new Record(-1, this.selectedGameRoom, this.selectedGame, this.date, this.score, false));
-    }
-
-    saveRecord(record: Record) {
-        this.recordService.createRecord(record).subscribe(
-            (response: Record) => {
+        let record = new Record(undefined, this.selectedGameRoom!, this.selectedGame!, this.date, this.score, false);
+        this.recordService.createRecord(record).subscribe({
+            next: (response: Record) => {
                 record.player = response.player;
                 record.gameRoom = response.gameRoom;
                 record.game = response.game;
                 console.log('Nuovo record creato con ID:');
-            });
+            }
+        });
     }
 }

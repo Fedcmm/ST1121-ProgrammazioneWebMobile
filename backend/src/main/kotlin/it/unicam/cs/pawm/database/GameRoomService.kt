@@ -13,6 +13,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
             it[name] = newRecord.name
             it[email] = newRecord.email
             it[password] = newRecord.password
+            it[passwordSalt] = newRecord.passwordSalt
         }
 
         GameRoomGamesService.addAll(insert[GameRoomTable.id], newRecord.games.map { it.id })
@@ -27,6 +28,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.name],
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
+                it[GameRoomTable.passwordSalt],
                 GameRoomGamesService.read(id),
                 GameRoomEventsService.read(id)
             )
@@ -41,6 +43,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.name],
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
+                it[GameRoomTable.passwordSalt],
                 GameRoomGamesService.read(id),
                 GameRoomEventsService.read(id)
             )

@@ -38,10 +38,9 @@ export class SignUpPlayerComponent {
         const surname = this.signUpForm.get('surname')?.value;
         const email = this.signUpForm.get('email')?.value;
         const password = this.hashService.hash(this.signUpForm.get('password')?.value);
-        console.log(password)
 
         this.playerService.signUp(name, surname, email, password).subscribe({
-            next: response => {
+            next: () => {
                 this.router.navigate(['player/sign-in']).catch(console.error);
             },
             error: error => {

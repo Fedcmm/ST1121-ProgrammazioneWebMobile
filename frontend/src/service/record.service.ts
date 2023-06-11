@@ -16,7 +16,7 @@ export class RecordService {
     }
 
 
-    getGameRoomRecords(gameRoomId: number|undefined): Observable<Record[]> {
+    getGameRoomRecords(gameRoomId?: number): Observable<Record[]> {
         const url = `${this.apiUrl}/gameRoom/?gameRoomId=${gameRoomId}`;
         return this.http.get<Record[]>(url);
     }

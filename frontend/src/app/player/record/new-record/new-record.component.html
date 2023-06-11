@@ -3,16 +3,17 @@
 
     <div class="form-group">
         <label for="gameRoom">Select Game Room:</label>
-        <select id="gameRoom" name="gameRoom" [(ngModel)]="selectedGameRoom">
-            <option *ngFor="let gameRoom of gameRooms" [value]="gameRoom">{{ gameRoom }}</option>
+
+        <select id="gameRoom" name="gameRoom" [(ngModel)]="selectedGameRoom" required>
+            <option *ngFor="let gameRoom of gameRooms" [ngValue]="gameRoom">{{ gameRoom.name }}</option>
         </select>
     </div>
 
-    <div class="form-group" *ngIf="selectedGameRoom !== -1">
+    <div class="form-group" *ngIf="selectedGameRoom">
         <label for="game">Select Game:</label>
 
-        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGamesInfo()>
-            <option *ngFor="let game of games" [value]="game">{{ game }}</option>
+        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGamesInfo() required>
+            <option *ngFor="let game of games" [ngValue]="game">{{ game.name }}</option>
         </select>
     </div>
 

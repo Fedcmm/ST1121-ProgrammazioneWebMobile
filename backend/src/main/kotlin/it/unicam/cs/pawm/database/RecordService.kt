@@ -10,8 +10,8 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
 
     override suspend fun add(newRecord: Record): RecordID = dbQuery {
         val insert = RecordTable.insert {
-            it[player] = newRecord.recordID.player
-            it[gameRoom] = newRecord.recordID.gameRoom
+            it[player] = newRecord.player.id
+            it[gameRoom] = newRecord.gameRoom.id
             it[game] = newRecord.game.id
             it[date] = newRecord.date
             it[score] = newRecord.score
@@ -23,7 +23,8 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
     override suspend fun read(id: RecordID): Record? = dbQuery {
         RecordTable.select { (RecordTable.player eq id.player) and (RecordTable.gameRoom eq id.gameRoom) }.mapNotNull {
             Record(
-                RecordID(it[RecordTable.player], it[RecordTable.gameRoom]),
+                PlayerService.read(it[RecordTable.player])!!,
+                GameRoomService.read(it[RecordTable.gameRoom])!!,
                 GameService.read(it[RecordTable.game])!!,
                 it[RecordTable.date],
                 it[RecordTable.score],
@@ -35,7 +36,8 @@ object RecordService : DatabaseService<Record, RecordID>(RecordTable) {
     override suspend fun readAll(): List<Record> = dbQuery {
         RecordTable.selectAll().map {
             Record(
-                RecordID(it[RecordTable.player], it[RecordTable.gameRoom]),
+                PlayerService.read(it[RecordTable.player])!!,
+                GameRoomService.read(it[RecordTable.gameRoom])!!,
                 GameService.read(it[RecordTable.game])!!,
                 it[RecordTable.date],
                 it[RecordTable.score],

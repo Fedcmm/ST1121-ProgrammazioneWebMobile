@@ -1,5 +1,5 @@
 //TODO inserire i controlli nei set
-import { Password } from "../app/hash.service";
+import { Password } from "src/app/hash.service";
 
 export class Player {
     id: number;

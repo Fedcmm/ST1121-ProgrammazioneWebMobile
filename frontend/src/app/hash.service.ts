@@ -13,7 +13,6 @@ export class HashService {
     }
 
     hashWithSalt(password: string, salt: string): string {
-        console.log("Salt: " + salt);
         return bcrypt.hashSync(password, salt);
     }
 }
@@ -24,7 +23,6 @@ export class Password {
 
     constructor(password: string) {
         this.salt = bcrypt.genSaltSync(8);
-        console.log("Salt: " + this.salt);
         this.passwordHash = bcrypt.hashSync(password, this.salt);
     }
 }

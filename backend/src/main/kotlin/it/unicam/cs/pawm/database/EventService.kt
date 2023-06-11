@@ -12,8 +12,8 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
             it[name] = newRecord.name
             it[description] = newRecord.description
             it[gameRoom] = newRecord.gameRoom.id
-            it[dateStart] = newRecord.dateStart
-            it[dateEnd] = newRecord.dateEnd
+            it[startDate] = newRecord.startDate
+            it[endDate] = newRecord.endDate
         }
         insert[EventTable.id]
     }
@@ -25,8 +25,8 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
                 it[EventTable.name],
                 it[EventTable.description],
                 GameRoomService.read(it[EventTable.gameRoom])!!,
-                it[EventTable.dateStart],
-                it[EventTable.dateEnd]
+                it[EventTable.startDate],
+                it[EventTable.endDate]
             )
         }.singleOrNull()
     }
@@ -38,8 +38,8 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
                 it[EventTable.name],
                 it[EventTable.description],
                 GameRoomService.read(it[EventTable.gameRoom])!!,
-                it[EventTable.dateStart],
-                it[EventTable.dateEnd]
+                it[EventTable.startDate],
+                it[EventTable.endDate]
             )
         }
     }
@@ -56,8 +56,8 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
                 it[name] = updRecord.name
                 it[description] = updRecord.description
                 it[gameRoom] = updRecord.gameRoom.id
-                it[dateStart] = updRecord.dateStart
-                it[dateEnd] = updRecord.dateEnd
+                it[startDate] = updRecord.startDate
+                it[endDate] = updRecord.endDate
             }
         }
     }

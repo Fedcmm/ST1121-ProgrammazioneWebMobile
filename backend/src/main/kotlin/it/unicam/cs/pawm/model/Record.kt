@@ -8,7 +8,8 @@ import java.time.LocalDate
 
 @Serializable
 data class Record(
-    val recordID: RecordID,
+    val player: Player,
+    val gameRoom: GameRoom,
     val game: Game,
     @Contextual val date: LocalDate,
     val score: Int,

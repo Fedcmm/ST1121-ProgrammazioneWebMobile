@@ -12,8 +12,8 @@ data class Event(
     val name: String,
     val description: String,
     val gameRoom: GameRoom,
-    @Contextual val dateStart: LocalDate,
-    @Contextual val dateEnd: LocalDate,
+    @Contextual val startDate: LocalDate,
+    @Contextual val endDate: LocalDate,
     //Aggiungere altri campi
 )
 
@@ -22,8 +22,8 @@ object EventTable : Table() {
     val name = varchar("name", 50)
     val description = varchar("description", 50)
     val gameRoom = reference("gameRoom", GameRoomTable.id)
-    val dateStart = date("dateStart")
-    val dateEnd = date("dateEnd")
+    val startDate = date("startDate")
+    val endDate = date("endDate")
 
     override val primaryKey = PrimaryKey(id)
 }
