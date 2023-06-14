@@ -17,7 +17,7 @@ export class GameService {
     }
 
 
-    getGames(gameRoomId: number): Observable<Game[]> {
+    getGames(gameRoomId: number | undefined): Observable<Game[]> {
         const url = `${this.apiUrl}/${gameRoomId}/games`;
         return this.http.get<Game[]>(url);
     }
