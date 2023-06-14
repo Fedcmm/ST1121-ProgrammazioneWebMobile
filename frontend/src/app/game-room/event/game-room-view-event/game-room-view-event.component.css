@@ -1,4 +1,4 @@
-.arcade-game-room-view-event {
+.game-room-view-event {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,16 +9,16 @@
     margin: 0 auto;
 }
 
-.arcade-game-room-view-event h2 {
+.game-room-view-event h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.arcade-game-room-view-event ul {
+.game-room-view-event ul {
     list-style-type: none;
     padding: 0;
 }
 
-.arcade-game-room-view-event li {
+.game-room-view-event li {
     margin-bottom: 5px;
 }

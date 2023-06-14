@@ -6,7 +6,7 @@ import { EventService } from 'src/service/event.service';
 import { GameRoomService} from "src/service/game-room.service";
 
 @Component({
-    selector: 'app-view-events',
+    selector: 'game-room-view-events',
     templateUrl: './game-room-view-event.component.html',
     styleUrls: ['./game-room-view-event.component.css']
 })
