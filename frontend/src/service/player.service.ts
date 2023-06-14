@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
-import { HashService, Password } from "src/service/hash.service";
+import { HashService } from "src/service/hash.service";
 
 @Injectable({
     providedIn: 'root'
@@ -53,8 +53,8 @@ export class PlayerService {
         return this.http.post(`${this.apiUrl}/login`, body);
     }
 
-    signUp(name: string, surname: string, email: string, password: Password): Observable<any> {
-        return this.http.post(`${this.apiUrl}/signup`, new Player(-1, name, surname, email, password));
+    signUp(player: Player): Observable<any> {
+        return this.http.post(`${this.apiUrl}/signup`, player);
     }
 
     updatePlayer(player: Player): Observable<Player> {

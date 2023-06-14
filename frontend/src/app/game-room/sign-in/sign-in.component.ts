@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HashService } from "src/app/hash.service";
 
-import {AuthenticationInterceptor} from "../../util/authentication.interceptor";
+import { HashService } from "src/service/hash.service";
+import { AuthenticationInterceptor } from "src/app/util/authentication.interceptor";
 
 @Component({
   selector: 'app-sign-in',

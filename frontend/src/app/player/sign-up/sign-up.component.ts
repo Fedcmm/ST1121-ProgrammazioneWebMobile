@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
 import { HashService } from "src/service/hash.service";
+import { Player } from "src/model/Player";
 
 @Component({
     selector: 'app-signup',
@@ -14,6 +15,7 @@ export class SignUpPlayerComponent {
     signUpForm: FormGroup = this.formBuilder.group({
         name: '',
         surname: '',
+        username: '',
         email: '',
         password: ''
     });
@@ -33,12 +35,14 @@ export class SignUpPlayerComponent {
             return;
         }
 
-        const name = this.signUpForm.get('name')?.value;
-        const surname = this.signUpForm.get('surname')?.value;
-        const email = this.signUpForm.get('email')?.value;
-        const password = this.hashService.hash(this.signUpForm.get('password')?.value);
+        let name = this.signUpForm.get('name')?.value;
+        let surname = this.signUpForm.get('surname')?.value;
+        let username = this.signUpForm.get('username')?.value;
+        let email = this.signUpForm.get('email')?.value;
+        let password = this.hashService.hash(this.signUpForm.get('password')?.value);
 
-        this.playerService.signUp(name, surname, email, password).subscribe({
+        let player = new Player(-1, name, surname, username, email, password)
+        this.playerService.signUp(player).subscribe({
             next: () => {
                 this.router.navigate(['player/sign-in']).catch(console.error);
             },

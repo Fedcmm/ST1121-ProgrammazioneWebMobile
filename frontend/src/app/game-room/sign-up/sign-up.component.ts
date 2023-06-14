@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {HashService} from "../../hash.service";
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {GameRoom} from "../../../model/GameRoom"
+import { GameRoom } from "src/model/GameRoom"
+import { HashService } from "src/service/hash.service";
 
 @Component({
     selector: 'app-sign-up',

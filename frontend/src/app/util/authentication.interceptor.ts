@@ -5,12 +5,15 @@ import {
     HttpEvent,
     HttpInterceptor, HTTP_INTERCEPTORS
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { Player } from "src/model/Player";
+import { GameRoom } from "src/model/GameRoom";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
 
     static token?: string;
+    static user?: Player | GameRoom;
 
 
     constructor() {}

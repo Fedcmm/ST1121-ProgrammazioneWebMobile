@@ -23,7 +23,7 @@ export class SignInPlayerComponent {
         });
     }
 
-    signIn(): void {
+    signIn() {
         if (this.signInForm.invalid)
             return;
 
@@ -33,8 +33,9 @@ export class SignInPlayerComponent {
         this.playerService.getSalt(username).subscribe({
             next: response => {
                 this.playerService.signIn(username, password, response.salt).subscribe({
-                    next: ({ token }) => {
+                    next: ({ id, token }) => {
                         AuthenticationInterceptor.token = token;
+                        this.setUser(id);
                         this.router.navigate(['/player/profile']).catch(console.error);
                     },
                     error: error => {
@@ -46,5 +47,16 @@ export class SignInPlayerComponent {
                 console.error(error)
             }
         })
+    }
+
+    private setUser(id: number) {
+        this.playerService.getPlayer(id).subscribe({
+            next: user => {
+                AuthenticationInterceptor.user = user;
+            },
+            error: error => {
+                console.error(error);
+            }
+        });
     }
 }

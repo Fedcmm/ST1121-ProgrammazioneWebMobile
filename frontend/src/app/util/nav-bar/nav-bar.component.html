@@ -1,12 +1,14 @@
-<nav class="arcade-menu">
-    <div class="arcade-player-logo">
-        <img src="#" alt="Logo">
-        <h1>Game Room</h1>
+<nav class="nav-bar">
+    <div class="logo">
+        <a>
+            <img src="#" alt="Logo">
+        </a>
+        <h2>{{ username }}</h2>
     </div>
-    <ul class="arcade-menu">
+
+    <ul class="menu">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Games</a></li>
-        <li><a href="#">Leaderboard</a></li>
-        <li><a href="#" (click)="logout()">Sign Out</a></li>
+        <li><a routerLink="/games">Games</a></li>
+        <li><a [routerLink]="afterLogoutRoute" (click)="logout()">Sign Out</a></li>
     </ul>
 </nav>

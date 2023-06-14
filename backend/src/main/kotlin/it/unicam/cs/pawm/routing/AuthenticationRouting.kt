@@ -28,6 +28,11 @@ fun Route.authenticationRouting() {
                 return@post
             }
 
+            if (PlayerService.usernameExists(player.username)) {
+                call.respondText("Username is already used", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+
             if (player.name.isBlank() || player.surname.isBlank()) {
                 call.respondText("Invalid information", status = HttpStatusCode.BadRequest)
                 return@post
@@ -79,7 +84,7 @@ fun Route.authenticationRouting() {
         }
 
         post("/refresh") {
-            val email = call.receive<String>() // TODO (28/05/23): Maybe remove
+            val email = call.receive<String>() // TODO (28/05/23): Remove
 
             val oldRefresh = validateRefresh() ?: return@post
             val id = oldRefresh.getClaim("id").asInt()
@@ -104,7 +109,7 @@ private fun ApplicationResponse.addRefreshCookie(refresh: String) {
 
 private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): DecodedJWT? {
     val cookieToken = call.request.cookies["refresh_token"] ?: run {
-        call.respondText("Refresh token is missing", status = HttpStatusCode.Unauthorized)
+        call.respondText("Refresh token is missing", status = HttpStatusCode.BadRequest)
         return null
     }
     val oldToken = application.verifyRefresh(cookieToken) ?: run {
