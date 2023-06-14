@@ -37,10 +37,6 @@ export class PlayerService {
         return name;
     }
 
-    navigateToPlayerProfile(playerId: number): void {
-        //Reindirizza al componente o alla path
-    }
-
     getSalt(email: string): Observable<any> {
         return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
     }
