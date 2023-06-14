@@ -4,7 +4,6 @@ import { HashService } from "src/app/hash.service";
 import { Observable } from 'rxjs';
 
 import { GameRoom } from 'src/model/GameRoom';
-import {Game} from "src/model/Game";
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +24,7 @@ export class GameRoomService {
         return this.http.get<GameRoom[]>(url);
     }
 
-    getGameRoom(gameRoomId: number): Observable<GameRoom> {
+    getGameRoom(gameRoomId: number | undefined): Observable<GameRoom> {
         const url: string = `${this.apiUrl}/${gameRoomId}`;
         return this.http.get<GameRoom>(url);
     }
@@ -39,11 +38,6 @@ export class GameRoomService {
         });
 
         return name;
-    }
-
-    //TODO: Aggiungere al backend
-    getGamesOfGameRoom(gameRoomId: number | undefined): Observable<Game[]> {
-        return this.http.get<Game[]>(`${this.apiUrl}/${gameRoomId}/games`);
     }
 
     //TODO: Cosa deve restituire?

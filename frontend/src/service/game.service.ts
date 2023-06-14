@@ -38,8 +38,10 @@ export class GameService {
         return name;
     }
 
-    navigateToGameProfile(gameId: number): void {
-        // Implementa la logica per reindirizzare alla pagina del profilo del game
+
+    //TODO: Aggiungere al backend
+    getGameRoomGames(gameRoomId: number | undefined): Observable<Game[]> {
+        return this.http.get<Game[]>(`${this.apiUrl}/games/${gameRoomId}`);
     }
 
     createGame(game: Game): Observable<Game> {

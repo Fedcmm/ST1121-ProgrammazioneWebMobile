@@ -1,0 +1,15 @@
+<div class="arcade-game-room-profile">
+    <h2>GameRoom profile</h2>
+
+    <h2>{{ gameRoom?.name }}</h2>
+
+    <div class="label">Total Records:</div>
+    <div class="value">{{ recordsLength }}</div>
+
+    <div class="label">Total events:</div>
+    <div class="value">{{ events.length }}</div>
+
+
+    <h3>Events:</h3>
+    <app-view-events [isGameRoomProfile]="true" (receivedEvents)="onEventsReceived($event)"/>
+</div>

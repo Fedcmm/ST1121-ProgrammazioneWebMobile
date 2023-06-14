@@ -1,4 +1,4 @@
-.arcade-game-room-delete-event {
+.game-room-delete-events {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,31 +9,31 @@
     margin: 0 auto;
 }
 
-.arcade-game-room-delete-event h2 {
+.game-room-delete-events h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.arcade-game-room-delete-event ul {
+.game-room-delete-events ul {
     list-style-type: none;
     padding: 0;
 }
 
-.arcade-game-room-delete-event li {
+.game-room-delete-events li {
     margin-bottom: 5px;
 }
 
-.arcade-game-room-delete-event label {
+.game-room-delete-events label {
     display: block;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.arcade-game-room-delete-event input[type="checkbox"] {
+.game-room-delete-events input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.arcade-game-room-delete-event button {
+.game-room-delete-events button {
     background-color: #f44336;
     color: #fff;
     border: none;

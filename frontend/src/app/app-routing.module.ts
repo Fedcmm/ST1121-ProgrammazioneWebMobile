@@ -5,14 +5,15 @@ import { PageNotFoundComponent } from "./util/page-not-found/page-not-found.comp
 
 import { SignUpPlayerComponent } from "./player/sign-up/sign-up.component";
 import { SignInPlayerComponent } from "./player/sign-in/sign-in.component";
-import { ProfileComponent } from "./player/profile/profile.component";
+import { PlayerProfileComponent } from "./player/player-profile/player-profile.component";
 import { NewRecordComponent } from "./player/record/new-record/new-record.component";
-import { ViewRecordsComponent } from "./player/record/view-records/view-records.component";
+import { PlayerViewRecordsComponent } from "./player/record/player-view-records/player-view-records.component";
 
 import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
+import {GameRoomViewEventsComponent} from "./game-room/event/game-room-view-event/game-room-view-event.component";
 
 const routes: Routes = [
     {
@@ -32,11 +33,11 @@ const routes: Routes = [
     },
     {
         path: 'player/profile',
-        component: ProfileComponent
+        component: PlayerProfileComponent
     },
     {
         path: 'player/:id',
-        component: ProfileComponent
+        component: PlayerProfileComponent
     },
     {
         path: 'player/new-record',
@@ -44,7 +45,7 @@ const routes: Routes = [
     },
     {
         path: 'player/view-records',
-        component: ViewRecordsComponent
+        component: PlayerViewRecordsComponent
     },
     //endregion
 
@@ -76,7 +77,10 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    declarations: [
+        GameRoomViewEventsComponent
+    ],
+    exports: [RouterModule, GameRoomViewEventsComponent]
 })
 export class AppRoutingModule {
 }

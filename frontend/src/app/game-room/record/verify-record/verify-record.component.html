@@ -4,15 +4,15 @@
     <ul>
         <li *ngFor="let record of notVerifiedRecords">
             <div class="GameRoom"> GameRoom:
-                <a [routerLink]="'/game-room/' + record.gameRoom" class = "value"> {{ getGameRoomName(record.gameRoom)}} </a>
+                <a [routerLink]="'/game-room/' + record.gameRoom" class = "value"> {{ record.gameRoom.name}} </a>
             </div>
 
             <div class="Game"> Game:
-                <a [routerLink]="'/game/' + record.game" class = "value"> {{ getGameName(record.game)}} </a>
+                <a [routerLink]="'/game/' + record.game" class = "value"> {{ record.game.name}} </a>
             </div>
 
             <div class="Player"> Player:
-                <a [routerLink]="'/player/' + record.player" class = "value"> {{ getPlayerName(record.player)}} </a>
+                <a [routerLink]="'/player/' + record.player" class = "value"> {{ record.player?.name}} </a>
             </div>
 
             <div class="Score"> <strong>Score:</strong>
