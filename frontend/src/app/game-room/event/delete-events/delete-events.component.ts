@@ -13,7 +13,9 @@ export class DeleteEventsComponent implements OnInit {
     eventsToDelete: Event[] = [];
 
 
-    constructor(private eventService: EventService) {}
+    constructor(
+        private eventService: EventService
+    ) { }
 
 
     ngOnInit() {

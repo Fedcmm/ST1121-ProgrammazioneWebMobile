@@ -1,0 +1,27 @@
+.arcade-game-room-profile {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.arcade-game-room-profile h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.arcade-game-room-profile h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.arcade-game-room-profile .label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.arcade-game-room-profile .value {
+    font-size: 16px;
+    margin-bottom: 10px;
+}

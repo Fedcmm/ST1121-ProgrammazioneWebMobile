@@ -15,37 +15,17 @@ export class GameRoomGamesComponent implements OnInit {
         private gameRoomService: GameRoomService,
         private gameService: GameService,
         private route: ActivatedRoute
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.getGamesOfGameRoom(id ? parseInt(id) : undefined);
-
-    }
-
-    getGamesOfGameRoom(id: number | undefined): void {
-        this.gameRoomService.getGamesOfGameRoom(id).subscribe({
+        this.gameService.getGameRoomGames(id ? parseInt(id) : undefined).subscribe({
             next: (games: Game[]) => {
                 this.games = games;
             },
             error: console.error
         });
-    }
 
-    getGameRoomName(gameRoomId: number): string {
-        let gameRoomNameToReturn = ""
-        this.gameRoomService.getGameRoom(gameRoomId).subscribe({
-                next: (gameRoom) => {
-                    gameRoomNameToReturn = gameRoom.name
-                }
-            }
-        )
-        return gameRoomNameToReturn;
-    }
-
-    getGameName(gameId: number): string {
-        return this.gameService.getGameName(gameId);
     }
 }

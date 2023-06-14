@@ -27,4 +27,4 @@ Esegui ```ng e2e``` per eseguire i test end-to-end tramite una piattaforma di tu
 Per utilizzare questo comando, è necessario prima aggiungere un pacchetto che implementa le funzionalità di test end-to-end.
 
 ## Further help
-Per ottenere ulteriore aiuto sull'Angular CLI usa ```ng help``` o vai a controllare la pagina [Angular CLI Overview and Command Reference](https://angular.io/cli).
+Per ottenere ulteriore aiuto sull' Angular CLI usa ```ng help``` o vai a controllare la pagina [Angular CLI Overview and Command Reference](https://angular.io/cli).

@@ -8,11 +8,11 @@ import { GameRoomService } from "src/service/game-room.service";
 import { GameService } from "src/service/game.service";
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.css']
+    selector: 'app-player-profile',
+    templateUrl: './player-profile.component.html',
+    styleUrls: ['./player-profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class PlayerProfileComponent implements OnInit {
     player?: Player;
     records: Record[] = [];
 

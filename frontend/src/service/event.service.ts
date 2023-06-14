@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Event } from 'src/model/Event';
 
 @Injectable({
@@ -11,8 +11,9 @@ export class EventService {
     private apiUrl = 'url_da_cambiare';
 
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient
+    ) { }
 
     getEvents(gameRoomId?: number): Observable<Event[]> {
         const url = `${this.apiUrl}?gameRoomId=${gameRoomId}`;
@@ -24,10 +25,9 @@ export class EventService {
         return this.http.get<Event>(url);
     }
 
-    getEventName(eventId: number): Observable<string> {
-        return this.getEvent(eventId).pipe(
-            map(Event => Event.name)
-        );
+    getGameRoomEvents(gameRoomId: number | undefined): Observable<Event[]> {
+        const url = `${this.apiUrl}/gameRoom/?gameRoomId=${gameRoomId}`;
+        return this.http.get<Event[]>(url);
     }
 
     createEvent(event: Event): Observable<Event> {
@@ -41,7 +41,7 @@ export class EventService {
             return this.http.put<Event>(url, event);
         }
     */
-    deleteEvent(eventId: number): Observable<Event> {
+    deleteEvent(eventId: number | undefined): Observable<Event> {
         const url = `${this.apiUrl}/${eventId}`;
         return this.http.delete<Event>(url);
     }

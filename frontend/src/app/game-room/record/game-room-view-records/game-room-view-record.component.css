@@ -1,4 +1,4 @@
-.game-room-verify-record {
+.game-room-view-record {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,31 +9,31 @@
     margin: 0 auto;
 }
 
-.game-room-verify-record h2 {
+.game-room-view-record h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.game-room-verify-record ul {
+.game-room-view-record ul {
     list-style-type: none;
     padding: 0;
 }
 
-.game-room-verify-record li {
+.game-room-view-record li {
     margin-bottom: 5px;
 }
 
-.game-room-verify-record label {
+.game-room-view-record label {
     display: block;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.game-room-verify-record input[type="checkbox"] {
+.game-room-view-record input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.game-room-verify-record button {
+.game-room-view-record button {
     background-color: #f44336;
     color: #fff;
     border: none;

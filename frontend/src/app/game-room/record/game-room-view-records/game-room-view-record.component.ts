@@ -9,10 +9,10 @@ import { map } from "rxjs";
 
 @Component({
     selector: 'app-game-room-record',
-    templateUrl: './game-room-record.component.html',
-    styleUrls: ['./game-room-record.component.css']
+    templateUrl: './game-room-view-record.component.html',
+    styleUrls: ['./game-room-view-record.component.css']
 })
-export class GameRoomRecordComponent implements OnInit {
+export class GameRoomViewRecordComponent implements OnInit{
     verifiedRecords: Record[] = [];
 
 

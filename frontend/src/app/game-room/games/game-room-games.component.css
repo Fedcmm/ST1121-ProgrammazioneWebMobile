@@ -1,0 +1,24 @@
+.game-room-games {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.game-room-games h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.game-room-games ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.game-room-games li {
+    margin-bottom: 5px;
+}

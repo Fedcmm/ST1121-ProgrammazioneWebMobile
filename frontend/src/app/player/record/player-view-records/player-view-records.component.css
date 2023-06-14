@@ -1,4 +1,4 @@
-.arcade-new-record {
+.arcade-player-view-record {
     padding: 20px;
     margin: 0 auto;
     max-width: 1000px;
@@ -6,12 +6,12 @@
     text-align: center;
 }
 
-.arcade-new-record h2 {
+.arcade-player-view-record h2 {
     margin-bottom: 20px;
     font-size: x-large;
 }
 
-.arcade-new-record .record {
+.arcade-player-view-record .record {
     padding: 20px;
     margin: 5px;
     text-align: start;
@@ -20,27 +20,28 @@
     display: inline-block;
 }
 
-.arcade-new-record .label {
+.arcade-player-view-record .label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.arcade-new-record .value {
+.arcade-player-view-record .value {
     margin-bottom: 10px;
     font-size: large;
 }
 
-.arcade-new-record a {
+.arcade-player-view-record a {
     color: white;
+    color: #fff;
     text-decoration: none;
 }
 
-.arcade-new-record a:hover {
+.arcade-player-view-record a:hover {
     color: #f44336;
 }
 
-.arcade-new-record button {
+.arcade-player-view-record button {
     padding: 10px 20px;
     background-color: #f44336;
     color: white;
@@ -50,7 +51,7 @@
     cursor: pointer;
 }
 
-.arcade-new-record p {
+.arcade-player-view-record p {
     margin-top: 20px;
     font-size: small;
 }

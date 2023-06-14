@@ -9,11 +9,11 @@ import { GameService } from "src/service/game.service";
 import { map } from "rxjs";
 
 @Component({
-    selector: 'app-view-records',
-    templateUrl: './view-records.component.html',
-    styleUrls: ['./view-records.component.css']
+    selector: 'app-player-view-records',
+    templateUrl: './player-view-records.component.html',
+    styleUrls: ['./player-view-records.component.css']
 })
-export class ViewRecordsComponent implements OnInit {
+export class PlayerViewRecordsComponent implements OnInit {
     @Input() isPlayerProfile = false;
     @Output() receivedRecords = new EventEmitter<Record[]>();
 
