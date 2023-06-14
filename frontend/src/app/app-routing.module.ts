@@ -13,8 +13,6 @@ import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
-import {GameRoomViewEventsComponent} from "./game-room/event/game-room-view-event/game-room-view-event.component";
-import {NgForOf} from "@angular/common";
 
 const routes: Routes = [
     {
@@ -37,16 +35,16 @@ const routes: Routes = [
         component: PlayerProfileComponent
     },
     {
-        path: 'player/:id',
-        component: PlayerProfileComponent
-    },
-    {
         path: 'player/new-record',
         component: NewRecordComponent
     },
     {
         path: 'player/view-records',
         component: PlayerViewRecordsComponent
+    },
+    {
+        path: 'player/:id',
+        component: PlayerProfileComponent
     },
     //endregion
 
@@ -77,11 +75,9 @@ const routes: Routes = [
 
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes), NgForOf],
-    declarations: [
-        GameRoomViewEventsComponent
-    ],
-    exports: [RouterModule, GameRoomViewEventsComponent]
+    imports: [RouterModule.forRoot(routes)],
+    declarations: [],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

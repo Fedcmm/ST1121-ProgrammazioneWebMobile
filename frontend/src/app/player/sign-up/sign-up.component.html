@@ -1,4 +1,4 @@
-<div class="arcade-player-sign-up">
+<div class="player-sign-up">
     <h2>Sign Up</h2>
 
     <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
@@ -14,7 +14,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" formControlName="password" required>
 
-        <button type="submit">Sign Up</button>
+        <input type="submit" value="Sign Up">
     </form>
 
     <p>Already have an account?<br><a routerLink="/player/sign-in">Sign In</a></p>

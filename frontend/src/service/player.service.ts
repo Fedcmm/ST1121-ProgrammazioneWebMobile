@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
-import { HashService, Password } from "src/app/hash.service";
+import { HashService, Password } from "src/service/hash.service";
 
 @Injectable({
     providedIn: 'root'

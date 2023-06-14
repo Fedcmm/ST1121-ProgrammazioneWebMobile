@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HashService } from "src/app/hash.service";
+import { HashService } from "src/service/hash.service";
 import { Observable } from 'rxjs';
 
 import { GameRoom } from 'src/model/GameRoom';
+import { Game } from "src/model/Game";
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,10 @@ export class GameRoomService {
         });
 
         return name;
+    }
+
+    getGames(gameRoomId: number): Observable<Game[]> {
+        return this.http.get<Game[]>(`${this.apiUrl}/${gameRoomId}/games`);
     }
 
     //TODO: Cosa deve restituire?

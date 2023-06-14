@@ -13,14 +13,8 @@ export class GameService {
 
     constructor(
         private http: HttpClient
-    ) {
-    }
+    ) {}
 
-
-    getGames(gameRoomId: number): Observable<Game[]> {
-        const url = `${this.apiUrl}/${gameRoomId}/games`;
-        return this.http.get<Game[]>(url);
-    }
 
     getGame(gameId: number): Observable<Game> {
         const url = `${this.apiUrl}/${gameId}`;
@@ -37,7 +31,6 @@ export class GameService {
 
         return name;
     }
-
 
     //TODO: Aggiungere al backend
     getGameRoomGames(gameRoomId: number | undefined): Observable<Game[]> {

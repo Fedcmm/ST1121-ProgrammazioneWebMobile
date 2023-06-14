@@ -1,4 +1,4 @@
-.arcade-player-sign-up {
+.player-sign-up {
     padding: 20px;
     margin: 0 auto;
     max-width: 450px;
@@ -6,19 +6,19 @@
     border-radius: 5px;
 }
 
-.arcade-player-sign-up h2 {
+.player-sign-up h2 {
     margin-bottom: 20px;
     font-size: x-large;
 }
 
-.arcade-player-sign-up label {
+.player-sign-up label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.arcade-player-sign-up input[type="text"],
-.arcade-player-sign-up input[type="password"] {
+.player-sign-up input[type="text"],
+.player-sign-up input[type="password"] {
     padding: 15px;
     margin-bottom: 15px;
     width: 100%;
@@ -27,9 +27,9 @@
     border-radius: 3px;
 }
 
-.arcade-player-sign-up button {
+.player-sign-up input[type="submit"] {
     padding: 10px 20px;
-    background-color: #f44336;
+    background-color: var(--accent-color);
     color: white;
     font-size: medium;
     border: none;
@@ -37,12 +37,12 @@
     cursor: pointer;
 }
 
-.arcade-player-sign-up p {
+.player-sign-up p {
     font-size: small;
     margin-top: 20px;
 }
 
-.arcade-player-sign-up a {
-    color: #f44336;
+.player-sign-up a {
+    color: var(--accent-color);
     text-decoration: none;
 }

@@ -1,27 +1,27 @@
-.arcade-player-profile {
+.player-profile {
     padding: 20px;
     margin: 0 auto;
     max-width: 1000px;
 }
 
-.arcade-player-profile h2 {
+.player-profile h2 {
     margin-bottom: 20px;
     font-size: x-large;
     text-align: center;
 }
 
-.arcade-player-profile h3 {
+.player-profile h3 {
     font-size: larger;
     margin-bottom: 10px;
 }
 
-.arcade-player-profile .label {
+.player-profile .label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.arcade-player-profile .value {
+.player-profile .value {
     margin-bottom: 10px;
     font-size: large;
 }

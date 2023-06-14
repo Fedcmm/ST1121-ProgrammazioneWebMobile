@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
-import { HashService } from "src/app/hash.service";
+import { HashService } from "src/service/hash.service";
 
 @Component({
     selector: 'app-signup',
@@ -10,7 +10,13 @@ import { HashService } from "src/app/hash.service";
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpPlayerComponent {
-    signUpForm: FormGroup;
+
+    signUpForm: FormGroup = this.formBuilder.group({
+        name: '',
+        surname: '',
+        email: '',
+        password: ''
+    });
 
 
     constructor(
@@ -18,14 +24,7 @@ export class SignUpPlayerComponent {
         private playerService: PlayerService,
         private hashService: HashService,
         private router: Router
-    ) {
-        this.signUpForm = this.formBuilder.group({
-            name: '',
-            surname: '',
-            email: '',
-            password: ''
-        });
-    }
+    ) {}
 
 
     signUp() {

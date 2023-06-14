@@ -1,4 +1,4 @@
-.arcade-new-record {
+.player-new-record {
     padding: 20px;
     margin: 0 auto;
     border-radius: 5px;
@@ -6,25 +6,39 @@
     max-width: 450px;
 }
 
-.arcade-new-record h2 {
+.player-new-record h2 {
     margin-bottom: 20px;
     font-size: x-large;
 }
 
-.arcade-new-record .label {
+.player-new-record label {
     margin-bottom: 5px;
     display: block;
     font-size: medium;
 }
 
-.arcade-new-record .value {
-    margin-bottom: 10px;
-    font-size: large;
+.player-new-record select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: small;
+    border: none;
+    border-radius: 3px;
 }
 
-.arcade-new-record button {
-    background-color: #f44336;
-    color: #fff;
+.player-new-record input[type="number"],
+.player-new-record input[type="date"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: small;
+    border: none;
+    border-radius: 3px;
+}
+
+.player-new-record input[type="submit"] {
+    background-color: var(--accent-color);
+    color: white;
     padding: 10px 20px;
     font-size: large;
     border: none;
@@ -32,7 +46,7 @@
     cursor: pointer;
 }
 
-.arcade-new-record p {
+.player-new-record p {
     margin-top: 20px;
     font-size: medium;
 }

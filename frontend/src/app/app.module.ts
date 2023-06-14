@@ -21,12 +21,12 @@ import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { DeleteEventsComponent } from './game-room/event/delete-events/delete-events.component';
-import { ViewEventsComponent } from './game-room/event/game-room-view-event/game-room-view-event.component';
 import { GameRoomProfileComponent } from './game-room/game-room-profile/game-room-profile.component';
 import { GameRoomGamesComponent } from './game-room/games/game-room-games.component';
 import { GameRoomViewRecordComponent } from './game-room/record/game-room-view-records/game-room-view-record.component';
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
 import { DeleteRecordComponent } from './game-room/record/delete-record/delete-record.component';
+import { GameRoomViewEventsComponent } from "./game-room/event/game-room-view-event/game-room-view-event.component";
 
 
 @NgModule({
@@ -52,7 +52,7 @@ import { DeleteRecordComponent } from './game-room/record/delete-record/delete-r
         GameRoomViewRecordComponent,
         DeleteEventsComponent,
         DeleteRecordComponent,
-        ViewEventsComponent,
+        GameRoomViewEventsComponent,
         //endregion
     ],
     imports: [
