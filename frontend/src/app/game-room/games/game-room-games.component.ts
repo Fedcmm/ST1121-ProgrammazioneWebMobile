@@ -5,7 +5,7 @@ import { GameService } from "src/service/game.service";
 import { Game } from "src/model/Game";
 
 @Component({
-    selector: 'app-game-room-games',
+    selector: 'game-room-games',
     templateUrl: './game-room-games.component.html',
     styleUrls: ['./game-room-games.component.css']
 })

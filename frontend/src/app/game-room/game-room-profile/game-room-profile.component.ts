@@ -9,7 +9,7 @@ import { EventService } from "src/service/event.service";
 import { RecordService } from "src/service/record.service";
 
 @Component({
-    selector: 'app-game-room-profile',
+    selector: 'game-room-profile',
     templateUrl: './game-room-profile.component.html',
     styleUrls: ['./game-room-profile.component.css']
 })

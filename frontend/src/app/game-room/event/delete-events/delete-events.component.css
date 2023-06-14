@@ -10,8 +10,8 @@
 }
 
 .game-room-delete-events h2 {
-    font-size: 24px;
     margin-bottom: 20px;
+    font-size: x-large;
 }
 
 .game-room-delete-events ul {
@@ -25,7 +25,7 @@
 
 .game-room-delete-events label {
     display: block;
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 5px;
 }
 
@@ -38,7 +38,7 @@
     color: #fff;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: medium;
     border-radius: 3px;
     cursor: pointer;
 }

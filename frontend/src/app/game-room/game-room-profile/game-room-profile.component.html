@@ -1,4 +1,4 @@
-<div class="arcade-game-room-profile">
+<div class="game-room-profile">
     <h2>GameRoom profile</h2>
 
     <h2>{{ gameRoom?.name }}</h2>
@@ -11,5 +11,5 @@
 
 
     <h3>Events:</h3>
-    <app-view-events [isGameRoomProfile]="true" (receivedEvents)="onEventsReceived($event)"/>
+    <game-room-view-events [isGameRoomProfile]="true" (receivedEvents)="onEventsReceived($event)"/>
 </div>

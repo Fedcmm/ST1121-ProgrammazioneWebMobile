@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteRecordComponent } from './delete-record.component';
+import { GameRoomDeleteRecordComponent } from './game-room-delete-record.component';
 
 describe('DeleteRecordComponent', () => {
-  let component: DeleteRecordComponent;
-  let fixture: ComponentFixture<DeleteRecordComponent>;
+  let component: GameRoomDeleteRecordComponent;
+  let fixture: ComponentFixture<GameRoomDeleteRecordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteRecordComponent ]
+      declarations: [ GameRoomDeleteRecordComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DeleteRecordComponent);
+    fixture = TestBed.createComponent(GameRoomDeleteRecordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

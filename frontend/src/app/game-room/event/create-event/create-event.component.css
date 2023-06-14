@@ -1,4 +1,4 @@
-.create-event {
+.game-room-create-event {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,23 +9,23 @@
     margin: 0 auto;
 }
 
-.create-event h2 {
-    font-size: 24px;
+.game-room-create-event h2 {
     margin-bottom: 30px;
+    font-size: x-large;
 }
 
-.create-event .form-group {
+.game-room-create-event .form-group {
     margin-bottom: 40px;
 }
 
-.create-event label {
+.game-room-create-event label {
     display: block;
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 10px;
 }
 
-.create-event input[type="text"],
-.create-event textarea {
+.game-room-create-event input[type="text"],
+.game-room-create-event textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #fff;
@@ -33,20 +33,15 @@
     background-color: transparent;
     color: #fff;
     font-family: "Press Start 2P", cursive;
-    font-size: 16px;
+    font-size: medium;
 }
 
-.create-event button {
+.game-room-create-event input[type="button"] {
     background-color: #f44336;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: medium;
     border-radius: 6px;
     cursor: pointer;
-}
-
-.create-event p {
-    font-size: 14px;
-    margin-top: 50px;
 }

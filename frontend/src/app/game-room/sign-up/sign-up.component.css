@@ -1,4 +1,4 @@
-.arcade-gameroom-sign-up {
+.game-room-sign-up {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,23 +9,23 @@
     margin: 0 auto;
 }
 
-.arcade-gameroom-sign-up h2 {
-    font-size: 24px;
+.game-room-sign-up h2 {
+    font-size: x-large;
     margin-bottom: 20px;
 }
 
-.arcade-gameroom-sign-up .form-group {
+.game-room-sign-up .form-group {
     margin-bottom: 20px;
 }
 
-.arcade-gameroom-sign-up label {
+.game-room-sign-up label {
     display: block;
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 5px;
 }
 
-.arcade-gameroom-sign-up input[type="email"],
-.arcade-gameroom-sign-up input[type="password"] {
+.game-room-sign-up input[type="email"],
+.game-room-sign-up input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #fff;
@@ -33,15 +33,15 @@
     background-color: transparent;
     color: #fff;
     font-family: "Press Start 2P", cursive;
-    font-size: 16px;
+    font-size: medium;
 }
 
-.arcade-gameroom-sign-up button {
+.game-room-sign-up input[type="button"] {
     background-color: #f44336;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: medium;
     border-radius: 3px;
     cursor: pointer;
 }

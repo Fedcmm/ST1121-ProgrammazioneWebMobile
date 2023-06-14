@@ -1,44 +1,47 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {HashService} from "../../hash.service";
-
-import {GameRoom} from "../../../model/GameRoom"
+import { Component } from '@angular/core';
+import { GameRoomService } from "src/service/game-room.service";
+import { HashService } from "src/service/hash.service";
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
-    selector: 'app-sign-up',
+    selector: 'game-room-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpGameRoomComponent {
-
-    email = "";
-    password = "";
-    confirmPassword = "";
-
-    disableButton = false;
+    signUpForm: FormGroup;
 
     constructor(
-        private http: HttpClient,
-        private hashService: HashService
+        private formBuilder: FormBuilder,
+        private hashService: HashService,
+        private gameRoomService: GameRoomService,
+        private router: Router
     ) {
+        this.signUpForm = this.formBuilder.group({
+            name: '',
+            email: '',
+            password: ''
+        });
     }
 
-    confirmedPassword() {
-        return this.password === this.confirmPassword;
-    }
 
     signUp() {
-        this.disableButton = true;
-        let body = new GameRoom(-1, "name", this.email, this.hashService.hash(this.password));
+        if (this.signUpForm.invalid) {
+            console.log("Invalid form")
+            return;
+        }
 
-        this.http.post('http://localhost:8080/gameRoom/signup', body).subscribe({
-            next: (data: any) => {
-                console.log(data);
-                this.disableButton = false;
+        const name = this.signUpForm.get('name')?.value;
+        const email = this.signUpForm.get('email')?.value;
+        const password = this.hashService.hash(this.signUpForm.get('password')?.value);
+
+        this.gameRoomService.signUp(name, email, password).subscribe({
+            next: () => {
+                this.router.navigate(['game-room/sign-in']).catch(console.error);
             },
-            error: (error: any) => {
+            error: error => {
                 console.error(error);
-                this.disableButton = false;
             }
         });
     }

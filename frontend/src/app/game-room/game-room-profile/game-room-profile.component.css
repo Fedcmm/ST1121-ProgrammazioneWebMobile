@@ -1,27 +1,27 @@
-.arcade-game-room-profile {
+.game-room-profile {
     padding: 20px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.arcade-game-room-profile h2 {
-    font-size: 24px;
+.game-room-profile h2 {
+    font-size: x-large;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.arcade-game-room-profile h3 {
-    font-size: 20px;
+.game-room-profile h3 {
+    font-size: large;
     margin-bottom: 10px;
 }
 
-.arcade-game-room-profile .label {
+.game-room-profile .label {
     display: block;
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 5px;
 }
 
-.arcade-game-room-profile .value {
-    font-size: 16px;
+.game-room-profile .value {
+    font-size: medium;
     margin-bottom: 10px;
 }

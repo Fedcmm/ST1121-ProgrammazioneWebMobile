@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
-import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+import { AuthenticationInterceptor } from "src/app/util/authentication.interceptor";
 
 @Component({
-    selector: 'app-sign-in',
+    selector: 'game-room-sign-in',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.css']
 })

@@ -1,0 +1,17 @@
+<div class="game-room-delete-record">
+
+    <h2>Elimina record</h2>
+    <p>Seleziona i record da eliminare:</p>
+
+    <ul>
+        <li *ngFor="let record of records">
+            <input type="checkbox" (change)="moveToRecordsToDelete(record)">
+            <a [routerLink]="['/player', record.player!.id]" class="value">{{ record.player!.name }}</a>
+            <a [routerLink]="['/game', record.game.id]" class="value">{{ record.game.name }}</a>
+            <span>{{ record.score }}</span>
+            <span>{{ record.date }}</span>
+        </li>
+    </ul>
+
+    <input type="button" name="deleteSelectedRecord" value="Delete selected record" (click)="deleteSelectedRecords()">
+</div>

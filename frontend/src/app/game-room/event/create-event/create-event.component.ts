@@ -7,7 +7,7 @@ import { EventService } from "src/service/event.service";
 import { GameRoomService } from "src/service/game-room.service";
 
 @Component({
-    selector: 'app-create-event',
+    selector: 'game-room-create-event',
     templateUrl: './create-event.component.html',
     styleUrls: ['./create-event.component.css']
 })
@@ -38,7 +38,7 @@ export class CreateEventComponent implements OnInit {
     }
 
     createEvent(): Subscription {
-        const event = new Event(-1, this.name, this.description, this.gameRoom?.id, this.startDate, this.endDate);
+        const event = new Event(-1, this.name, this.description, this.gameRoom, this.startDate, this.endDate);
 
         return this.eventService.createEvent(event).subscribe({
             next: (response: Event) =>

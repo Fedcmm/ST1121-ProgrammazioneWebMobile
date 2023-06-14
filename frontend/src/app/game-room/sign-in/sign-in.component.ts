@@ -1,47 +1,50 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HashService } from "src/app/hash.service";
-
-import {AuthenticationInterceptor} from "../../util/authentication.interceptor";
+import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { GameRoomService } from "../../../service/game-room.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'game-room-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInGameRoomComponent {
-
-    email= "";
-    password= "";
-
-    disableButton= false;
+    signInForm: FormGroup;
 
     constructor(
-        private http: HttpClient,
-        private hashService: HashService
+        private formBuilder: FormBuilder,
+        private gameRoomService: GameRoomService,
+        private router: Router
     ) {
+        this.signInForm = this.formBuilder.group({
+            username: '',
+            password: ''
+        });
     }
 
-    signIn() {
-        this.disableButton = true;
-        let body= {
-            email: this.email,
-            password: this.hashService.hash(this.password)
-        };
+    signIn(): void {
+        if (this.signInForm.invalid)
+            return;
 
-        this.http.post('http://localhost:8080/gameroom/login', body).subscribe({
-            next: (data: any) => {
-                console.log(data);
-                AuthenticationInterceptor.token = data.token;
-                this.disableButton = false;
+        const username = this.signInForm.get('username')?.value;
+        const password = this.signInForm.get('password')?.value;
 
-                this.email = data.email;
-                this.password = data.password;
+        this.gameRoomService.getSalt(username).subscribe({
+            next: response => {
+                this.gameRoomService.signIn(username, password, response.salt).subscribe({
+                    next: ({ token }) => {
+                        AuthenticationInterceptor.token = token;
+                        this.router.navigate(['/player/profile']).catch(console.error);
+                    },
+                    error: error => {
+                        // Errori vari: Password errata, username non esistente, ...
+                    }
+                });
             },
-            error: (error: any) => {
-                console.error(error);
-                this.disableButton = false;
+            error: error => {
+                console.error(error)
             }
-        });
+        })
     }
 }

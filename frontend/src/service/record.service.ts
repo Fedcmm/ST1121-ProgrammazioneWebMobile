@@ -46,8 +46,8 @@ export class RecordService {
         return this.http.put<Record>(url, record);
     }
 
-    deleteRecord(recordId: number): Observable<Record> {
-        const url = `${this.apiUrl}/${recordId}`;
+    deleteRecord(record: Record): Observable<Record> {
+        const url = `${this.apiUrl}/${record.player, record.gameRoom, record.game}`;
         return this.http.delete<Record>(url);
     }
 }

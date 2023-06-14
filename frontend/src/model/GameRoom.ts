@@ -1,4 +1,4 @@
-import { Password } from "src/app/hash.service";
+import { Password } from "src/service/hash.service";
 import { Game } from "./Game";
 import { Event } from "./Event";
 

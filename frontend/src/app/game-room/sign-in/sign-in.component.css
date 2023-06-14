@@ -1,4 +1,4 @@
-arcade-gameroom-sign-in {
+game-room-sign-in {
     background-color: #000;
     color: #fff;
     padding: 20px;
@@ -9,23 +9,23 @@ arcade-gameroom-sign-in {
     margin: 0 auto;
 }
 
-arcade-gameroom-sign-in h2 {
-    font-size: 24px;
+game-room-sign-in h2 {
+    font-size: x-large;
     margin-bottom: 20px;
 }
 
-arcade-gameroom-sign-in .form-group {
+game-room-sign-in .form-group {
     margin-bottom: 20px;
 }
 
-arcade-gameroom-sign-in label {
+game-room-sign-in label {
     display: block;
-    font-size: 14px;
+    font-size: medium;
     margin-bottom: 5px;
 }
 
-arcade-gameroom-sign-in input[type="email"],
-arcade-gameroom-sign-in input[type="password"] {
+game-room-sign-in input[type="email"],
+game-room-sign-in input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #fff;
@@ -36,12 +36,12 @@ arcade-gameroom-sign-in input[type="password"] {
     font-size: 16px;
 }
 
-arcade-gameroom-sign-in button {
+game-room-sign-in input[type="button"] {
     background-color: #f44336;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: medium;
     border-radius: 3px;
     cursor: pointer;
 }
