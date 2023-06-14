@@ -4,7 +4,6 @@ import {HashService, Password} from "src/service/hash.service";
 import {Observable} from 'rxjs';
 
 import {GameRoom} from 'src/model/GameRoom';
-import {Player} from "../model/Player";
 
 @Injectable({
     providedIn: 'root'

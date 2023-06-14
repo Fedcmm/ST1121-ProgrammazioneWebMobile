@@ -18,7 +18,7 @@ export class SignInPlayerComponent {
         private router: Router
     ) {
         this.signInForm = this.formBuilder.group({
-            username: '',
+            email: '',
             password: ''
         });
     }
@@ -27,7 +27,7 @@ export class SignInPlayerComponent {
         if (this.signInForm.invalid)
             return;
 
-        const username = this.signInForm.get('username')?.value;
+        const username = this.signInForm.get('email')?.value;
         const password = this.signInForm.get('password')?.value;
 
         this.playerService.getSalt(username).subscribe({

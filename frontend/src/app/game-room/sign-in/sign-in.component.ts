@@ -27,7 +27,7 @@ export class SignInGameRoomComponent {
         if (this.signInForm.invalid)
             return;
 
-        const username = this.signInForm.get('username')?.value;
+        const username = this.signInForm.get('email')?.value;
         const password = this.signInForm.get('password')?.value;
 
         this.gameRoomService.getSalt(username).subscribe({

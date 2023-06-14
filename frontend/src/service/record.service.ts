@@ -42,7 +42,7 @@ export class RecordService {
     }
 
     updateRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}/${record.player, record.gameRoom, record.game}`;
+        const url = `${this.apiUrl}/${record.player, record.gameRoom,  record.game}`;
         return this.http.put<Record>(url, record);
     }
 
