@@ -7,15 +7,15 @@
 
     <div class="record" *ngFor="let record of verifiedRecords">
         <div class="label" *ngIf="!isPlayerProfile">Player:
-            <a [routerLink]="['/player', record.player!.id]" class="value">{{ record.player }}</a>
+            <a [routerLink]="['/player', record.player!.id]" class="value">{{ record.player!.name }}</a>
         </div>
 
         <div class="label">Game Room:
-            <a [routerLink]="['/game-room', record.gameRoom.id]" class="value">{{ record.gameRoom }}</a>
+            <a [routerLink]="['/game-room', record.gameRoom.id]" class="value">{{ record.gameRoom.name }}</a>
         </div>
 
         <div class="label">Game:
-            <a [routerLink]="['/game', record.game.id]" class="value">{{ record.game }}</a>
+            <a [routerLink]="['/game', record.game.id]" class="value">{{ record.game.name }}</a>
         </div>
 
         <div class="label">Date:</div>

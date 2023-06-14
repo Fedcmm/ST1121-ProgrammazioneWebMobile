@@ -1,17 +1,15 @@
-import {Component} from '@angular/core';
-import {Subscription} from "rxjs";
-import {Event} from 'src/model/Event';
-import {EventService} from "src/service/event.service";
+import { Component } from '@angular/core';
+import { Event } from 'src/model/Event';
+import { EventService } from "src/service/event.service";
 
 @Component({
     selector: 'app-create-event',
     templateUrl: './create-event.component.html',
     styleUrls: ['./create-event.component.css']
 })
-
 export class CreateEventComponent {
-    name: string = '';
-    description: string = '';
+    name = '';
+    description = '';
 
     startDate: Date = new Date();
     endDate: Date = new Date();
@@ -20,15 +18,16 @@ export class CreateEventComponent {
         private eventService: EventService
     ) { }
 
-    createEvent(): Subscription {
-        const event = new Event(this.name, this.description, -1, this.startDate, this.endDate);
-        return this.eventService.createEvent(event).subscribe({
+    createEvent() {
+        const event = new Event(-1, this.name, this.description, undefined, this.startDate, this.endDate);
+
+        this.eventService.createEvent(event).subscribe({
             next: (response: Event) =>
             {
                 event.id = response.id;
                 console.log('Nuovo evento creato con ID:', event.id);
             },
-            error: (error: any) => {
+            error: (error) => {
                 //TODO: Gestire l'errore: utente già presente e blablabla
                 console.error('Errore durante la creazione dell\'evento:', error);
             }

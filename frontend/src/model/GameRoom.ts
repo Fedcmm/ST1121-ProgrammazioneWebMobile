@@ -11,13 +11,13 @@ export class GameRoom {
     games: Array<Game>;
     events: Array<Event>;
 
-    constructor(id: number, name: string, email: string, password: Password, games: Array<Game>, events: Array<Event>) {
+    constructor(id: number, name: string, email: string, password: Password, games?: Array<Game>, events?: Array<Event>) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password.passwordHash;
         this.passwordSalt = password.salt;
-        this.games = games;
-        this.events = events;
+        this.games = games ? games : [];
+        this.events = events ? events : [];
     }
 }

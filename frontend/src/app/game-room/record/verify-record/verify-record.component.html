@@ -3,23 +3,23 @@
 
     <ul>
         <li *ngFor="let record of notVerifiedRecords">
-            <div class="GameRoom"> GameRoom:
-                <a [routerLink]="'/game-room/' + record.gameRoom" class = "value"> {{ getGameRoomName(record.gameRoom)}} </a>
+            <div class="GameRoom">GameRoom:
+                <a [routerLink]="['/game-room/', record.gameRoom.id]" class="value"> {{ record.gameRoom.name }} </a>
             </div>
 
-            <div class="Game"> Game:
-                <a [routerLink]="'/game/' + record.game" class = "value"> {{ getGameName(record.game)}} </a>
+            <div class="Game">Game:
+                <a [routerLink]="['/game/', record.game.id]" class="value"> {{ record.game.name }} </a>
             </div>
 
-            <div class="Player"> Player:
-                <a [routerLink]="'/player/' + record.player" class = "value"> {{ getPlayerName(record.player)}} </a>
+            <div class="Player">Player:
+                <a [routerLink]="['/player/', record.player!.id]" class="value"> {{ record.player!.name }} </a>
             </div>
 
-            <div class="Score"> <strong>Score:</strong>
+            <div class="Score"><strong>Score:</strong>
                 {{ record.score }}
             </div>
 
-            <div class="Date"> Date:
+            <div class="Date">Date:
                 {{ record.date }}
             </div>
 

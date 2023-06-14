@@ -1,6 +1,6 @@
 .arcade-menu {
-    background-color: #000;
     padding: 10px;
+    background-color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,10 +12,9 @@
 }
 
 .arcade-logo h1 {
-    font-family: "Press Start 2P", cursive;
-    font-size: 24px;
-    color: #fff;
     margin-left: 10px;
+    color: white;
+    font-size: x-large;
 }
 
 .arcade-menu {
@@ -28,9 +27,8 @@
 }
 
 .arcade-menu li a {
-    font-family: "Press Start 2P", cursive;
-    font-size: 16px;
-    color: #fff;
+    font-size: large;
+    color: white;
     text-decoration: none;
 }
 

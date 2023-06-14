@@ -11,34 +11,25 @@ import { GameRoomService} from "src/service/game-room.service";
     styleUrls: ['./view-event.component.css']
 })
 export class ViewEventsComponent implements OnInit {
-    events: Event[] = []; // Array di eventi da visualizzare
+    events: Event[] = [];
+
+
     constructor(
         private eventService: EventService,
         private gameRoomService: GameRoomService,
         private route: ActivatedRoute
-    ) {}
+    ) {
+    }
+
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.eventService.getEvents(id ? parseInt(id): undefined).subscribe({
+        this.eventService.getEvents(id ? parseInt(id) : undefined).subscribe({
             next: (events: Event[]) => {
                 this.events = events;
             },
             error: console.error
         });
-    }
-
-
-    getGameRoomName(roomId: number): string {
-        let result = ""
-        this.gameRoomService.getGameRoom(roomId).subscribe({
-            next: (gameRoom) => {
-                result = gameRoom.name
-            },
-            error: console.error
-        });
-
-        return result;
     }
 }

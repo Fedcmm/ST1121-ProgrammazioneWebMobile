@@ -38,7 +38,7 @@ export class NewRecordComponent implements OnInit {
         });
     }
 
-    getGamesInfo() {
+    getGames() {
         this.gameService.getGames(this.selectedGameRoom!.id).subscribe({
             next: games => {
                 this.games = games;

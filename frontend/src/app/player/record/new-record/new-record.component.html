@@ -12,7 +12,7 @@
     <div class="form-group" *ngIf="selectedGameRoom">
         <label for="game">Select Game:</label>
 
-        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGamesInfo() required>
+        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGames() required>
             <option *ngFor="let game of games" [ngValue]="game">{{ game.name }}</option>
         </select>
     </div>
