@@ -49,7 +49,7 @@ export class GameRoomDeleteRecordComponent {
    */
   deleteSelectedRecords() {
     this.recordsToDelete.forEach((record) => {
-      this.recordService.deleteRecord(record).subscribe(() => {
+      this.recordService.deleteRecord(record.id).subscribe(() => {
         const index = this.records.indexOf(record);
         if (index !== -1) {
           this.records.splice(index, 1);

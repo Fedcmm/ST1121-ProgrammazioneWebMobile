@@ -47,7 +47,7 @@ export class NewRecordComponent implements OnInit {
     }
 
     createRecord() {
-        let record = new Record(undefined, this.selectedGameRoom!, this.selectedGame!, this.date, this.score, false);
+        let record = new Record(-1,undefined, this.selectedGameRoom!, this.selectedGame!, this.date, this.score, false);
         this.recordService.createRecord(record).subscribe({
             next: (response: Record) => {
                 record.player = response.player;

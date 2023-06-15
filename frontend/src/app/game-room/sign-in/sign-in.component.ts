@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { GameRoomService } from "../../../service/game-room.service";
+import { GameRoomService } from "src/service/game-room.service";
 import { Router } from "@angular/router";
 
 @Component({

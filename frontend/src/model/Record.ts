@@ -3,6 +3,7 @@ import { GameRoom } from "./GameRoom";
 import { Game } from "./Game";
 
 export class Record {
+    id: number;
     player?: Player; // TODO: remove optional?
     gameRoom: GameRoom;
     game: Game;
@@ -10,7 +11,8 @@ export class Record {
     score: number;
     isVerified: boolean;
 
-    constructor(player: Player | undefined, gameRoom: GameRoom, game: Game, date: Date, score: number, isVerified: boolean) {
+    constructor(id: number, player: Player | undefined, gameRoom: GameRoom, game: Game, date: Date, score: number, isVerified: boolean) {
+        this.id = id;
         this.player = player;
         this.gameRoom = gameRoom;
         this.game = game;

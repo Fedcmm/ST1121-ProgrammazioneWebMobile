@@ -31,11 +31,6 @@ export class RecordService {
         return this.http.get<Record[]>(url);
     }
 
-    getVerifiedRecords(playerId: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/player/verifiedRecord/?playerId=${playerId}`;
-        return this.http.get<Record[]>(url);
-    }
-
     createRecord(record: Record): Observable<Record> {
         const url = `${this.apiUrl}`;
         return this.http.post<Record>(url, record);
@@ -46,8 +41,8 @@ export class RecordService {
         return this.http.put<Record>(url, record);
     }
 
-    deleteRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}/${record.player, record.gameRoom, record.game}`;
+    deleteRecord(recordId: number): Observable<Record> {
+        const url = `${this.apiUrl}/${recordId}`;
         return this.http.delete<Record>(url);
     }
 }
