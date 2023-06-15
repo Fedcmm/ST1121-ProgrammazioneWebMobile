@@ -6,6 +6,7 @@ import { Game } from 'src/model/Game';
 @Injectable({
     providedIn: 'root'
 })
+//TODO: Delete?
 export class GameService {
     //TODO: mettere l'url giusto
     private apiUrl = 'url_da_cambiare';
@@ -19,22 +20,6 @@ export class GameService {
     getGame(gameId: number): Observable<Game> {
         const url = `${this.apiUrl}/${gameId}`;
         return this.http.get<Game>(url);
-    }
-
-    getGameName(gameId: number): string {
-        let name = "";
-        this.getGame(gameId).subscribe({
-            next: (game) => {
-                name = game.name
-            }
-        });
-
-        return name;
-    }
-
-    //TODO: Aggiungere al backend
-    getGameRoomGames(gameRoomId: number | undefined): Observable<Game[]> {
-        return this.http.get<Game[]>(`${this.apiUrl}/games/${gameRoomId}`);
     }
 
     createGame(game: Game): Observable<Game> {

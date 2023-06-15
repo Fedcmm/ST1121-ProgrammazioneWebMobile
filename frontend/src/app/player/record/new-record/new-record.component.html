@@ -4,13 +4,13 @@
     <form [formGroup]="newRecordForm" (ngSubmit)="createRecord()">
         <label for="gameRoom">Select Game Room:</label>
         <select id="gameRoom" formControlName="gameRoom" (change)="getGames()" required>
-            <option disabled selected ngValue="">-- Select an option--</option>
+            <option disabled selected ngValue="">-- Select an option --</option>
             <option *ngFor="let gameRoom of gameRooms" [ngValue]="gameRoom">{{ gameRoom.name }}</option>
         </select>
 
         <label for="game">Select Game:</label>
         <select id="game" formControlName="game" [disabled]="newRecordForm.get('gameRoom')!.value == ''" required>
-            <option disabled selected ngValue="">-- Select an option--</option>
+            <option disabled selected ngValue="">-- Select an option --</option>
             <option *ngFor="let game of games" [ngValue]="game">{{ game.name }}</option>
         </select>
 

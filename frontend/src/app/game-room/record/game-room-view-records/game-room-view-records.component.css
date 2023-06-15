@@ -1,4 +1,4 @@
-.game-room-verify-record {
+.game-room-view-records {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
@@ -6,31 +6,31 @@
     margin: 0 auto;
 }
 
-.game-room-verify-record h2 {
+.game-room-view-records h2 {
     font-size: x-large;
     margin-bottom: 20px;
 }
 
-.game-room-verify-record ul {
+.game-room-view-records ul {
     list-style-type: none;
     padding: 0;
 }
 
-.game-room-verify-record li {
+.game-room-view-records li {
     margin-bottom: 5px;
 }
 
-.game-room-verify-record label {
+.game-room-view-records label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.game-room-verify-record input[type="checkbox"] {
+.game-room-view-records input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.game-room-verify-record input[type="button"] {
+.game-room-view-records input[type="button"] {
     padding: 10px 20px;
     font-size: medium;
     background-color: var(--accent-color);

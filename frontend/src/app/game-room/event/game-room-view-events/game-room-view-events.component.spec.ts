@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GameRoomViewEventsComponent } from './game-room-view-event.component';
+import { GameRoomViewEventsComponent } from 'src/app/game-room/event/game-room-view-events/game-room-view-events.component';
 
 describe('GameRoomViewEventsComponent', () => {
   let component: GameRoomViewEventsComponent;

@@ -7,7 +7,6 @@ import { RecordService } from "src/service/record.service";
 import { Record } from "src/model/Record";
 import { GameRoom } from "src/model/GameRoom";
 import { Game } from "src/model/Game";
-import { Password } from "src/service/hash.service";
 
 @Component({
     selector: 'app-new-record',
@@ -16,10 +15,10 @@ import { Password } from "src/service/hash.service";
 })
 export class NewRecordComponent implements OnInit {
 
-    newRecordForm!: FormGroup;
+    newRecordForm: FormGroup;
 
-    gameRooms: GameRoom[] = [new GameRoom(0, 'Name', 'email', new Password(''), [], [])];
-    games: Game[] = [new Game(0, 'Name', 'description', [])];
+    gameRooms: GameRoom[] = [];
+    games: Game[] = [];
 
 
     constructor(
@@ -27,17 +26,17 @@ export class NewRecordComponent implements OnInit {
         private gameRoomService: GameRoomService,
         private gameService: GameService,
         private recordService: RecordService
-    ) {}
-
-
-    ngOnInit() {
+    ) {
         this.newRecordForm = this.formBuilder.group({
             gameRoom: '',
             game: '',
             score: '',
             date: ''
         });
+    }
 
+
+    ngOnInit() {
         this.gameRoomService.getGameRooms().subscribe({
             next: gameRooms => {
                 this.gameRooms = gameRooms;

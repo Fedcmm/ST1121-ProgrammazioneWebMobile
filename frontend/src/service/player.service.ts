@@ -8,6 +8,7 @@ import { HashService } from "src/service/hash.service";
     providedIn: 'root'
 })
 export class PlayerService {
+
     private apiUrl = 'http://localhost:8080/player';
 
 
@@ -15,6 +16,11 @@ export class PlayerService {
         private http: HttpClient,
         private hashService: HashService
     ) {}
+
+
+    getSalt(email: string): Observable<any> {
+        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
+    }
 
     getPlayers(): Observable<Player[]> {
         const url = `${this.apiUrl}/players`;
@@ -24,21 +30,6 @@ export class PlayerService {
     getPlayer(playerId?: number): Observable<Player> {
         const url = `${this.apiUrl}/${playerId}`;
         return this.http.get<Player>(url);
-    }
-
-    getPlayerName(playerId: number): string {
-        let name : string = "";
-        this.getPlayer(playerId).subscribe({
-            next: (player) => {
-                name = player.name
-            }
-        });
-
-        return name;
-    }
-
-    getSalt(email: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
     }
 
     signIn(username: string, password: string, salt: string): Observable<any> {

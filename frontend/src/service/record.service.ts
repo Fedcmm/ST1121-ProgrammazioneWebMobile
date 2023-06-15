@@ -16,23 +16,23 @@ export class RecordService {
     }
 
 
-    getGameRoomRecords(gameRoomId?: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/gameRoom/?gameRoomId=${gameRoomId}`;
-        return this.http.get<Record[]>(url);
-    }
-
     getRecord(recordId: number): Observable<Record> {
         const url = `${this.apiUrl}/${recordId}`;
         return this.http.get<Record>(url);
     }
 
-    getPlayerRecords(playerId?: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/player/?playerId=${playerId}`;
+    getGameRoomRecords(gameRoomId: number): Observable<Record[]> {
+        const url = `${this.apiUrl}/?gameRoomId=${gameRoomId}`;
+        return this.http.get<Record[]>(url);
+    }
+
+    getPlayerRecords(playerId: number): Observable<Record[]> {
+        const url = `${this.apiUrl}/?playerId=${playerId}`;
         return this.http.get<Record[]>(url);
     }
 
     getVerifiedRecords(playerId: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/player/verifiedRecord/?playerId=${playerId}`;
+        const url = `${this.apiUrl}/verified/?playerId=${playerId}`;
         return this.http.get<Record[]>(url);
     }
 

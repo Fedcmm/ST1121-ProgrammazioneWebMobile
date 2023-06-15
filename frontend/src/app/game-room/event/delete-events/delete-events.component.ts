@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/service/event.service';
 import { Event } from 'src/model/Event';
+import { AuthInfoService } from "src/service/auth-info.service";
+import { GameRoomService } from "src/service/game-room.service";
 
 @Component({
     selector: 'game-room-delete-events',
@@ -14,12 +16,14 @@ export class DeleteEventsComponent implements OnInit {
 
 
     constructor(
-        private eventService: EventService
-    ) { }
+        private eventService: EventService,
+        private gameRoomService: GameRoomService,
+        private authInfo: AuthInfoService
+    ) {}
 
 
     ngOnInit() {
-        this.eventService.getEvents().subscribe({
+        this.eventService.getGameRoomEvents(this.authInfo.user!.id).subscribe({
             next: (events: Event[]) => {
                 this.events = events;
             }

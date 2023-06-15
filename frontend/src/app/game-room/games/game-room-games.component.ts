@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { GameRoomService } from "src/service/game-room.service";
 import { GameService } from "src/service/game.service";
 import { Game } from "src/model/Game";
+import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
     selector: 'game-room-games',
@@ -10,22 +11,26 @@ import { Game } from "src/model/Game";
     styleUrls: ['./game-room-games.component.css']
 })
 export class GameRoomGamesComponent implements OnInit {
-    games: Game[] = []; // Array dei giochi da visualizzare
+
+    games: Game[] = [];
+
+
     constructor(
         private gameRoomService: GameRoomService,
         private gameService: GameService,
+        private authInfo: AuthInfoService,
         private route: ActivatedRoute
-    ) { }
+    ) {}
+
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.gameService.getGameRoomGames(id ? parseInt(id) : undefined).subscribe({
+        this.gameRoomService.getGames(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
             next: (games: Game[]) => {
                 this.games = games;
             },
             error: console.error
         });
-
     }
 }

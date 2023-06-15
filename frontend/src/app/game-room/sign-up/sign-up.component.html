@@ -1,5 +1,5 @@
 <div class="game-room-sign-up">
-    <h2>Sign Up</h2>
+    <h2>Game Room Sign Up</h2>
 
     <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
         <label for="name">name</label>
@@ -11,6 +11,8 @@
         <label for="password">Password</label>
         <input type="password" id="password" formControlName="password" required>
 
-        <input type="button" name="SignUp" value="Sign Up" (click)="signUp()">
+        <input type="submit" name="SignUp" value="Sign Up">
     </form>
+
+    <p>Already have an account?<br><a routerLink="/game-room/sign-in">Sign In</a></p>
 </div>

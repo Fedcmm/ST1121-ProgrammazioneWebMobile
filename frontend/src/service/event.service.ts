@@ -13,7 +13,7 @@ export class EventService {
 
     constructor(
         private http: HttpClient
-    ) { }
+    ) {}
 
     getEvents(): Observable<Event[]> {
         const url = `${this.apiUrl}/events`;
@@ -25,8 +25,8 @@ export class EventService {
         return this.http.get<Event>(url);
     }
 
-    getGameRoomEvents(gameRoomId: number | undefined): Observable<Event[]> {
-        const url = `${this.apiUrl}/gameRoom/?gameRoomId=${gameRoomId}`;
+    getGameRoomEvents(gameRoomId: number): Observable<Event[]> {
+        const url = `${this.apiUrl}/?gameRoomId=${gameRoomId}`;
         return this.http.get<Event[]>(url);
     }
 
@@ -41,11 +41,9 @@ export class EventService {
             return this.http.put<Event>(url, event);
         }
     */
+
     deleteEvent(eventId: number | undefined): Observable<Event> {
         const url = `${this.apiUrl}/${eventId}`;
         return this.http.delete<Event>(url);
     }
-
-    // deleteEvents(event: Event[]) Observable<Event[]> {}
-
 }

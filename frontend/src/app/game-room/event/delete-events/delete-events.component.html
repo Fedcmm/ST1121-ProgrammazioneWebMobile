@@ -1,7 +1,8 @@
-<div class="game-room-delete-event">
+<div class="game-room-delete-events">
 
-    <h2>Elimina evento</h2>
-    <p>Seleziona l'evento da eliminare:</p>
+    <h2>Delete events</h2>
+
+    <p>Select the events to delete:</p>
     <ul>
         <li *ngFor="let event of events">
             <input type="checkbox" (change)="moveToEventsToDelete(event)">

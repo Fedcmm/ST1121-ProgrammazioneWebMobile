@@ -1,4 +1,4 @@
-.game-room-verify-record {
+.game-room-delete-records {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
@@ -6,31 +6,31 @@
     margin: 0 auto;
 }
 
-.game-room-verify-record h2 {
-    font-size: x-large;
+.game-room-delete-records h2 {
     margin-bottom: 20px;
+    font-size: x-large;
 }
 
-.game-room-verify-record ul {
+.game-room-delete-records ul {
     list-style-type: none;
     padding: 0;
 }
 
-.game-room-verify-record li {
+.game-room-delete-records li {
     margin-bottom: 5px;
 }
 
-.game-room-verify-record label {
+.game-room-delete-records label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.game-room-verify-record input[type="checkbox"] {
+.game-room-delete-records input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.game-room-verify-record input[type="button"] {
+.game-room-delete-records input[type="button"] {
     padding: 10px 20px;
     font-size: medium;
     background-color: var(--accent-color);
