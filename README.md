@@ -14,7 +14,7 @@ Repository originale: [ST1121-ProgrammazioneWebMobile](https://github.com/Fedcmm
 
 *HighScoreHQ* è un'applicazione web Single-Page Application (SPA) che permette di gestire un database di punteggi di videogiochi.
 L'applicazione è stata sviluppata utilizzando il framework [Angular](https://angular.io/) per il frontend e [Kotlin](https://kotlinlang.org/) per il backend.
-Il database utilizzato è [MariaDB](https://mariadb.org/).
+Il database utilizzato è [d4free](https://www.db4free.net/).
 L'applicazione è stata sviluppata per il corso di Programmazione Applicazioni Web e Mobile (PAWM) dell'Università di Camerino.
 
 
@@ -36,7 +36,7 @@ Potrà convalidare i punteggi inseriti dagli utenti *Player* e pubblicare eventi
 ## Tecnologie Utilizzate
 * [kotlin](https://kotlinlang.org/)
 * [angular](https://angular.io/)
-* [mariadb](https://mariadb.org/)
+* [d4free](https://www.db4free.net/)
 
 
 ## Struttura Repository
