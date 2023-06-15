@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { HashService } from "src/service/hash.service";
-import { AuthenticationInterceptor } from "src/app/util/authentication.interceptor";
+import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -18,6 +18,7 @@ export class SignInGameRoomComponent {
 
     constructor(
         private http: HttpClient,
+        private authInfo: AuthInfoService,
         private hashService: HashService
     ) {
     }
@@ -32,7 +33,7 @@ export class SignInGameRoomComponent {
         this.http.post('http://localhost:8080/gameroom/login', body).subscribe({
             next: (data: any) => {
                 console.log(data);
-                AuthenticationInterceptor.token = data.token;
+                this.authInfo.accessToken = data.token;
                 this.disableButton = false;
 
                 this.email = data.email;

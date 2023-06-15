@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
-import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+import { Player } from "src/model/Player";
+import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
     selector: 'app-sign-in',
@@ -10,11 +11,13 @@ import { AuthenticationInterceptor } from "../../util/authentication.interceptor
     styleUrls: ['./sign-in.component.css']
 })
 export class SignInPlayerComponent {
+    
     signInForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
         private playerService: PlayerService,
+        private authInfo: AuthInfoService,
         private router: Router
     ) {
         this.signInForm = this.formBuilder.group({
@@ -34,9 +37,8 @@ export class SignInPlayerComponent {
             next: response => {
                 this.playerService.signIn(username, password, response.salt).subscribe({
                     next: ({ id, token }) => {
-                        AuthenticationInterceptor.token = token;
+                        this.authInfo.accessToken = token;
                         this.setUser(id);
-                        this.router.navigate(['/player/profile']).catch(console.error);
                     },
                     error: error => {
                         // Errori vari: Password errata, username non esistente, ...
@@ -51,8 +53,9 @@ export class SignInPlayerComponent {
 
     private setUser(id: number) {
         this.playerService.getPlayer(id).subscribe({
-            next: user => {
-                AuthenticationInterceptor.user = user;
+            next: (user: Player) => {
+                this.authInfo.user = user;
+                this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: error => {
                 console.error(error);

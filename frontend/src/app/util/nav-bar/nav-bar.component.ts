@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { AuthenticationInterceptor } from "src/app/util/authentication.interceptor";
 import { Player } from "src/model/Player";
+import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
     selector: 'app-nav-bar',
@@ -11,23 +11,24 @@ import { Player } from "src/model/Player";
 })
 export class NavBarComponent {
 
-    username = AuthenticationInterceptor.user?.username ?? '';
-    afterLogoutRoute = AuthenticationInterceptor.user instanceof Player ? '/player/sign-in' : '/game-room/sign-in';
+    username = this.authInfo.user?.username ?? '';
+    afterLogoutRoute = this.authInfo.user instanceof Player ? '/player/sign-in' : '/game-room/sign-in';
 
 
     constructor(
         private http: HttpClient,
+        private authInfo: AuthInfoService,
         private router: Router
     ) {}
 
 
     logout() {
-        let urlUserPart = AuthenticationInterceptor.user instanceof Player ? 'player' : 'game-room';
+        let urlUserPart = this.authInfo.user instanceof Player ? 'player' : 'gameroom';
 
         this.http.post(`http://localhost:8080/${urlUserPart}/logout`, {})
             .subscribe(() => {
-                AuthenticationInterceptor.token = undefined;
-                AuthenticationInterceptor.user = undefined;
+                this.authInfo.accessToken = undefined;
+                this.authInfo.user = undefined;
                 this.router.navigate(['/player/sign-in']).catch(console.error);
             });
     }
