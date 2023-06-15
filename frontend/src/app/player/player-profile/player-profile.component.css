@@ -1,7 +1,7 @@
 .player-profile {
     padding: 20px;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1100px;
 }
 
 .player-profile h2 {
@@ -12,7 +12,7 @@
 
 .player-profile h3 {
     font-size: larger;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .player-profile .label {
@@ -24,4 +24,22 @@
 .player-profile .value {
     margin-bottom: 10px;
     font-size: large;
+}
+
+.player-profile .records {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-profile .records input[type="button"] {
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: large;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }

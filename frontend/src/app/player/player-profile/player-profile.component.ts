@@ -15,6 +15,7 @@ export class PlayerProfileComponent implements OnInit {
 
     player?: Player;
     records: Record[] = [];
+    isLoggedUser = false;
 
 
     constructor(
@@ -46,5 +47,9 @@ export class PlayerProfileComponent implements OnInit {
 
     onRecordsReceived(records: Record[]) {
         this.records = records;
+    }
+
+    newRecord() {
+        this.router.navigate(['/player/new-record']).catch(console.error);
     }
 }
