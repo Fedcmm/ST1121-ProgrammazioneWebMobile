@@ -7,6 +7,9 @@ import { GameRoomService } from "src/service/game-room.service";
 import { GameService } from "src/service/game.service";
 
 import { map } from "rxjs";
+import { GameRoom } from "src/model/GameRoom";
+import { Password } from "src/service/hash.service";
+import { Game } from "src/model/Game";
 
 @Component({
     selector: 'app-player-view-records',
@@ -17,8 +20,12 @@ export class PlayerViewRecordsComponent implements OnInit {
     @Input() isPlayerProfile = false;
     @Output() receivedRecords = new EventEmitter<Record[]>();
 
-    verifiedRecords: Record[] = [];
-    notVerifiedRecords: Record[] = [];
+    verifiedRecords: Record[] = [new Record(undefined, new GameRoom(-1, 'name', '', new Password(''), [], []),
+        new Game(-1, 'gname', '', []), new Date(), 2323, false),
+        new Record(undefined, new GameRoom(-1, 'name', '', new Password(''), [], []),
+            new Game(-1, 'gname', '', []), new Date(), 2323, true),
+        new Record(undefined, new GameRoom(-1, 'name', '', new Password(''), [], []),
+            new Game(-1, 'gname', '', []), new Date(), 2323, false)];
 
 
     constructor(
@@ -34,22 +41,17 @@ export class PlayerViewRecordsComponent implements OnInit {
         this.getVerifiedRecords();
     }
 
-    getVerifiedRecords(): void {
+    getVerifiedRecords() {
         let id = this.route.snapshot.paramMap.get("id");
 
         this.recordService.getPlayerRecords(id ? parseInt(id) : undefined)
             .pipe(
-                map(records => {
-                    const verifiedRecords = records.filter(record => record.isVerified);
-                    const notVerifiedRecords = records.filter(record => !record.isVerified);
-                    return { verifiedRecords, notVerifiedRecords };
-                }))
+                map(records => records.filter(record => record.isVerified)))
             .subscribe({
-                next: ({ verifiedRecords, notVerifiedRecords }) => {
+                next: verifiedRecords => {
                     this.verifiedRecords = verifiedRecords;
-                    this.notVerifiedRecords = notVerifiedRecords;
                 }
-        })
+        });
     }
 
     deleteRecord(record: Record) {

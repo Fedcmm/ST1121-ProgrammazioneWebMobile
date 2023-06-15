@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Player } from "src/model/Player";
 import { Record } from "src/model/Record";
 import { PlayerService } from "src/service/player.service";
 import { RecordService } from "src/service/record.service";
-import { GameRoomService } from "src/service/game-room.service";
-import { GameService } from "src/service/game.service";
+import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
     selector: 'app-player-profile',
@@ -13,29 +12,32 @@ import { GameService } from "src/service/game.service";
     styleUrls: ['./player-profile.component.css']
 })
 export class PlayerProfileComponent implements OnInit {
+
     player?: Player;
     records: Record[] = [];
+    isLoggedUser = false;
 
 
     constructor(
         private playerService: PlayerService,
         private recordService: RecordService,
-        private gameRoomService: GameRoomService,
-        private gameService: GameService,
+        private authInfo: AuthInfoService,
+        private router: Router,
         private route: ActivatedRoute
     ) {}
 
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get("id");
+        this.isLoggedUser = id ? parseInt(id) === this.authInfo.user!.id : true;
 
-        this.playerService.getPlayer(id ? parseInt(id) : undefined).subscribe({
+        this.playerService.getPlayer(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
             next: (player: Player) => {
                 this.player = player;
             },
             error: console.error
         });
-        this.recordService.getPlayerRecords(id ? parseInt(id) : undefined).subscribe({
+        this.recordService.getPlayerRecords(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
             next: (records: Record[]) => {
                 this.records = records;
             },
@@ -45,5 +47,9 @@ export class PlayerProfileComponent implements OnInit {
 
     onRecordsReceived(records: Record[]) {
         this.records = records;
+    }
+
+    newRecord() {
+        this.router.navigate(['/player/new-record']).catch(console.error);
     }
 }

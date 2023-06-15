@@ -1,12 +1,15 @@
-<div class="arcade-player-sign-up">
+<div class="player-sign-up">
     <h2>Sign Up</h2>
 
     <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-        <label for="name">name</label>
+        <label for="name">Name</label>
         <input type="text" id="name" formControlName="name" required>
 
-        <label for="surname">surname</label>
+        <label for="surname">Surname</label>
         <input type="text" id="surname" formControlName="surname" required>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" required>
 
         <label for="email">email</label>
         <input type="text" id="email" formControlName="email" email required>
@@ -14,7 +17,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" formControlName="password" required>
 
-        <button type="submit">Sign Up</button>
+        <input type="submit" value="Sign Up">
     </form>
 
     <p>Already have an account?<br><a routerLink="/player/sign-in">Sign In</a></p>

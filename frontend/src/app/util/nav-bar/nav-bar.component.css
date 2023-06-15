@@ -1,4 +1,4 @@
-.arcade-menu {
+.nav-bar {
     padding: 10px;
     background-color: black;
     display: flex;
@@ -6,32 +6,36 @@
     align-items: center;
 }
 
-.arcade-logo img {
+.logo {
+    margin-left: 10px;
+}
+
+.logo img {
     width: 50px;
     height: 50px;
 }
 
-.arcade-logo h1 {
-    margin-left: 10px;
+.logo h2 {
     color: white;
     font-size: x-large;
 }
 
-.arcade-menu {
+.menu {
     list-style: none;
     display: flex;
 }
 
-.arcade-menu li {
-    margin-left: 10px;
+.menu li {
+    margin-right: 10px;
+    margin-left: 20px;
 }
 
-.arcade-menu li a {
-    font-size: large;
+.menu li a {
+    font-size: medium;
     color: white;
     text-decoration: none;
 }
 
-.arcade-menu li a:hover {
-    color: #f44336;
+.menu li a:hover {
+    color: var(--accent-color);
 }

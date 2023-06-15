@@ -11,6 +11,7 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
         PlayerTable.insert {
             it[name] = newRecord.name
             it[surname] = newRecord.surname
+            it[username] = newRecord.username
             it[email] = newRecord.email
             it[password] = newRecord.password
             it[passwordSalt] = newRecord.passwordSalt
@@ -23,6 +24,7 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[PlayerTable.id],
                 it[PlayerTable.name],
                 it[PlayerTable.surname],
+                it[PlayerTable.username],
                 it[PlayerTable.email],
                 it[PlayerTable.password],
                 it[PlayerTable.passwordSalt]
@@ -36,6 +38,7 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
                 it[PlayerTable.id],
                 it[PlayerTable.name],
                 it[PlayerTable.surname],
+                it[PlayerTable.username],
                 it[PlayerTable.email],
                 it[PlayerTable.password],
                 it[PlayerTable.passwordSalt]
@@ -54,6 +57,7 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
             PlayerTable.update({ PlayerTable.id eq id }) {
                 it[name] = updRecord.name
                 it[surname] = updRecord.surname
+                it[username] = updRecord.username
                 it[email] = updRecord.email
                 it[password] = updRecord.password
                 it[passwordSalt] = updRecord.passwordSalt
@@ -78,5 +82,9 @@ object PlayerService : DatabaseService<Player, Int>(PlayerTable) {
      */
     suspend fun accountExists(email: String): Boolean = dbQuery {
         PlayerTable.select { PlayerTable.email eq email }.count() == 1L
+    }
+
+    suspend fun usernameExists(username: String): Boolean = dbQuery {
+        PlayerTable.select { PlayerTable.username eq username }.count() == 1L
     }
 }

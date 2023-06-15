@@ -1,4 +1,4 @@
-<div class="arcade-player-view-record">
+<div class="player-view-records">
     <h2 *ngIf="!isPlayerProfile">Records</h2>
 
     <div *ngIf="verifiedRecords.length === 0">
@@ -24,6 +24,6 @@
         <div class="label">Score:</div>
         <div class="value">{{ record.score }}</div>
 
-        <button *ngIf="record.isVerified" (click)="deleteRecord(record)">Delete</button>
+        <input type="button" value="Delete" *ngIf="record.isVerified" (click)="deleteRecord(record)">
     </div>
 </div>

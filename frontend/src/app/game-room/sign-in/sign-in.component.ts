@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthenticationInterceptor } from "../../util/authentication.interceptor";
+import { HttpClient } from '@angular/common/http';
+
+import { AuthInfoService } from "src/service/auth-info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { GameRoomService } from "../../../service/game-room.service";
+import { GameRoomService } from "src/service/game-room.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -15,7 +17,9 @@ export class SignInGameRoomComponent {
     constructor(
         private formBuilder: FormBuilder,
         private gameRoomService: GameRoomService,
-        private router: Router
+        private router: Router,
+        private http: HttpClient,
+        private authInfo: AuthInfoService,
     ) {
         this.signInForm = this.formBuilder.group({
             username: '',
@@ -23,7 +27,7 @@ export class SignInGameRoomComponent {
         });
     }
 
-    signIn(): void {
+    signIn() {
         if (this.signInForm.invalid)
             return;
 
@@ -32,9 +36,9 @@ export class SignInGameRoomComponent {
 
         this.gameRoomService.getSalt(username).subscribe({
             next: response => {
-                this.gameRoomService.signIn(username, password, response.salt).subscribe({
-                    next: ({ token }) => {
-                        AuthenticationInterceptor.token = token;
+                this.gameRoomService.singIn(username, password, response.salt).subscribe({
+                    next: ({ id, token }) => {
+                        this.authInfo.accessToken = token;
                         this.router.navigate(['/player/profile']).catch(console.error);
                     },
                     error: error => {

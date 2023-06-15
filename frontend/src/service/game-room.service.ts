@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {HashService, Password} from "src/service/hash.service";
-import {Observable} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HashService } from "src/service/hash.service";
+import { Observable } from 'rxjs';
 
-import {GameRoom} from 'src/model/GameRoom';
+import { GameRoom } from 'src/model/GameRoom';
+import { Game } from "src/model/Game";
 
 @Injectable({
     providedIn: 'root'
@@ -16,15 +17,14 @@ export class GameRoomService {
     constructor(
         private http: HttpClient,
         private hashService: HashService
-    ) {
-    }
+    ) { }
 
     getSalt(email: string): Observable<any> {
         return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
     }
 
     getGameRooms(): Observable<GameRoom[]> {
-        const url: string = `${this.apiUrl}`;
+        const url : string = `${this.apiUrl}`;
         return this.http.get<GameRoom[]>(url);
     }
 
@@ -34,7 +34,7 @@ export class GameRoomService {
     }
 
     getGameRoomName(gameRoomId: number): string {
-        let name: string = "";
+        let name : string = "";
         this.getGameRoom(gameRoomId).subscribe({
             next: (gameRoom) => {
                 name = gameRoom.name
@@ -44,13 +44,8 @@ export class GameRoomService {
         return name;
     }
 
-    //TODO: Cosa deve restituire?
-    signIn(username: string, password: string, salt: string): Observable<any> {
-        const body = {
-            username: username,
-            password: this.hashService.hashWithSalt(password, salt)
-        };
-        return this.http.post<any>(this.apiUrl, body);
+    getGames(gameRoomId: number): Observable<Game[]> {
+        return this.http.get<Game[]>(`${this.apiUrl}/${gameRoomId}/games`);
     }
 
     signUp(name: string, email: string, password: Password): Observable<any> {

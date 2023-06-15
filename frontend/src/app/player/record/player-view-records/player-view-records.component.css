@@ -1,17 +1,16 @@
-.arcade-player-view-record {
-    padding: 20px;
+.player-view-records {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1100px;
     border-radius: 5px;
-    text-align: center;
+    text-align: start;
 }
 
-.arcade-player-view-record h2 {
+.player-view-records h2 {
     margin-bottom: 20px;
     font-size: x-large;
 }
 
-.arcade-player-view-record .record {
+.player-view-records .record {
     padding: 20px;
     margin: 5px;
     text-align: start;
@@ -20,38 +19,37 @@
     display: inline-block;
 }
 
-.arcade-player-view-record .label {
+.player-view-records .label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.arcade-player-view-record .value {
+.player-view-records .value {
     margin-bottom: 10px;
     font-size: large;
 }
 
-.arcade-player-view-record a {
+.player-view-records a {
     color: white;
-    color: #fff;
     text-decoration: none;
 }
 
-.arcade-player-view-record a:hover {
-    color: #f44336;
+.player-view-records a:hover {
+    color: var(--accent-color);
 }
 
-.arcade-player-view-record button {
+.player-view-records input[type="button"] {
     padding: 10px 20px;
-    background-color: #f44336;
+    background-color: var(--accent-color);
     color: white;
-    font-size: larger;
+    font-size: large;
     border: none;
     border-radius: 3px;
     cursor: pointer;
 }
 
-.arcade-player-view-record p {
+.player-view-records p {
     margin-top: 20px;
     font-size: small;
 }

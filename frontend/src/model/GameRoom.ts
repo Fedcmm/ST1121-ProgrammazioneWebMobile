@@ -3,15 +3,15 @@ import { Game } from "./Game";
 import { Event } from "./Event";
 
 export class GameRoom {
-    id: number |  undefined;
+    id: number;
     name: string;
     email: string;
     password: string;
     passwordSalt: string;
-    games: Array<Game>;
-    events: Array<Event>;
+    games: Game[];
+    events: Event[];
 
-    constructor(id: number | undefined, name: string, email: string, password: Password, games?: Array<Game>, events?: Array<Event>) {
+    constructor(id: number, name: string, email: string, password: Password, games?: Game[], events?: Event[]) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -19,5 +19,9 @@ export class GameRoom {
         this.passwordSalt = password.salt;
         this.games = games ? games : [];
         this.events = events ? events : [];
+    }
+
+    get username(): string {
+        return this.name;
     }
 }

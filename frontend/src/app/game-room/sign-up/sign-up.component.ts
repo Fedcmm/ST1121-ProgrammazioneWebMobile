@@ -3,6 +3,9 @@ import { GameRoomService } from "src/service/game-room.service";
 import { HashService } from "src/service/hash.service";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { HttpClient } from '@angular/common/http';
+
+import { GameRoom } from "src/model/GameRoom"
 
 @Component({
     selector: 'game-room-sign-up',
