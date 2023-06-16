@@ -1,14 +1,22 @@
 <div class="player-sign-in">
     <h2>Sign In</h2>
 
+    <div class="error" *ngIf="showError">{{ errorMessage }}</div>
+
     <form [formGroup]="signInForm" (ngSubmit)="signIn()">
-        <label for="username">Username</label>
-        <input type="text" id="username" formControlName="username" required>
+        <div class="error-form-element">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" required>
+            <p *ngIf="signInForm.get('username')?.invalid && signInForm.get('username')?.touched">Missing username</p>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" required>
+        <div class="error-form-element">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required>
+            <p *ngIf="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">Missing password</p>
+        </div>
 
-        <input type="submit" value="Sign In">
+        <input type="submit" value="Sign In" [disabled]="signInForm.invalid">
     </form>
 
     <p>Don't have an account?<br><a routerLink="/player/sign-up">Sign Up</a></p>

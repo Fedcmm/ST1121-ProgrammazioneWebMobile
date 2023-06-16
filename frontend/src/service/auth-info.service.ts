@@ -9,6 +9,7 @@ export class AuthInfoService {
 
     accessToken?: string;
     user?: Player | GameRoom;
+    userType: 'player' | 'game-room' | '' = '';
 
     constructor() { }
 }

@@ -7,6 +7,7 @@ import { RecordService } from "src/service/record.service";
 import { Record } from "src/model/Record";
 import { GameRoom } from "src/model/GameRoom";
 import { Game } from "src/model/Game";
+import { Password } from "src/service/hash.service";
 
 @Component({
     selector: 'app-new-record',
@@ -17,8 +18,8 @@ export class NewRecordComponent implements OnInit {
 
     newRecordForm: FormGroup;
 
-    gameRooms: GameRoom[] = [];
-    games: Game[] = [];
+    gameRooms: GameRoom[] = [new GameRoom(-1, 'roomname', '', new Password(''), [], []), new GameRoom(-1, 'roomname', '', new Password(''), [], [])];
+    games: Game[] = [new Game(-1, 'gamename', '', []), new Game(-1, 'gamename', '', [])];
 
 
     constructor(
@@ -66,10 +67,7 @@ export class NewRecordComponent implements OnInit {
         let record = new Record(-1, undefined, gameRoom, game, date, score, false);
         this.recordService.createRecord(record).subscribe({
             next: (response: Record) => {
-                record.player = response.player;
-                record.gameRoom = response.gameRoom;
                 record.game = response.game;
-                console.log('Nuovo record creato con ID:');
             },
             error: error => {
                 console.error(error);

@@ -4,6 +4,7 @@ import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
 import { Player } from "src/model/Player";
 import { AuthInfoService } from "src/service/auth-info.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'game-room-sign-in',
@@ -14,6 +15,10 @@ export class SignInPlayerComponent {
 
     signInForm: FormGroup;
 
+    showError = false;
+    errorMessage = '';
+
+
     constructor(
         private formBuilder: FormBuilder,
         private playerService: PlayerService,
@@ -21,7 +26,7 @@ export class SignInPlayerComponent {
         private router: Router
     ) {
         this.signInForm = this.formBuilder.group({
-            email: '',
+            username: '',
             password: ''
         });
     }
@@ -30,7 +35,7 @@ export class SignInPlayerComponent {
         if (this.signInForm.invalid)
             return;
 
-        const username = this.signInForm.get('email')?.value;
+        const username = this.signInForm.get('username')?.value;
         const password = this.signInForm.get('password')?.value;
 
         this.playerService.getSalt(username).subscribe({
@@ -38,15 +43,16 @@ export class SignInPlayerComponent {
                 this.playerService.signIn(username, password, response.salt).subscribe({
                     next: ({ id, token }) => {
                         this.authInfo.accessToken = token;
+                        this.showError = false;
                         this.setUser(id);
                     },
                     error: error => {
-                        // Errori vari: Password errata, username non esistente, ...
+                        this.displayError(error);
                     }
                 });
             },
             error: error => {
-                console.error(error)
+                this.displayError(error);
             }
         })
     }
@@ -55,11 +61,17 @@ export class SignInPlayerComponent {
         this.playerService.getPlayer(id).subscribe({
             next: (user: Player) => {
                 this.authInfo.user = user;
+                this.authInfo.userType = 'player';
                 this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: error => {
-                console.error(error);
+                this.displayError(error);
             }
         });
+    }
+
+    private displayError(error: HttpErrorResponse) {
+        this.errorMessage = error.error;
+        this.showError = true;
     }
 }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { GameRoomService } from "src/service/game-room.service";
 import { Router } from "@angular/router";
 import { GameRoom } from "src/model/GameRoom";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'game-room-sign-in',
@@ -13,6 +14,8 @@ import { GameRoom } from "src/model/GameRoom";
 export class SignInGameRoomComponent {
 
     signInForm: FormGroup;
+    showError = false;
+    errorMessage = '';
 
 
     constructor(
@@ -22,7 +25,7 @@ export class SignInGameRoomComponent {
         private router: Router,
     ) {
         this.signInForm = this.formBuilder.group({
-            username: '',
+            email: '',
             password: ''
         });
     }
@@ -32,18 +35,18 @@ export class SignInGameRoomComponent {
         if (this.signInForm.invalid)
             return;
 
-        const username = this.signInForm.get('email')?.value;
+        const email = this.signInForm.get('email')?.value;
         const password = this.signInForm.get('password')?.value;
 
-        this.gameRoomService.getSalt(username).subscribe({
+        this.gameRoomService.getSalt(email).subscribe({
             next: response => {
-                this.gameRoomService.singIn(username, password, response.salt).subscribe({
+                this.gameRoomService.singIn(email, password, response.salt).subscribe({
                     next: ({ id, token }) => {
                         this.authInfo.accessToken = token;
                         this.setUser(id);
                     },
                     error: error => {
-                        // Errori vari: Password errata, username non esistente, ...
+                        this.displayError(error)
                     }
                 });
             },
@@ -53,10 +56,17 @@ export class SignInGameRoomComponent {
         })
     }
 
+    private displayError(error: HttpErrorResponse) {
+        this.showError = true;
+        this.errorMessage = error.error;
+        console.error(error);
+    }
+
     private setUser(id: number) {
         this.gameRoomService.getGameRoom(id).subscribe({
             next: (user: GameRoom) => {
                 this.authInfo.user = user;
+                this.authInfo.userType = 'game-room';
                 this.router.navigate(['/game-room/profile']).catch(console.error);
             },
             error: error => {

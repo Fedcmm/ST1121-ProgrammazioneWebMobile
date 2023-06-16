@@ -39,16 +39,6 @@
     color: var(--accent-color);
 }
 
-.player-view-records input[type="button"] {
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: white;
-    font-size: large;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
 .player-view-records p {
     margin-top: 20px;
     font-size: small;

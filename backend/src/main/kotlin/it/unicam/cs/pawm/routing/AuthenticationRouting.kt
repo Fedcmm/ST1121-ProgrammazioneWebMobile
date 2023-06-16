@@ -64,7 +64,7 @@ fun Route.authenticationRouting() {
             val credentials = call.receive<Credentials>()
             val id = PlayerService.checkCredentials(credentials.email, credentials.password)
             if (id < 0) {
-                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
+                call.respondText("Wrong password", status = HttpStatusCode.Unauthorized)
                 return@post
             }
 

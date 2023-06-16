@@ -36,19 +36,26 @@
     text-decoration: none;
 }
 
-.form-element {
+.error-form-element {
     margin-bottom: 15px;
 }
 
-.form-element:nth-child(n + 1) .ng-invalid.ng-touched {
+.error-form-element:nth-child(n + 1) .ng-invalid.ng-touched {
     border-left: 3px solid var(--accent-color);
     border-right: 3px solid var(--accent-color);
 }
 
-.form-element p {
+.error-form-element p {
     margin-top: 5px;
     margin-left: 5px;
     font-size: x-small;
     color: red;
     text-align: start;
+}
+
+.error {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: medium;
+    color: var(--accent-color);
 }

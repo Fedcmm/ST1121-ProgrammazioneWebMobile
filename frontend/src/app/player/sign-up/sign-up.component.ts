@@ -4,6 +4,7 @@ import { PlayerService } from "src/service/player.service";
 import { Router } from "@angular/router";
 import { HashService } from "src/service/hash.service";
 import { Player } from "src/model/Player";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'app-signup',
@@ -13,6 +14,8 @@ import { Player } from "src/model/Player";
 export class SignUpPlayerComponent {
 
     signUpForm: FormGroup;
+    showError = false;
+    errorMessage = '';
 
 
     constructor(
@@ -46,11 +49,18 @@ export class SignUpPlayerComponent {
         let player = new Player(-1, name, surname, username, email, password)
         this.playerService.signUp(player).subscribe({
             next: () => {
+                this.showError = false;
                 this.router.navigate(['player/sign-in']).catch(console.error);
             },
             error: error => {
-                console.error(error);
+                this.displayError(error)
             }
         });
+    }
+
+    private displayError(error: HttpErrorResponse) {
+        this.showError = true;
+        this.errorMessage = error.error;
+        console.error(error);
     }
 }

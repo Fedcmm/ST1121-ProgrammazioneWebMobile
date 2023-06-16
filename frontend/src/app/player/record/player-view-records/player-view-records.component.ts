@@ -34,11 +34,13 @@ export class PlayerViewRecordsComponent implements OnInit {
         let id = this.route.snapshot.paramMap.get("id");
 
         this.recordService.getPlayerRecords(id ? parseInt(id) : this.authInfo.user!.id)
-            .pipe(
-                map(records => records.filter(record => record.isVerified)))
+            .pipe(map(records => records.filter(record => record.isVerified)))
             .subscribe({
                 next: verifiedRecords => {
                     this.verifiedRecords = verifiedRecords;
+                },
+                error: error => {
+                    console.error(error);
                 }
         });
     }

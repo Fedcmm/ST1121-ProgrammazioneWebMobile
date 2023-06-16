@@ -17,6 +17,7 @@
     margin-bottom: 5px;
 }
 
+.game-room-sign-up input[type="text"],
 .game-room-sign-up input[type="email"],
 .game-room-sign-up input[type="password"] {
     width: 100%;
@@ -28,12 +29,36 @@
     border-radius: 5px;
 }
 
-.game-room-sign-up input[type="submit"] {
-    padding: 10px 20px;
+.game-room-sign-up p {
+    font-size: small;
+    margin-top: 20px;
+}
+
+.game-room-sign-up a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.error-form-element {
+    margin-bottom: 15px;
+}
+
+.error-form-element:nth-child(n + 1) .ng-invalid.ng-touched {
+    border-left: 3px solid var(--accent-color);
+    border-right: 3px solid var(--accent-color);
+}
+
+.error-form-element p {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: x-small;
+    color: red;
+    text-align: start;
+}
+
+.error {
+    margin-top: 10px;
+    margin-bottom: 25px;
     font-size: medium;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    color: var(--accent-color);
 }

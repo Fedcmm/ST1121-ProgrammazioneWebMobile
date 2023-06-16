@@ -11,19 +11,15 @@ import { AuthInfoService } from "src/service/auth-info.service";
 })
 export class NavBarComponent {
 
-    username = this.authInfo.user?.username ?? '';
-    afterLogoutRoute = this.authInfo.user instanceof Player ? '/player/sign-in' : '/game-room/sign-in';
-
-
     constructor(
+        public authInfo: AuthInfoService,
         private http: HttpClient,
-        private authInfo: AuthInfoService,
         private router: Router
     ) {}
 
 
     logout() {
-        let urlUserPart = this.authInfo.user instanceof Player ? 'player' : 'gameroom';
+        let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'gameroom';
 
         this.http.post(`http://localhost:8080/${urlUserPart}/logout`, {})
             .subscribe(() => {
@@ -31,5 +27,9 @@ export class NavBarComponent {
                 this.authInfo.user = undefined;
                 this.router.navigate(['/player/sign-in']).catch(console.error);
             });
+    }
+
+    logoutRoute() {
+        return this.authInfo.userType == 'player' ? '/player/sign-in' : '/game-room/sign-in';
     }
 }

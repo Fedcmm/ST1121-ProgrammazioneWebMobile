@@ -3,6 +3,7 @@ import { GameRoomService } from "src/service/game-room.service";
 import { HashService } from "src/service/hash.service";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'game-room-sign-up',
@@ -12,6 +13,8 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class SignUpGameRoomComponent {
 
     signUpForm: FormGroup;
+    showError = false;
+    errorMessage = '';
 
 
     constructor(
@@ -43,8 +46,14 @@ export class SignUpGameRoomComponent {
                 this.router.navigate(['game-room/sign-in']).catch(console.error);
             },
             error: error => {
-                console.error(error);
+                this.displayError(error)
             }
         });
+    }
+
+    private displayError(error: HttpErrorResponse) {
+        this.showError = true;
+        this.errorMessage = error.error;
+        console.error(error);
     }
 }

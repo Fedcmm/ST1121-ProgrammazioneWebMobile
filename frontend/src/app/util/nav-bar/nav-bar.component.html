@@ -3,12 +3,12 @@
         <a>
             <img ngSrc="#" alt="Logo">
         </a>
-        <h2>{{ username }}</h2>
+        <h2>{{ authInfo.user?.username }}</h2>
     </div>
 
     <ul class="menu">
         <li><a href="#">Home</a></li>
         <li><a routerLink="/games">Games</a></li>
-        <li><a [routerLink]="afterLogoutRoute" (click)="logout()">Sign Out</a></li>
+        <li><a [routerLink]="logoutRoute()" (click)="logout()">Sign Out</a></li>
     </ul>
 </nav>

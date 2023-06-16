@@ -1,14 +1,22 @@
 <div class="game-room-sign-in">
     <h2>Game Room Sign In</h2>
 
+    <div class="error" *ngIf="showError">{{ errorMessage }}</div>
+
     <form [formGroup]="signInForm" (ngSubmit)="signIn()">
-        <label for="username">Email:</label>
-        <input type="text" id="username" formControlName="username" required>
+        <div class="error-form-element">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" email required>
+            <p *ngIf="signInForm.get('email')?.invalid && signInForm.get('email')?.touched">Invalid email</p>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" required>
+        <div class="error-form-element">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required>
+            <p *ngIf="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">Missing password</p>
+        </div>
 
-        <input type="submit" name="SignIn" value="SignIn">
+        <input type="submit" value="Sign In" [disabled]="signInForm.invalid">
     </form>
 
     <p>Don't have an account?<br><a routerLink="/game-room/sign-up">Sign Up</a></p>

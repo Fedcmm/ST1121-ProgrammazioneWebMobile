@@ -35,6 +35,9 @@ export class VerifyRecordComponent implements OnInit {
         ).subscribe({
             next: (notVerifiedRecords) => {
                 this.notVerifiedRecords = notVerifiedRecords;
+            },
+            error: error => {
+                console.error(error);
             }
         });
     }
