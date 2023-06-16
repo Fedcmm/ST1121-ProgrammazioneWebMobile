@@ -8,6 +8,7 @@ import io.ktor.server.routing.*
 import it.unicam.cs.pawm.database.EventService
 import it.unicam.cs.pawm.database.GameRoomService
 import it.unicam.cs.pawm.database.GameService
+import it.unicam.cs.pawm.database.RecordService
 import it.unicam.cs.pawm.model.Event
 import it.unicam.cs.pawm.model.Game
 
@@ -16,6 +17,8 @@ import it.unicam.cs.pawm.utils.getIdFromToken
 
 fun Route.gameRoomRouting() {
     route("/game-room") {
+
+        //region Get
         get("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: run {
                 call.respond(HttpStatusCode.BadRequest)
@@ -28,16 +31,6 @@ fun Route.gameRoomRouting() {
             else
                 call.respond(HttpStatusCode.NotFound)
         }
-
-        /* TODO: implement salt
-        get ("/salt,{'email'}"){
-            val email = call.parameters["email"] ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
-            val gameRoom = GameRoomService.salt(email)
-        }
-        */
 
         get("/all") {
             val gameRooms = GameRoomService.readAll()
@@ -62,11 +55,24 @@ fun Route.gameRoomRouting() {
             call.respond(HttpStatusCode.OK, event)
         }
 
-        post("/") {
-            val gameRoom = call.receive<GameRoom>()
-            val id = GameRoomService.add(gameRoom)
-            call.respond(HttpStatusCode.Created, id)
+        get("{id}/records") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val records = RecordService.getGameRoomRecords(id)
+            call.respond(HttpStatusCode.OK, records)
         }
+
+        get("{id}/verifiedRecords") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val records = RecordService.getGameRoomVerifiedRecords(id)
+            call.respond(HttpStatusCode.OK, records)
+        }
+        //endregion
 
         patch("/") {
             val id = getIdFromToken()

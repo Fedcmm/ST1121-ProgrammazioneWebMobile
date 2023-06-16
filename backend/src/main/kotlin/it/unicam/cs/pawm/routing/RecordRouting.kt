@@ -29,38 +29,6 @@ fun Route.recordRouting() {
             call.respond(HttpStatusCode.OK, records)
         }
 
-        /**
-         * Get all records of a GameRoom.
-         */
-        get("/gameRoom/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
-            val records = RecordService.readAll().filter { it.gameRoom.id == id }
-
-            if (records.isNotEmpty())
-                call.respond(HttpStatusCode.OK, records)
-            else
-                call.respond(HttpStatusCode.NotFound)
-        }
-
-        /**
-         * Get all records of a Player.
-         */
-        get("/player/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
-            val records = RecordService.readAll().filter { it.player.id == id }
-
-            if (records.isNotEmpty())
-                call.respond(HttpStatusCode.OK, records)
-            else
-                call.respond(HttpStatusCode.NotFound)
-        }
-
         post("/") {
             val record = call.receive<Record>()
             val id = RecordService.add(record)

@@ -63,7 +63,7 @@ export class NewRecordComponent implements OnInit {
         let score = this.newRecordForm.get('score')?.value;
         let date = this.newRecordForm.get('date')?.value;
 
-        let record = new Record(undefined, gameRoom, game, date, score, false);
+        let record = new Record(-1, undefined, gameRoom, game, date, score, false);
         this.recordService.createRecord(record).subscribe({
             next: (response: Record) => {
                 record.player = response.player;

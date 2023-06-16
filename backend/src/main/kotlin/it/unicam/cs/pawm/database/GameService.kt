@@ -1,8 +1,8 @@
 package it.unicam.cs.pawm.database
 
 import it.unicam.cs.pawm.model.Game
-import it.unicam.cs.pawm.model.GameRoomGamesTable
 import it.unicam.cs.pawm.model.GameTable
+import it.unicam.cs.pawm.model.GamesOfGameRoomTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
@@ -42,8 +42,8 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
     }
 
     suspend fun getGameRoomGames(gameRoomId: Int): List<Game> = dbQuery {
-        GameRoomGamesTable.select { GameRoomGamesTable.gameRoom eq gameRoomId }.mapNotNull {
-            GameService.read(it[GameRoomGamesTable.game])
+        GamesOfGameRoomTable.select { GamesOfGameRoomTable.gameRoomId eq gameRoomId }.mapNotNull {
+            GameService.read(it[GamesOfGameRoomTable.gameId])
         }
     }
 
