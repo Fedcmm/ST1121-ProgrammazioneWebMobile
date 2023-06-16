@@ -25,17 +25,3 @@ object GameRoomTable : Table() {
 
     override val primaryKey = PrimaryKey(id)
 }
-
-object GameRoomGamesTable : Table() {
-    val gameRoom = reference("gameRoom", GameRoomTable.id)
-    val game = reference("game", GameTable.id)
-
-    override val primaryKey = PrimaryKey(gameRoom, game)
-}
-
-object GameRoomEventsTable : Table() {
-    val gameRoom = reference("gameRoom", GameRoomTable.id)
-    val event = reference("event", EventTable.id)
-
-    override val primaryKey = PrimaryKey(gameRoom, event)
-}
