@@ -25,7 +25,7 @@ export class GameRoomService {
     }
 
     getGameRooms(): Observable<GameRoom[]> {
-        const url = `${this.apiUrl}`;
+        const url = `${this.apiUrl}/all`;
         return this.http.get<GameRoom[]>(url);
     }
 
@@ -38,6 +38,14 @@ export class GameRoomService {
         return this.http.get<Game[]>(`${this.apiUrl}/${gameRoomId}/games`);
     }
 
+    getEvents(gameRoomId: number): Observable<Game[]> {
+        return this.http.get<Event[]>(`${this.apiUrl}/${gameRoomId}/events`);
+    }
+
+    getRecords(gameRoomId: number): Observable<Game[]> {
+        return this.http.get<Record[]>(`${this.apiUrl}/${gameRoomId}/records`);
+    }
+    
     signUp(name: string, email: string, password: Password): Observable<any> {
         return this.http.post(`${this.apiUrl}/signup`, new GameRoom(-1, name, email, password, []));
     }
