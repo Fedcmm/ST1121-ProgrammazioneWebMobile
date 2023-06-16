@@ -12,3 +12,20 @@ body {
     color: white;
     font-family: "Press Start 2P", cursive;
 }
+
+input[type="button"],
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: medium;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="button"]:disabled,
+input[type="submit"]:disabled {
+    background-color: grey;
+    cursor: auto;
+}

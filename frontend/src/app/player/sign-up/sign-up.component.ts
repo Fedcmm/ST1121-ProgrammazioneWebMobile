@@ -24,6 +24,7 @@ export class SignUpPlayerComponent {
         this.signUpForm = this.formBuilder.group({
             name: '',
             surname: '',
+            username: '',
             email: '',
             password: ''
         });
