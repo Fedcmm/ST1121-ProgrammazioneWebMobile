@@ -1,4 +1,4 @@
-.arcade-player-sign-up {
+.player-sign-up {
     padding: 20px;
     margin: 0 auto;
     max-width: 450px;
@@ -6,43 +6,49 @@
     border-radius: 5px;
 }
 
-.arcade-player-sign-up h2 {
+.player-sign-up h2 {
     margin-bottom: 20px;
     font-size: x-large;
 }
 
-.arcade-player-sign-up label {
+.player-sign-up label {
     margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
-.arcade-player-sign-up input[type="text"],
-.arcade-player-sign-up input[type="password"] {
+.player-sign-up input[type="text"],
+.player-sign-up input[type="password"] {
     padding: 15px;
-    margin-bottom: 15px;
     width: 100%;
     font-size: small;
     border: none;
     border-radius: 3px;
 }
 
-.arcade-player-sign-up button {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    font-size: medium;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.arcade-player-sign-up p {
+.player-sign-up p {
     font-size: small;
     margin-top: 20px;
 }
 
-.arcade-player-sign-up a {
-    color: #f44336;
+.player-sign-up a {
+    color: var(--accent-color);
     text-decoration: none;
+}
+
+.form-element {
+    margin-bottom: 15px;
+}
+
+.form-element:nth-child(n + 1) .ng-invalid.ng-touched {
+    border-left: 3px solid var(--accent-color);
+    border-right: 3px solid var(--accent-color);
+}
+
+.form-element p {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: x-small;
+    color: red;
+    text-align: start;
 }

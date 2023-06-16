@@ -13,7 +13,6 @@ import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
-import { GameRoomViewEventsComponent } from "./game-room/event/game-room-view-event/game-room-view-event.component";
 
 const routes: Routes = [
     {
@@ -77,10 +76,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    declarations: [
-        GameRoomViewEventsComponent
-    ],
-    exports: [RouterModule, GameRoomViewEventsComponent]
+    declarations: [],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

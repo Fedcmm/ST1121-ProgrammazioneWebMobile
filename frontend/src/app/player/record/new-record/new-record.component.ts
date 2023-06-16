@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { GameRoomService } from 'src/service/game-room.service';
 import { GameService } from "src/service/game.service";
@@ -14,20 +15,25 @@ import { Game } from "src/model/Game";
 })
 export class NewRecordComponent implements OnInit {
 
-    selectedGameRoom?: GameRoom;
-    selectedGame?: Game;
-    score: number = 0;
-    date: Date = new Date()
+    newRecordForm: FormGroup;
 
     gameRooms: GameRoom[] = [];
     games: Game[] = [];
 
 
     constructor(
+        private formBuilder: FormBuilder,
         private gameRoomService: GameRoomService,
         private gameService: GameService,
         private recordService: RecordService
-    ) {}
+    ) {
+        this.newRecordForm = this.formBuilder.group({
+            gameRoom: '',
+            game: '',
+            score: '',
+            date: ''
+        });
+    }
 
 
     ngOnInit() {
@@ -39,7 +45,7 @@ export class NewRecordComponent implements OnInit {
     }
 
     getGames() {
-        this.gameService.getGames(this.selectedGameRoom!.id).subscribe({
+        this.gameRoomService.getGames(this.newRecordForm.get('gameRoom')?.value).subscribe({
             next: games => {
                 this.games = games;
             }
@@ -47,13 +53,26 @@ export class NewRecordComponent implements OnInit {
     }
 
     createRecord() {
-        let record = new Record(-1,undefined, this.selectedGameRoom!, this.selectedGame!, this.date, this.score, false);
+        if (this.newRecordForm.invalid) {
+            console.log("Invalid form")
+            return;
+        }
+
+        let gameRoom = this.newRecordForm.get('gameRoom')?.value;
+        let game = this.newRecordForm.get('game')?.value;
+        let score = this.newRecordForm.get('score')?.value;
+        let date = this.newRecordForm.get('date')?.value;
+
+        let record = new Record(undefined, gameRoom, game, date, score, false);
         this.recordService.createRecord(record).subscribe({
             next: (response: Record) => {
                 record.player = response.player;
                 record.gameRoom = response.gameRoom;
                 record.game = response.game;
                 console.log('Nuovo record creato con ID:');
+            },
+            error: error => {
+                console.error(error);
             }
         });
     }

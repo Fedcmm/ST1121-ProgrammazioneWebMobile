@@ -10,7 +10,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpGameRoomComponent {
+
     signUpForm: FormGroup;
+
 
     constructor(
         private formBuilder: FormBuilder,

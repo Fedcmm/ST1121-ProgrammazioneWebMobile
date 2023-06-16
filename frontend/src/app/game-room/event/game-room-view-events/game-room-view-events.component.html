@@ -1,14 +1,14 @@
-<div class="view-event">
-    <h2>Visualizza Eventi</h2>
+<div class="game-room-view-events">
+    <h2>View Events</h2>
 
     <div *ngFor="let event of events">
-        Nome:
+        Name:
         <span>{{ event.name }}</span>
-        Descrizione:
+        Description:
         <span>{{ event.description }}</span>
-        Inizio:
+        Start date:
         <span>{{ event.startDate }}</span>
-        Fine:
+        End date:
         <span>{{ event.endDate }}</span>
     </div>
 </div>

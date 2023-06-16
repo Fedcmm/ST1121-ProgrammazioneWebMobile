@@ -1,31 +1,25 @@
-<div class="arcade-new-record">
-    <h2>New Record</h2>
+<div class="player-new-record">
+    <h2>Create a Record</h2>
 
-    <div class="form-group">
+    <form [formGroup]="newRecordForm" (ngSubmit)="createRecord()">
         <label for="gameRoom">Select Game Room:</label>
-
-        <select id="gameRoom" name="gameRoom" [(ngModel)]="selectedGameRoom" required>
+        <select id="gameRoom" formControlName="gameRoom" (change)="getGames()" required>
+            <option disabled selected ngValue="">-- Select an option --</option>
             <option *ngFor="let gameRoom of gameRooms" [ngValue]="gameRoom">{{ gameRoom.name }}</option>
         </select>
-    </div>
 
-    <div class="form-group" *ngIf="selectedGameRoom">
         <label for="game">Select Game:</label>
-
-        <select id="game" name="game" [(ngModel)]="selectedGame" (ngModelChange)=getGames() required>
+        <select id="game" formControlName="game" [disabled]="newRecordForm.get('gameRoom')!.value == ''" required>
+            <option disabled selected ngValue="">-- Select an option --</option>
             <option *ngFor="let game of games" [ngValue]="game">{{ game.name }}</option>
         </select>
-    </div>
 
-    <div class="form-group">
-        <label for="score">Enter Score:</label>
-        <input type="number" id="score" name="score" [(ngModel)]="score" placeholder="Enter your score" required>
-    </div>
+        <label for="score">Enter your Score:</label>
+        <input type="number" id="score" formControlName="score" placeholder="Score" required>
 
-    <div class="form-group">
         <label for="date">Enter Date:</label>
-        <input type="date" id="date" name="date" [(ngModel)]="date" placeholder="Enter the date" required>
-    </div>
+        <input type="date" id="date" formControlName="date" placeholder="Enter the date" required>
 
-    <button class="save-button" type="submit" (click)="createRecord()">Save Record</button>
+        <input type="submit" value="Save Record" class="save-button">
+    </form>
 </div>

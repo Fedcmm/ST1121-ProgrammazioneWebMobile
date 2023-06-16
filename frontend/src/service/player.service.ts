@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
-import { HashService, Password } from "src/service/hash.service";
+import { HashService } from "src/service/hash.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PlayerService {
+
     private apiUrl = 'http://localhost:8080/player';
 
 
@@ -15,6 +16,11 @@ export class PlayerService {
         private http: HttpClient,
         private hashService: HashService
     ) {}
+
+
+    getSalt(email: string): Observable<any> {
+        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
+    }
 
     getPlayers(): Observable<Player[]> {
         const url = `${this.apiUrl}/players`;
@@ -26,21 +32,6 @@ export class PlayerService {
         return this.http.get<Player>(url);
     }
 
-    getPlayerName(playerId: number): string {
-        let name : string = "";
-        this.getPlayer(playerId).subscribe({
-            next: (player) => {
-                name = player.name
-            }
-        });
-
-        return name;
-    }
-
-    getSalt(email: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
-    }
-
     signIn(username: string, password: string, salt: string): Observable<any> {
         const body = {
             email: username,
@@ -49,8 +40,8 @@ export class PlayerService {
         return this.http.post(`${this.apiUrl}/login`, body);
     }
 
-    signUp(name: string, surname: string, email: string, password: Password): Observable<any> {
-        return this.http.post(`${this.apiUrl}/signup`, new Player(-1, name, surname, email, password));
+    signUp(player: Player): Observable<any> {
+        return this.http.post(`${this.apiUrl}/signup`, player);
     }
 
     updatePlayer(player: Player): Observable<Player> {

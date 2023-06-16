@@ -1,4 +1,4 @@
-<div class="arcade-player-profile">
+<div class="player-profile">
     <h2>Player profile</h2>
 
     <h2>{{ player?.name }}</h2>
@@ -6,6 +6,9 @@
     <div class="label">Total records:</div>
     <div class="value">{{ records.length }}</div>
 
-    <h3>Records</h3>
+    <div class="records">
+        <h3>Records</h3>
+        <input type="button" value="Add record" *ngIf="isLoggedUser" (click)="newRecord()">
+    </div>
     <app-player-view-records [isPlayerProfile]="true" (receivedRecords)="onRecordsReceived($event)"/>
 </div>

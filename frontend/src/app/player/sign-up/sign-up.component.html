@@ -1,20 +1,38 @@
-<div class="arcade-player-sign-up">
+<div class="player-sign-up">
     <h2>Sign Up</h2>
 
     <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-        <label for="name">name</label>
-        <input type="text" id="name" formControlName="name" required>
+        <div class="form-element">
+            <label for="name">Name</label>
+            <input type="text" id="name" formControlName="name" required>
+            <p *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Missing name</p>
+        </div>
 
-        <label for="surname">surname</label>
-        <input type="text" id="surname" formControlName="surname" required>
+        <div class="form-element">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" formControlName="surname" required>
+            <p *ngIf="signUpForm.get('surname')?.invalid && signUpForm.get('surname')?.touched">Missing surname</p>
+        </div>
 
-        <label for="email">email</label>
-        <input type="text" id="email" formControlName="email" email required>
+        <div class="form-element">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" required>
+            <p *ngIf="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched">Missing username</p>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" required>
+        <div class="form-element">
+            <label for="email">email</label>
+            <input type="text" id="email" formControlName="email" email required>
+            <p *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">Invalid email</p>
+        </div>
 
-        <button type="submit">Sign Up</button>
+        <div class="form-element">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required>
+            <p *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">Missing password</p>
+        </div>
+
+        <input type="submit" value="Sign Up" [disabled]="signUpForm.invalid">
     </form>
 
     <p>Already have an account?<br><a routerLink="/player/sign-in">Sign In</a></p>

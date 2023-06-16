@@ -23,9 +23,11 @@ import { CreateEventComponent } from "./game-room/event/create-event/create-even
 import { DeleteEventsComponent } from './game-room/event/delete-events/delete-events.component';
 import { GameRoomProfileComponent } from './game-room/game-room-profile/game-room-profile.component';
 import { GameRoomGamesComponent } from './game-room/games/game-room-games.component';
-import { GameRoomViewRecordComponent } from './game-room/record/game-room-view-records/game-room-view-record.component';
+import { GameRoomViewRecordsComponent } from 'src/app/game-room/record/game-room-view-records/game-room-view-records.component';
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
-import { GameRoomDeleteRecordComponent } from './game-room/record/game-room-delete-record/game-room-delete-record.component';
+import { GameRoomDeleteRecordsComponent } from 'src/app/game-room/record/game-room-delete-records/game-room-delete-records.component';
+import { GameRoomViewEventsComponent } from "src/app/game-room/event/game-room-view-events/game-room-view-events.component";
+import { NgOptimizedImage } from "@angular/common";
 
 
 @NgModule({
@@ -48,9 +50,10 @@ import { GameRoomDeleteRecordComponent } from './game-room/record/game-room-dele
         VerifyRecordComponent,
         GameRoomProfileComponent,
         GameRoomGamesComponent,
-        GameRoomViewRecordComponent,
+        GameRoomViewRecordsComponent,
         DeleteEventsComponent,
-        GameRoomDeleteRecordComponent,
+        GameRoomDeleteRecordsComponent,
+        GameRoomViewEventsComponent
         //endregion
     ],
     imports: [
@@ -60,7 +63,8 @@ import { GameRoomDeleteRecordComponent } from './game-room/record/game-room-dele
         NgbModule,
         AppRoutingModule,
         RouterOutlet,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgOptimizedImage
     ],
     providers: [AuthenticationInterceptorProvider],
     bootstrap: [AppComponent]

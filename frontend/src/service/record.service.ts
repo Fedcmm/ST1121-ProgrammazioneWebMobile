@@ -16,18 +16,23 @@ export class RecordService {
     }
 
 
-    getGameRoomRecords(gameRoomId?: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/gameRoom/?gameRoomId=${gameRoomId}`;
-        return this.http.get<Record[]>(url);
-    }
-
     getRecord(recordId: number): Observable<Record> {
         const url = `${this.apiUrl}/${recordId}`;
         return this.http.get<Record>(url);
     }
 
-    getPlayerRecords(playerId?: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/player/?playerId=${playerId}`;
+    getGameRoomRecords(gameRoomId: number): Observable<Record[]> {
+        const url = `${this.apiUrl}/?gameRoomId=${gameRoomId}`;
+        return this.http.get<Record[]>(url);
+    }
+
+    getPlayerRecords(playerId: number): Observable<Record[]> {
+        const url = `${this.apiUrl}/?playerId=${playerId}`;
+        return this.http.get<Record[]>(url);
+    }
+
+    getVerifiedRecords(playerId: number): Observable<Record[]> {
+        const url = `${this.apiUrl}/verified/?playerId=${playerId}`;
         return this.http.get<Record[]>(url);
     }
 
@@ -41,8 +46,8 @@ export class RecordService {
         return this.http.put<Record>(url, record);
     }
 
-    deleteRecord(recordId: number): Observable<Record> {
-        const url = `${this.apiUrl}/${recordId}`;
+    deleteRecord(record: Record): Observable<Record> {
+        const url = `${this.apiUrl}/${record.player, record.gameRoom, record.game}`;
         return this.http.delete<Record>(url);
     }
 }
