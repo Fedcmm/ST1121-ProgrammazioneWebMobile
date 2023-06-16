@@ -1,7 +1,5 @@
 package it.unicam.cs.pawm.database
 
-import it.unicam.cs.pawm.model.GameRoomRecordsTable
-import it.unicam.cs.pawm.model.PlayerRecordTable
 import it.unicam.cs.pawm.model.Record
 import it.unicam.cs.pawm.model.RecordTable
 import org.jetbrains.exposed.sql.*
@@ -21,20 +19,6 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
         insert[RecordTable.id]
     }
 
-    override suspend fun read(id: Int): Record? = dbQuery {
-        RecordTable.select { (RecordTable.player eq id) }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
-        }.singleOrNull()
-    }
-
     override suspend fun readAll(): List<Record> = dbQuery {
         RecordTable.selectAll().map {
             Record(
@@ -49,8 +33,26 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
         }
     }
 
-    suspend fun getGameRoomRecords(id: Int): List<Record> = dbQuery {
-        GameRoomRecordsTable.select { (GameRoomRecordsTable.gameRoom eq id) }.mapNotNull {
+    override suspend fun read(id: Int): Record? = dbQuery {
+        RecordTable.select {
+            (RecordTable.id eq id)
+        }.mapNotNull {
+            Record(
+                it[RecordTable.id],
+                PlayerService.read(it[RecordTable.player])!!,
+                GameRoomService.read(it[RecordTable.gameRoom])!!,
+                GameService.read(it[RecordTable.game])!!,
+                it[RecordTable.date],
+                it[RecordTable.score],
+                it[RecordTable.isVerified]
+            )
+        }.singleOrNull()
+    }
+
+    suspend fun getGameRoomRecords(gameRoomId: Int): List<Record> = dbQuery {
+        RecordTable.select {
+            (RecordTable.gameRoom eq gameRoomId)
+        }.mapNotNull {
             Record(
                 it[RecordTable.id],
                 PlayerService.read(it[RecordTable.player])!!,
@@ -63,8 +65,42 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
         }
     }
 
-    suspend fun getPlayerRecords(id: Int): List<Record> = dbQuery {
-        PlayerRecordTable.select { (PlayerRecordTable.player eq id) }.mapNotNull {
+    suspend fun getPlayerRecords(playerId: Int): List<Record> = dbQuery{
+        RecordTable.select{
+            (RecordTable.player eq playerId)
+        }.mapNotNull {
+            Record(
+                it[RecordTable.id],
+                PlayerService.read(it[RecordTable.player])!!,
+                GameRoomService.read(it[RecordTable.gameRoom])!!,
+                GameService.read(it[RecordTable.game])!!,
+                it[RecordTable.date],
+                it[RecordTable.score],
+                it[RecordTable.isVerified]
+            )
+        }
+    }
+
+    suspend fun getGameRoomVerifiedRecords(gameRoomId: Int): List<Record> = dbQuery{
+        RecordTable.select{
+            (RecordTable.gameRoom eq gameRoomId) and (RecordTable.isVerified eq true)
+        }.mapNotNull {
+            Record(
+                it[RecordTable.id],
+                PlayerService.read(it[RecordTable.player])!!,
+                GameRoomService.read(it[RecordTable.gameRoom])!!,
+                GameService.read(it[RecordTable.game])!!,
+                it[RecordTable.date],
+                it[RecordTable.score],
+                it[RecordTable.isVerified]
+            )
+        }
+    }
+
+    suspend fun getPlayerVerifiedRecords(playerId: Int): List<Record> = dbQuery{
+        RecordTable.select{
+            (RecordTable.player eq playerId) and (RecordTable.isVerified eq true)
+        }.mapNotNull {
             Record(
                 it[RecordTable.id],
                 PlayerService.read(it[RecordTable.player])!!,

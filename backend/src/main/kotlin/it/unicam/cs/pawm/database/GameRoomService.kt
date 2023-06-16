@@ -11,8 +11,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
     suspend fun salt(email: String): String = dbQuery {
 
     }
-
-    }
     */
 
     override suspend fun add(newRecord: GameRoom): Int = dbQuery {
@@ -94,5 +92,24 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
      * Removes all events from the specified [gameRoom].
      */
     suspend fun removeAllEvents(gameRoom: Int) {
+    }
+
+    suspend fun getPasswordSalt(email: String): String? = dbQuery {
+        GameRoomTable.select { GameRoomTable.email eq email }.map { it[GameRoomTable.passwordSalt] }.singleOrNull()
+    }
+
+    /**
+     * Checks if the given credentials are valid and returns the id of the user, or `-1` on failure.
+     */
+    suspend fun checkCredentials(email: String, password: String): Int = dbQuery {
+        GameRoomTable.select { (GameRoomTable.email eq email) and (GameRoomTable.password eq password) }
+            .map { it[GameRoomTable.id] }.singleOrNull() ?: -1
+    }
+
+    /**
+     * Checks if an account with the given [email] exists.
+     */
+    suspend fun accountExists(email: String): Boolean = dbQuery {
+        GameRoomTable.select { GameRoomTable.email eq email }.count() == 1L
     }
 }

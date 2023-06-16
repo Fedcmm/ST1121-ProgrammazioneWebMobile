@@ -26,10 +26,3 @@ object PlayerTable : Table() {
 
     override val primaryKey = PrimaryKey(id)
 }
-
-object PlayerRecordTable : Table() {
-    val player = reference("player", PlayerTable.id)
-    val record = reference("record", RecordTable.id)
-
-    override val primaryKey = PrimaryKey(player, record)
-}

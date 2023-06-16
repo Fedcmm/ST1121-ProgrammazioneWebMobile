@@ -8,8 +8,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.date.*
 import io.ktor.util.pipeline.*
+import it.unicam.cs.pawm.database.GameRoomRefreshService
+import it.unicam.cs.pawm.database.GameRoomService
 import it.unicam.cs.pawm.database.PlayerRefreshService
 import it.unicam.cs.pawm.database.PlayerService
+import it.unicam.cs.pawm.model.GameRoom
 import it.unicam.cs.pawm.model.Player
 import it.unicam.cs.pawm.model.RefreshToken
 import it.unicam.cs.pawm.utils.REFRESH_DURATION
@@ -68,13 +71,21 @@ fun Route.authenticationRouting() {
             PlayerRefreshService.delete(id)
 
             val tokens = application.createTokens(id, credentials.email)
-            PlayerRefreshService.add(RefreshToken(id, tokens.refreshToken, Instant.now().plusSeconds(REFRESH_DURATION).epochSecond))
+            PlayerRefreshService.add(
+                RefreshToken(
+                    id,
+                    tokens.refreshToken,
+                    Instant.now().plusSeconds(REFRESH_DURATION).epochSecond
+                )
+            )
 
             call.response.addRefreshCookie(tokens.refreshToken)
-            call.respond(hashMapOf(
-                "id" to id.toString(),
-                "token" to tokens.accessToken
-            ))
+            call.respond(
+                hashMapOf(
+                    "id" to id.toString(),
+                    "token" to tokens.accessToken
+                )
+            )
         }
 
         post("/logout") {
@@ -96,6 +107,87 @@ fun Route.authenticationRouting() {
             call.respond(hashMapOf("token" to tokens.accessToken))
         }
     }
+
+
+    route("/gameroom") {
+        post("/signup") {
+            val gameRoom = call.receive<GameRoom>()
+
+            if (GameRoomService.accountExists(gameRoom.email)) {
+                call.respondText("Account already exists", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+
+            if (gameRoom.name.isBlank()) {
+                call.respondText("Invalid information", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+            if (!gameRoom.email.matches(Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")) || gameRoom.password.isBlank()) {
+                call.respondText("Invalid credentials", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+            GameRoomService.add(gameRoom)
+            call.respond(HttpStatusCode.Created)
+        }
+
+        get("/salt") {
+            val email = call.request.queryParameters["email"] ?: run {
+                call.respondText("Missing email", status = HttpStatusCode.BadRequest)
+                return@get
+            }
+
+            GameRoomService.getPasswordSalt(email)?.let {
+                call.respond(hashMapOf("salt" to it))
+            } ?: call.respondText("Account not found", status = HttpStatusCode.NotFound)
+        }
+
+        post("/login") {
+            val credentials = call.receive<Credentials>()
+            val id = GameRoomService.checkCredentials(credentials.email, credentials.password)
+            if (id < 0) {
+                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
+                return@post
+            }
+
+            GameRoomRefreshService.delete(id)
+
+            val tokens = application.createTokens(id, credentials.email)
+            GameRoomRefreshService.add(
+                RefreshToken(
+                    id,
+                    tokens.refreshToken,
+                    Instant.now().plusSeconds(REFRESH_DURATION).epochSecond
+                )
+            )
+
+            call.response.addRefreshCookie(tokens.refreshToken)
+            call.respond(
+                hashMapOf(
+                    "id" to id.toString(),
+                    "token" to tokens.accessToken
+                )
+            )
+        }
+
+        post("/logout") {
+            val id = validateRefresh()?.getClaim("id")?.asInt() ?: return@post
+            GameRoomRefreshService.delete(id)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        post("/refresh") {
+            val email = call.receive<String>() // TODO (28/05/23): Remove
+
+            val oldRefresh = validateRefresh() ?: return@post
+            val id = oldRefresh.getClaim("id").asInt()
+
+            val tokens = application.createTokens(id, email)
+
+            GameRoomRefreshService.update(id, tokens.refreshToken)
+            call.response.addRefreshCookie(tokens.refreshToken)
+            call.respond(hashMapOf("token" to tokens.accessToken))
+        }
+    }
 }
 
 @Serializable
@@ -103,7 +195,7 @@ private data class Credentials(val email: String, val password: String)
 
 private fun ApplicationResponse.addRefreshCookie(refresh: String) {
     cookies.append(
-        Cookie("refresh_token", refresh, expires = GMTDate().plus(REFRESH_DURATION*1000), httpOnly = true)
+        Cookie("refresh_token", refresh, expires = GMTDate().plus(REFRESH_DURATION * 1000), httpOnly = true)
     )
 }
 
