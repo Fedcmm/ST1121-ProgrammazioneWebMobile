@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/model/Player';
+import { Record } from 'src/model/Record';
 import { HashService } from "src/service/hash.service";
 
 @Injectable({
@@ -23,12 +24,22 @@ export class PlayerService {
     }
 
     getPlayers(): Observable<Player[]> {
-        const url = `${this.apiUrl}/players`;
+        const url = `${this.apiUrl}/all`;
         return this.http.get<Player[]>(url);
     }
 
     getPlayer(playerId?: number): Observable<Player> {
         const url = `${this.apiUrl}/${playerId}`;
+        return this.http.get<Player>(url);
+    }
+
+    getRecords(playerId?: number): Observable<Record> {
+        const url = `${this.apiUrl}/${playerId}/records`;
+        return this.http.get<Player>(url);
+    }
+
+    getVerifiedRecords(playerId?: number): Observable<Record> {
+        const url = `${this.apiUrl}/${playerId}/verifiedRecords`;
         return this.http.get<Player>(url);
     }
 
