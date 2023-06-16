@@ -29,13 +29,3 @@
 .game-room-delete-events input[type="checkbox"] {
     margin-right: 10px;
 }
-
-.game-room-delete-events input[type="button"] {
-    padding: 10px 20px;
-    font-size: medium;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}

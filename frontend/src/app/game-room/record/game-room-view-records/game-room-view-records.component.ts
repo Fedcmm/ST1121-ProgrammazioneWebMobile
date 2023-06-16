@@ -38,6 +38,9 @@ export class GameRoomViewRecordsComponent implements OnInit {
             .subscribe({
                 next: (verifiedRecords) => {
                     this.verifiedRecords = verifiedRecords;
+                },
+                error: error => {
+                    console.error(error);
                 }
             });
     }

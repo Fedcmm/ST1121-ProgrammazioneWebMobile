@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { GameRoomService } from "src/service/game-room.service";
-import { GameService } from "src/service/game.service";
 import { Game } from "src/model/Game";
 import { AuthInfoService } from "src/service/auth-info.service";
 
@@ -17,7 +16,6 @@ export class GameRoomGamesComponent implements OnInit {
 
     constructor(
         private gameRoomService: GameRoomService,
-        private gameService: GameService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
     ) {}

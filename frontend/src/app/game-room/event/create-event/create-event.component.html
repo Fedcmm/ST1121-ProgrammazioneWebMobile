@@ -1,28 +1,37 @@
 <div class="game-room-create-event">
     <h2>Create Event</h2>
 
-    <form (submit)="createEvent()">
-        <div class="form-group">
+    <div class="error" *ngIf="showError">{{ errorMessage }}</div>
+
+    <form [formGroup]="newEventForm" (ngSubmit)="createEvent()">
+        <div class="error-form-element">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Enter name" required>
+            <input type="text" id="name" formControlName="name" placeholder="Enter name" required>
+
+            <p *ngIf="newEventForm.get('name')?.invalid && newEventForm.get('name')?.touched">Missing name</p>
         </div>
 
-        <div class="form-group">
+        <div class="error-form-element">
             <label for="description">Description:</label>
-            <textarea id="description" name="description" [(ngModel)]="description"
-                      placeholder="Enter event description" required></textarea>
+            <textarea id="description" formControlName="description" placeholder="Enter event description" required></textarea>
+
+            <p *ngIf="newEventForm.get('description')?.invalid && newEventForm.get('description')?.touched">Missing description</p>
         </div>
 
-        <div class="form-group">
+        <div class="error-form-element">
             <label for="startDate">Start Date:</label>
-            <input type="datetime-local" id="startDate" name="startDate" [(ngModel)]="startDate" required>
+            <input type="date" id="startDate" formControlName="startDate" required>
+
+            <p *ngIf="newEventForm.get('startDate')?.invalid && newEventForm.get('startDate')?.touched">Invalid start date</p>
         </div>
 
-        <div class="form-group">
+        <div class="error-form-element">
             <label for="endDate">End Date:</label>
-            <input type="datetime-local" id="endDate" name="endDate" [(ngModel)]="endDate" required>
+            <input type="date" id="endDate" formControlName="endDate" required>
+
+            <p *ngIf="newEventForm.get('endDate')?.invalid && newEventForm.get('endDate')?.touched">Invalid end date</p>
         </div>
 
-        <input type="submit" value="Create Event">
+        <input type="submit" value="Create Event" [disabled]="newEventForm.invalid">
     </form>
 </div>

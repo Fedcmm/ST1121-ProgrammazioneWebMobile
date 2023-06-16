@@ -3,41 +3,45 @@
     margin: 0 auto;
     border-radius: 5px;
     text-align: center;
-    max-width: 300px;
+    max-width: 450px;
 }
 
 .game-room-create-event h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: x-large;
 }
 
-.game-room-create-event .form-group {
-    margin-bottom: 40px;
-}
-
 .game-room-create-event label {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: medium;
     display: block;
 }
 
 .game-room-create-event input[type="text"],
+.game-room-create-event input[type="date"],
 .game-room-create-event textarea {
     width: 100%;
     padding: 10px;
-    font-size: medium;
+    font-size: small;
     background-color: transparent;
     color: white;
     border: 1px solid white;
     border-radius: 10px;
 }
 
-.game-room-create-event input[type="button"] {
-    padding: 10px 20px;
-    font-size: medium;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.error-form-element {
+    margin-bottom: 15px;
+}
+
+.error-form-element:nth-child(n + 1) .ng-invalid.ng-touched {
+    border-left: 3px solid var(--accent-color);
+    border-right: 3px solid var(--accent-color);
+}
+
+.error-form-element p {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: x-small;
+    color: red;
+    text-align: start;
 }

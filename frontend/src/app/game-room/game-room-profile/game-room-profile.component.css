@@ -5,23 +5,23 @@
 }
 
 .game-room-profile h2 {
-    font-size: x-large;
     margin-bottom: 20px;
+    font-size: x-large;
     text-align: center;
 }
 
 .game-room-profile h3 {
-    font-size: large;
     margin-bottom: 10px;
+    font-size: large;
 }
 
 .game-room-profile .label {
-    display: block;
-    font-size: medium;
     margin-bottom: 5px;
+    font-size: medium;
+    display: block;
 }
 
 .game-room-profile .value {
-    font-size: medium;
     margin-bottom: 10px;
+    font-size: medium;
 }
