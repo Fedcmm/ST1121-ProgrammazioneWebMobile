@@ -19,3 +19,10 @@ object GameTable : Table() {
 
     override val primaryKey = PrimaryKey(id)
 }
+
+object GamesOfGameRoomTable : Table() {
+    val gameId = integer("id")
+    val gameRoomId = integer("id")
+
+    override val primaryKey = PrimaryKey(gameId, gameRoomId)
+}

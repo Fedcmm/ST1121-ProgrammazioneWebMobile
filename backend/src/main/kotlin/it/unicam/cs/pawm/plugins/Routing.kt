@@ -14,6 +14,7 @@ fun Application.configureRouting() {
             gameRoomRouting()
             gameRouting()
             eventRouting()
+            recordRouting()
         }
     }
 }

@@ -32,13 +32,13 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                it[GameRoomGamesTable.gameRoom].let { gameRoom ->
+                it[GamesOfGameRoomTable.gameRoomId].let { gameRoom ->
                     GameService.getGameRoomGames(gameRoom)
                 },
-                it[GameRoomEventsTable.gameRoom].let { gameRoom ->
+                it[EventTable.gameRoom].let { gameRoom ->
                     EventService.getGameRoomEvents(gameRoom)
                 },
-                it[GameRoomRecordsTable.gameRoom].let { gameRoom ->
+                it[RecordTable.gameRoom].let { gameRoom ->
                     RecordService.getGameRoomRecords(gameRoom)
                 }
             )
