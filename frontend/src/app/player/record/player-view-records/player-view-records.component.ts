@@ -3,8 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Record } from 'src/model/Record';
 import { RecordService } from 'src/service/record.service';
 
-import { map } from "rxjs";
 import { AuthInfoService } from "src/service/auth-info.service";
+import { PlayerService } from "src/service/player.service";
 
 @Component({
     selector: 'app-player-view-records',
@@ -20,6 +20,7 @@ export class PlayerViewRecordsComponent implements OnInit {
 
 
     constructor(
+        private playerService: PlayerService,
         private recordService: RecordService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
@@ -33,8 +34,7 @@ export class PlayerViewRecordsComponent implements OnInit {
     getVerifiedRecords() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.recordService.getPlayerRecords(id ? parseInt(id) : this.authInfo.user!.id)
-            .pipe(map(records => records.filter(record => record.isVerified)))
+        this.playerService.getVerifiedRecords(id ? parseInt(id) : this.authInfo.user!.id)
             .subscribe({
                 next: verifiedRecords => {
                     this.verifiedRecords = verifiedRecords;
@@ -42,7 +42,7 @@ export class PlayerViewRecordsComponent implements OnInit {
                 error: error => {
                     console.error(error);
                 }
-        });
+            });
     }
 
     deleteRecord(record: Record) {

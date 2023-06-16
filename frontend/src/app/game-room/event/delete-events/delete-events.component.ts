@@ -23,7 +23,7 @@ export class DeleteEventsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.eventService.getGameRoomEvents(this.authInfo.user!.id).subscribe({
+        this.gameRoomService.getEvents(this.authInfo.user!.id).subscribe({
             next: (events: Event[]) => {
                 this.events = events;
             }
@@ -45,9 +45,6 @@ export class DeleteEventsComponent implements OnInit {
         }
     }
 
-    /**
-     * Cancella gli eventi selezionati.
-     */
     deleteSelectedEvents() {
         this.eventsToDelete.forEach((event) => {
             this.eventService.deleteEvent(event.id).subscribe(() => {

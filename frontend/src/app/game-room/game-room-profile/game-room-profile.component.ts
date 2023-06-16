@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { GameRoom } from "src/model/GameRoom";
 import { Event } from "src/model/Event";
 import { Record } from "src/model/Record";
 
 import { GameRoomService } from "src/service/game-room.service";
-import { EventService } from "src/service/event.service";
-import { RecordService } from "src/service/record.service";
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
@@ -19,12 +17,12 @@ export class GameRoomProfileComponent implements OnInit {
     gameRoom?: GameRoom;
     recordsLength = 0;
     events: Event[] = [];
+    isLoggedUser = false;
 
     constructor(
         private gameRoomService: GameRoomService,
-        private recordService: RecordService,
-        private eventService: EventService,
         private authInfo: AuthInfoService,
+        private router: Router,
         private route: ActivatedRoute
     ) {}
 
@@ -32,20 +30,25 @@ export class GameRoomProfileComponent implements OnInit {
     ngOnInit() {
         let routeId = this.route.snapshot.paramMap.get("id");
         let id = routeId ? parseInt(routeId) : this.authInfo.user!.id;
+        this.isLoggedUser = id === this.authInfo.user!.id;
 
-        this.gameRoomService.getGameRoom(id).subscribe({
-            next: (gameRoom: GameRoom) => {
-                this.gameRoom = gameRoom;
-            },
-            error: console.error
-        });
-        this.recordService.getGameRoomRecords(id).subscribe({
+        if (this.isLoggedUser) {
+            this.gameRoom = this.authInfo.user as GameRoom;
+        } else {
+            this.gameRoomService.getGameRoom(id).subscribe({
+                next: (gameRoom: GameRoom) => {
+                    this.gameRoom = gameRoom;
+                },
+                error: console.error
+            });
+        }
+        this.gameRoomService.getRecords(id).subscribe({
             next: (records: Record[]) => {
                 this.recordsLength = records.length;
             },
             error: console.error
         });
-        this.eventService.getGameRoomEvents(id).subscribe({
+        this.gameRoomService.getEvents(id).subscribe({
             next: (events: Event[]) => {
                 this.events = events;
             },
@@ -55,5 +58,9 @@ export class GameRoomProfileComponent implements OnInit {
 
     onEventsReceived(events: Event[]) {
         this.events = events;
+    }
+
+    createEvent() {
+        this.router.navigate(['/game-room/create-event']).catch(console.error);
     }
 }

@@ -7,12 +7,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
 
-    /* TODO: implement salt
-    suspend fun salt(email: String): String = dbQuery {
-
-    }
-    */
-
     override suspend fun add(newRecord: GameRoom): Int = dbQuery {
         val insert = GameRoomTable.insert {
             it[name] = newRecord.name
@@ -32,15 +26,9 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                it[GamesOfGameRoomTable.gameRoomId].let { gameRoom ->
-                    GameService.getGameRoomGames(gameRoom)
-                },
-                it[EventTable.gameRoom].let { gameRoom ->
-                    EventService.getGameRoomEvents(gameRoom)
-                },
-                it[RecordTable.gameRoom].let { gameRoom ->
-                    RecordService.getGameRoomRecords(gameRoom)
-                }
+                GameService.getGameRoomGames(it[GameRoomTable.id]),
+                EventService.getGameRoomEvents(it[GameRoomTable.id]),
+                RecordService.getGameRoomRecords(it[GameRoomTable.id])
             )
         }.singleOrNull()
     }

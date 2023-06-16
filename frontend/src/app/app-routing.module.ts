@@ -13,6 +13,7 @@ import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
+import { GameRoomProfileComponent } from "src/app/game-room/game-room-profile/game-room-profile.component";
 
 const routes: Routes = [
     {
@@ -64,6 +65,14 @@ const routes: Routes = [
     {
         path: 'game-room/verify-record',
         component: VerifyRecordComponent
+    },
+    {
+        path: 'game-room/profile',
+        component: GameRoomProfileComponent
+    },
+    {
+        path: 'game-room/:id',
+        component: GameRoomProfileComponent
     },
     //endregion
 

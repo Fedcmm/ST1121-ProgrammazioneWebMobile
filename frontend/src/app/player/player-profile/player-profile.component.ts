@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Player } from "src/model/Player";
 import { Record } from "src/model/Record";
 import { PlayerService } from "src/service/player.service";
-import { RecordService } from "src/service/record.service";
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
@@ -20,7 +19,6 @@ export class PlayerProfileComponent implements OnInit {
 
     constructor(
         private playerService: PlayerService,
-        private recordService: RecordService,
         private authInfo: AuthInfoService,
         private router: Router,
         private route: ActivatedRoute
@@ -28,16 +26,21 @@ export class PlayerProfileComponent implements OnInit {
 
 
     ngOnInit() {
-        let id = this.route.snapshot.paramMap.get("id");
-        this.isLoggedUser = id ? parseInt(id) === this.authInfo.user!.id : true;
+        let routeId = this.route.snapshot.paramMap.get("id");
+        let id = routeId ? parseInt(routeId) : this.authInfo.user!.id;
+        this.isLoggedUser = id === this.authInfo.user!.id;
 
-        this.playerService.getPlayer(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
-            next: (player: Player) => {
-                this.player = player;
-            },
-            error: console.error
-        });
-        this.recordService.getPlayerRecords(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
+        if (this.isLoggedUser) {
+            this.player = this.authInfo.user as Player;
+        } else {
+            this.playerService.getPlayer(id).subscribe({
+                next: (player: Player) => {
+                    this.player = player;
+                },
+                error: console.error
+            });
+        }
+        this.playerService.getRecords(id).subscribe({
             next: (records: Record[]) => {
                 this.records = records;
             },

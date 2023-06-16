@@ -9,6 +9,9 @@
     <div class="label">Total events:</div>
     <div class="value">{{ events.length }}</div>
 
-    <h3>Events:</h3>
+    <div class="events-header">
+        <h3>Events</h3>
+        <input type="button" value="Add event" *ngIf="isLoggedUser" (click)="createEvent()">
+    </div>
     <game-room-view-events [isGameRoomProfile]="true" (receivedEvents)="onEventsReceived($event)"/>
 </div>

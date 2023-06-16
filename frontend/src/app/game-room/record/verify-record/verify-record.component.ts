@@ -4,6 +4,7 @@ import { Record } from "src/model/Record";
 import { RecordService } from "src/service/record.service";
 import { map } from "rxjs";
 import { AuthInfoService } from "src/service/auth-info.service";
+import { GameRoomService } from "src/service/game-room.service";
 
 @Component({
     selector: 'app-verify-record',
@@ -17,6 +18,7 @@ export class VerifyRecordComponent implements OnInit {
 
     constructor(
         private recordService: RecordService,
+        private gameRoomService: GameRoomService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
     ) { }
@@ -28,7 +30,7 @@ export class VerifyRecordComponent implements OnInit {
     }
 
     getGameRoomRecords(gameRoomId: number): void {
-        this.recordService.getGameRoomRecords(gameRoomId).pipe(
+        this.gameRoomService.getRecords(gameRoomId).pipe(
             map(records => {
                 return records.filter(record => !record.isVerified);
             })

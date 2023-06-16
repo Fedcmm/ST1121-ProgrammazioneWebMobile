@@ -5,8 +5,13 @@ import it.unicam.cs.pawm.model.GameTable
 import it.unicam.cs.pawm.model.GamesOfGameRoomTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object GameService : DatabaseService<Game, Int>(GameTable) {
+
+    init {
+        transaction { SchemaUtils.create(GamesOfGameRoomTable) }
+    }
 
     override suspend fun add(newRecord: Game): Int = dbQuery {
         val insert = GameTable.insert {
@@ -43,7 +48,7 @@ object GameService : DatabaseService<Game, Int>(GameTable) {
 
     suspend fun getGameRoomGames(gameRoomId: Int): List<Game> = dbQuery {
         GamesOfGameRoomTable.select { GamesOfGameRoomTable.gameRoomId eq gameRoomId }.mapNotNull {
-            GameService.read(it[GamesOfGameRoomTable.gameId])
+            read(it[GamesOfGameRoomTable.gameId])
         }
     }
 

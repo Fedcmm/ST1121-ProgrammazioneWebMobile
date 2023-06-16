@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { Event } from 'src/model/Event';
 import { AuthInfoService } from "src/service/auth-info.service";
-import { EventService } from "src/service/event.service";
+import { GameRoomService } from "src/service/game-room.service";
 
 @Component({
     selector: 'game-room-view-events',
@@ -19,7 +19,7 @@ export class GameRoomViewEventsComponent implements OnInit {
 
 
     constructor(
-        private eventService: EventService,
+        private gameRoomService: GameRoomService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
     ) {}
@@ -28,7 +28,7 @@ export class GameRoomViewEventsComponent implements OnInit {
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.eventService.getGameRoomEvents(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
+        this.gameRoomService.getEvents(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
             next: (events: Event[]) => {
                 this.events = events;
             },

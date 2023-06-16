@@ -26,7 +26,7 @@
     font-size: large;
 }
 
-.player-profile .records {
+.player-profile .records-header {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -34,7 +34,7 @@
     justify-content: space-between;
 }
 
-.player-profile .records input[type="button"] {
+.player-profile .records-header input[type="button"] {
     padding: 10px 20px;
     background-color: var(--accent-color);
     color: white;

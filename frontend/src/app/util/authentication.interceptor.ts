@@ -6,7 +6,6 @@ import {
     HttpInterceptor, HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse
 } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
-import { Player } from "src/model/Player";
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Injectable()
@@ -50,7 +49,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             this.isRefreshing = true;
             this.refreshTokenSubject.next(null);
 
-            let urlUserPart = this.authInfo.user instanceof Player ? 'player' : 'game-room';
+            let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'game-room';
             return this.http.post<any>(`http://localhost:8080/${urlUserPart}/refresh`, {}, { withCredentials: true }).pipe(
                 switchMap((newToken) => {
                     this.isRefreshing = false;

@@ -8,8 +8,8 @@ import { Game } from 'src/model/Game';
 })
 //TODO: Delete?
 export class GameService {
-    //TODO: mettere l'url giusto
-    private apiUrl = 'url_da_cambiare';
+
+    private apiUrl = 'http://localhost:8080/game';
 
 
     constructor(
@@ -23,7 +23,7 @@ export class GameService {
     }
 
     createGame(game: Game): Observable<Game> {
-        const url = `${this.apiUrl}`;
+        const url = `${this.apiUrl}/`;
         return this.http.post<Game>(url, game);
     }
 

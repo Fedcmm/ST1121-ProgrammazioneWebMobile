@@ -21,15 +21,7 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
 
     override suspend fun readAll(): List<Record> = dbQuery {
         RecordTable.selectAll().map {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }
     }
 
@@ -37,15 +29,7 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
         RecordTable.select {
             (RecordTable.id eq id)
         }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }.singleOrNull()
     }
 
@@ -53,63 +37,31 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
         RecordTable.select {
             (RecordTable.gameRoom eq gameRoomId)
         }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }
     }
 
-    suspend fun getPlayerRecords(playerId: Int): List<Record> = dbQuery{
-        RecordTable.select{
+    suspend fun getPlayerRecords(playerId: Int): List<Record> = dbQuery {
+        RecordTable.select {
             (RecordTable.player eq playerId)
         }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }
     }
 
-    suspend fun getGameRoomVerifiedRecords(gameRoomId: Int): List<Record> = dbQuery{
-        RecordTable.select{
+    suspend fun getGameRoomVerifiedRecords(gameRoomId: Int): List<Record> = dbQuery {
+        RecordTable.select {
             (RecordTable.gameRoom eq gameRoomId) and (RecordTable.isVerified eq true)
         }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }
     }
 
-    suspend fun getPlayerVerifiedRecords(playerId: Int): List<Record> = dbQuery{
-        RecordTable.select{
+    suspend fun getPlayerVerifiedRecords(playerId: Int): List<Record> = dbQuery {
+        RecordTable.select {
             (RecordTable.player eq playerId) and (RecordTable.isVerified eq true)
         }.mapNotNull {
-            Record(
-                it[RecordTable.id],
-                PlayerService.read(it[RecordTable.player])!!,
-                GameRoomService.read(it[RecordTable.gameRoom])!!,
-                GameService.read(it[RecordTable.game])!!,
-                it[RecordTable.date],
-                it[RecordTable.score],
-                it[RecordTable.isVerified]
-            )
+            Record.fromQueryResult(it)
         }
     }
 

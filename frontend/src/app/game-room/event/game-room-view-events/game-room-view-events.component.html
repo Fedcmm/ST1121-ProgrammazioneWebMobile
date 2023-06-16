@@ -1,5 +1,5 @@
 <div class="game-room-view-events">
-    <h2>View Events</h2>
+    <h2 *ngIf="!isGameRoomProfile">Events</h2>
 
     <div *ngFor="let event of events">
         Name:

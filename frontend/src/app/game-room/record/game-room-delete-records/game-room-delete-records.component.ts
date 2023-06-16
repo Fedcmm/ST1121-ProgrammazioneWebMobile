@@ -23,7 +23,7 @@ export class GameRoomDeleteRecordsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.recordService.getGameRoomRecords(this.authInfo.user!.id).subscribe({
+        this.gameRoomService.getRecords(this.authInfo.user!.id).subscribe({
             next: (records: Record[]) => {
                 this.records = records;
             }
@@ -45,9 +45,6 @@ export class GameRoomDeleteRecordsComponent implements OnInit {
         }
     }
 
-    /**
-     * Cancella i record selezionati.
-     */
     deleteSelectedRecords() {
         this.recordsToDelete.forEach((record) => {
             this.recordService.deleteRecord(record).subscribe(() => {

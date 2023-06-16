@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { Player } from "src/model/Player";
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
@@ -19,7 +18,7 @@ export class NavBarComponent {
 
 
     logout() {
-        let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'gameroom';
+        let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'game-room';
 
         this.http.post(`http://localhost:8080/${urlUserPart}/logout`, {})
             .subscribe(() => {

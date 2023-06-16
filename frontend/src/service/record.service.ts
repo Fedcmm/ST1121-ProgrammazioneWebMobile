@@ -7,13 +7,13 @@ import { Record } from 'src/model/Record';
     providedIn: 'root'
 })
 export class RecordService {
-    //TODO: mettere l'url giusto
-    //TODO: fixare gli url per le chiamate
-    private apiUrl = 'url_da_cambiare';
+
+    private apiUrl = 'http://localhost:8080/record';
 
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient
+    ) {}
 
 
     getRecord(recordId: number): Observable<Record> {
@@ -21,33 +21,18 @@ export class RecordService {
         return this.http.get<Record>(url);
     }
 
-    getGameRoomRecords(gameRoomId: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/?gameRoomId=${gameRoomId}`;
-        return this.http.get<Record[]>(url);
-    }
-
-    getPlayerRecords(playerId: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/?playerId=${playerId}`;
-        return this.http.get<Record[]>(url);
-    }
-
-    getVerifiedRecords(playerId: number): Observable<Record[]> {
-        const url = `${this.apiUrl}/verified/?playerId=${playerId}`;
-        return this.http.get<Record[]>(url);
-    }
-
     createRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}`;
+        const url = `${this.apiUrl}/`;
         return this.http.post<Record>(url, record);
     }
 
     updateRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}/${record.player, record.gameRoom,  record.game}`;
+        const url = `${this.apiUrl}/${record.id}`;
         return this.http.put<Record>(url, record);
     }
 
     deleteRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}/${record.player, record.gameRoom, record.game}`;
+        const url = `${this.apiUrl}/${record.id}`;
         return this.http.delete<Record>(url);
     }
 }

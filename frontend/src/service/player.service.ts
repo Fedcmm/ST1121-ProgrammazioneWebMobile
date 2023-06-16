@@ -33,14 +33,14 @@ export class PlayerService {
         return this.http.get<Player>(url);
     }
 
-    getRecords(playerId?: number): Observable<Record> {
+    getRecords(playerId?: number): Observable<Record[]> {
         const url = `${this.apiUrl}/${playerId}/records`;
-        return this.http.get<Player>(url);
+        return this.http.get<Record[]>(url);
     }
 
-    getVerifiedRecords(playerId?: number): Observable<Record> {
+    getVerifiedRecords(playerId?: number): Observable<Record[]> {
         const url = `${this.apiUrl}/${playerId}/verifiedRecords`;
-        return this.http.get<Player>(url);
+        return this.http.get<Record[]>(url);
     }
 
     signIn(username: string, password: string, salt: string): Observable<any> {
@@ -56,12 +56,12 @@ export class PlayerService {
     }
 
     updatePlayer(player: Player): Observable<Player> {
-        const url = `${this.apiUrl}/${player.id}`;
+        const url = `${this.apiUrl}/`;
         return this.http.put<Player>(url, player);
     }
 
-    deletePlayer(playerId: number): Observable<Player> {
-        const url = `${this.apiUrl}/${playerId}`;
+    deletePlayer(): Observable<Player> {
+        const url = `${this.apiUrl}/`;
         return this.http.delete<Player>(url);
     }
 }

@@ -109,7 +109,7 @@ fun Route.authenticationRouting() {
     }
 
 
-    route("/gameroom") {
+    route("/game-room") {
         post("/signup") {
             val gameRoom = call.receive<GameRoom>()
 
@@ -126,6 +126,7 @@ fun Route.authenticationRouting() {
                 call.respondText("Invalid credentials", status = HttpStatusCode.BadRequest)
                 return@post
             }
+
             GameRoomService.add(gameRoom)
             call.respond(HttpStatusCode.Created)
         }
@@ -145,7 +146,7 @@ fun Route.authenticationRouting() {
             val credentials = call.receive<Credentials>()
             val id = GameRoomService.checkCredentials(credentials.email, credentials.password)
             if (id < 0) {
-                call.respondText("Invalid credentials", status = HttpStatusCode.Unauthorized)
+                call.respondText("Wrong password", status = HttpStatusCode.Unauthorized)
                 return@post
             }
 
@@ -206,7 +207,6 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): De
     }
     val oldToken = application.verifyRefresh(cookieToken) ?: run {
         call.respondText("Invalid refresh token", status = HttpStatusCode.Unauthorized)
-        //PlayerRefreshService.delete(id)
         return null
     }
 

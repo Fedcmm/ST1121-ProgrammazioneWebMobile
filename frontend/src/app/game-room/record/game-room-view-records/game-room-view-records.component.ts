@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Record } from "src/model/Record";
-import { RecordService } from "src/service/record.service";
 import { GameRoomService } from "src/service/game-room.service";
-import { map } from "rxjs";
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Component({
@@ -17,7 +15,6 @@ export class GameRoomViewRecordsComponent implements OnInit {
 
 
     constructor(
-        private recordService: RecordService,
         private gameRoomService: GameRoomService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
@@ -31,10 +28,7 @@ export class GameRoomViewRecordsComponent implements OnInit {
     }
 
     getGameRoomRecords(gameRoomId: number) {
-        this.recordService.getGameRoomRecords(gameRoomId)
-            .pipe(map(records => {
-                return records.filter(record => record.isVerified);
-            }))
+        this.gameRoomService.getVerifiedRecords(gameRoomId)
             .subscribe({
                 next: (verifiedRecords) => {
                     this.verifiedRecords = verifiedRecords;
