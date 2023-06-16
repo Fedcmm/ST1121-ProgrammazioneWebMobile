@@ -44,6 +44,19 @@ object EventService : DatabaseService<Event, Int>(EventTable) {
         }
     }
 
+    suspend fun getGameRoomEvents(gameRoomId: Int): List<Event> = dbQuery {
+        EventTable.select { EventTable.gameRoom eq gameRoomId }.map {
+            Event(
+                it[EventTable.id],
+                it[EventTable.name],
+                it[EventTable.description],
+                GameRoomService.read(it[EventTable.gameRoom])!!,
+                it[EventTable.startDate],
+                it[EventTable.endDate]
+            )
+        }
+    }
+
     override suspend fun delete(id: Int) {
         dbQuery {
             EventTable.deleteWhere { EventTable.id eq id }

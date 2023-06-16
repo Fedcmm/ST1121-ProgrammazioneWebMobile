@@ -8,6 +8,7 @@ import java.time.LocalDate
 
 @Serializable
 data class Record(
+    val id: Int,
     val player: Player,
     val gameRoom: GameRoom,
     val game: Game,
@@ -16,10 +17,8 @@ data class Record(
     val isVerified: Boolean
 )
 
-@Serializable
-data class RecordID(val player: Int, val gameRoom: Int)
-
 object RecordTable : Table() {
+    val id = integer("id").autoIncrement()
     val player = reference("player", PlayerTable.id)
     val gameRoom = reference("gameRoom", GameRoomTable.id)
     val game = reference("game", GameTable.id)
@@ -27,5 +26,5 @@ object RecordTable : Table() {
     val score = integer("score")
     val isVerified = bool("isVerified")
 
-    override val primaryKey = PrimaryKey(player, gameRoom)
+    override val primaryKey = PrimaryKey(id)
 }

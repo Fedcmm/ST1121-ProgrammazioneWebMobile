@@ -11,7 +11,8 @@ data class GameRoom(
     val password: String,
     val passwordSalt: String,
     val games: List<Game> = mutableListOf(),
-    val events: List<Event> = mutableListOf()
+    val events: List<Event> = mutableListOf(),
+    val records: List<Record> = mutableListOf()
     //Aggiungere altri campi
 )
 
@@ -37,4 +38,11 @@ object GameRoomEventsTable : Table() {
     val event = reference("event", EventTable.id)
 
     override val primaryKey = PrimaryKey(gameRoom, event)
+}
+
+object GameRoomRecordsTable : Table() {
+    val gameRoom = reference("gameRoom", GameRoomTable.id)
+    val record = reference("record", RecordTable.id)
+
+    override val primaryKey = PrimaryKey(gameRoom, record)
 }

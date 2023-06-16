@@ -1,12 +1,19 @@
 package it.unicam.cs.pawm.database
 
-import it.unicam.cs.pawm.model.GameRoom
-import it.unicam.cs.pawm.model.GameRoomTable
+import it.unicam.cs.pawm.model.*
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
+
+    /* TODO: implement salt
+    suspend fun salt(email: String): String = dbQuery {
+
+    }
+
+    }
+    */
 
     override suspend fun add(newRecord: GameRoom): Int = dbQuery {
         val insert = GameRoomTable.insert {
@@ -16,8 +23,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
             it[passwordSalt] = newRecord.passwordSalt
         }
 
-        GameRoomGamesService.addAll(insert[GameRoomTable.id], newRecord.games.map { it.id })
-        GameRoomEventsService.addAll(insert[GameRoomTable.id], newRecord.events.map { it.id })
         insert[GameRoomTable.id]
     }
 
@@ -29,8 +34,15 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                GameRoomGamesService.read(id),
-                GameRoomEventsService.read(id)
+                it[GameRoomGamesTable.gameRoom].let { gameRoom ->
+                    GameService.getGameRoomGames(gameRoom)
+                },
+                it[GameRoomEventsTable.gameRoom].let { gameRoom ->
+                    EventService.getGameRoomEvents(gameRoom)
+                },
+                it[GameRoomRecordsTable.gameRoom].let { gameRoom ->
+                    RecordService.getGameRoomRecords(gameRoom)
+                }
             )
         }.singleOrNull()
     }
@@ -44,15 +56,11 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                GameRoomGamesService.read(id),
-                GameRoomEventsService.read(id)
             )
         }
     }
 
     override suspend fun delete(id: Int) {
-        GameRoomGamesService.deleteAll(id)
-        GameRoomEventsService.deleteAll(id)
 
         dbQuery {
             GameRoomTable.deleteWhere { GameRoomTable.id eq id }
@@ -73,27 +81,18 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
      * Removes a [game] from the specified [gameRoom].
      */
     suspend fun removeGame(gameRoom: Int, game: Int) {
-        GameRoomGamesService.delete(gameRoom, game)
-    }
 
-    /**
-     * Removes all games from the specified [gameRoom].
-     */
-    suspend fun removeAllGames(gameRoom: Int) {
-        GameRoomGamesService.deleteAll(gameRoom)
     }
 
     /**
      * Removes an [event] from the specified [gameRoom].
      */
     suspend fun removeEvent(gameRoom: Int, event: Int) {
-        GameRoomEventsService.delete(gameRoom, event)
     }
 
     /**
      * Removes all events from the specified [gameRoom].
      */
     suspend fun removeAllEvents(gameRoom: Int) {
-        GameRoomEventsService.deleteAll(gameRoom)
     }
 }

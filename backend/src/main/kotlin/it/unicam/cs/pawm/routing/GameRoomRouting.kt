@@ -5,14 +5,17 @@ import io.ktor.server.response.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import it.unicam.cs.pawm.database.GameRoomGamesService
+import it.unicam.cs.pawm.database.EventService
 import it.unicam.cs.pawm.database.GameRoomService
+import it.unicam.cs.pawm.database.GameService
+import it.unicam.cs.pawm.model.Event
+import it.unicam.cs.pawm.model.Game
 
 import it.unicam.cs.pawm.model.GameRoom
 import it.unicam.cs.pawm.utils.getIdFromToken
 
 fun Route.gameRoomRouting() {
-    route("/gameroom") {
+    route("/game-room") {
         get("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: run {
                 call.respond(HttpStatusCode.BadRequest)
@@ -26,6 +29,16 @@ fun Route.gameRoomRouting() {
                 call.respond(HttpStatusCode.NotFound)
         }
 
+        /* TODO: implement salt
+        get ("/salt,{'email'}"){
+            val email = call.parameters["email"] ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val gameRoom = GameRoomService.salt(email)
+        }
+        */
+
         get("/all") {
             val gameRooms = GameRoomService.readAll()
             call.respond(HttpStatusCode.OK, gameRooms)
@@ -36,12 +49,17 @@ fun Route.gameRoomRouting() {
                 call.respond(HttpStatusCode.BadRequest)
                 return@get
             }
-            val games = GameRoomGamesService.read(id)
+            val games: List<Game> = GameService.getGameRoomGames(id)
             call.respond(HttpStatusCode.OK, games)
         }
 
         get("/{id}/events") {
-
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val event: List<Event> = EventService.getGameRoomEvents(id)
+            call.respond(HttpStatusCode.OK, event)
         }
 
         post("/") {

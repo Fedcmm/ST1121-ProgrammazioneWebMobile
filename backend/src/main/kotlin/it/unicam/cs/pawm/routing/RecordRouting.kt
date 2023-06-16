@@ -1,0 +1,91 @@
+package it.unicam.cs.pawm.routing
+
+import io.ktor.http.*
+import io.ktor.server.response.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
+import io.ktor.server.routing.*
+import it.unicam.cs.pawm.database.RecordService
+
+import it.unicam.cs.pawm.model.Record
+
+fun Route.recordRouting() {
+    route("/record") {
+        get("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val record = RecordService.read(id)
+
+            if (record != null)
+                call.respond(HttpStatusCode.OK, record)
+            else
+                call.respond(HttpStatusCode.NotFound)
+        }
+
+        get("/all") {
+            val records = RecordService.readAll()
+            call.respond(HttpStatusCode.OK, records)
+        }
+
+        /**
+         * Get all records of a GameRoom.
+         */
+        get("/gameRoom/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val records = RecordService.readAll().filter { it.gameRoom.id == id }
+
+            if (records.isNotEmpty())
+                call.respond(HttpStatusCode.OK, records)
+            else
+                call.respond(HttpStatusCode.NotFound)
+        }
+
+        /**
+         * Get all records of a Player.
+         */
+        get("/player/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val records = RecordService.readAll().filter { it.player.id == id }
+
+            if (records.isNotEmpty())
+                call.respond(HttpStatusCode.OK, records)
+            else
+                call.respond(HttpStatusCode.NotFound)
+        }
+
+        post("/") {
+            val record = call.receive<Record>()
+            val id = RecordService.add(record)
+            call.respond(HttpStatusCode.Created, id)
+        }
+
+        patch("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@patch
+            }
+            val record = call.receive<Record>()
+
+            RecordService.update(id, record)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        delete("/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@delete
+            }
+
+            RecordService.delete(id)
+            call.respond(HttpStatusCode.OK)
+        }
+    }
+}
