@@ -46,13 +46,16 @@ fun Route.eventRouting() {
             call.respond(HttpStatusCode.OK)
         }
 
-        delete("/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@delete
-            }
+        //Non so se funziona, ma teoricamente si
+        data class DeleteEventsRequest(val events: List<Int>)
 
-            EventService.delete(id)
+        delete("/{body}") {
+            val request = call.receive<DeleteEventsRequest>()
+            val events = request.events
+
+            for (event in events){
+                EventService.delete(event)
+            }
             call.respond(HttpStatusCode.OK)
         }
     }

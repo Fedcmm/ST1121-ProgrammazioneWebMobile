@@ -46,13 +46,16 @@ fun Route.recordRouting() {
             call.respond(HttpStatusCode.OK)
         }
 
-        delete("/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@delete
-            }
+        //Non so se funziona, ma teoricamente si
+        data class DeleteRecordsRequest(val records: List<Int>)
 
-            RecordService.delete(id)
+        delete("/{body}") {
+            val request = call.receive<DeleteRecordsRequest>()
+            val records = request.records
+
+            for (record in records){
+                RecordService.delete(record)
+            }
             call.respond(HttpStatusCode.OK)
         }
     }
