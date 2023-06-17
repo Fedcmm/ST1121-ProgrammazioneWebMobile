@@ -3,7 +3,7 @@ package it.unicam.cs.pawm.model
 import it.unicam.cs.pawm.database.GameRoomService
 import it.unicam.cs.pawm.database.GameService
 import it.unicam.cs.pawm.database.PlayerService
-import kotlinx.serialization.Contextual
+import it.unicam.cs.pawm.utils.LocalDateJsonSerializer
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
@@ -16,7 +16,7 @@ data class Record(
     val player: Player,
     val gameRoom: GameRoom,
     val game: Game,
-    @Contextual val date: LocalDate,
+    @Serializable(with = LocalDateJsonSerializer::class) val date: LocalDate,
     val score: Int,
     val isVerified: Boolean
 ) {

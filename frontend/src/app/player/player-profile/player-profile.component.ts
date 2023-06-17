@@ -40,12 +40,6 @@ export class PlayerProfileComponent implements OnInit {
                 error: console.error
             });
         }
-        this.playerService.getRecords(id).subscribe({
-            next: (records: Record[]) => {
-                this.records = records;
-            },
-            error: console.error
-        });
     }
 
     onRecordsReceived(records: Record[]) {

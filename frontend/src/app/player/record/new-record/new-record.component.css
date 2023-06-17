@@ -57,3 +57,10 @@
     color: red;
     text-align: start;
 }
+
+.error {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: medium;
+    color: var(--accent-color);
+}

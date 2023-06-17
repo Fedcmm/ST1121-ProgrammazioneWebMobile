@@ -7,7 +7,10 @@ import { RecordService } from "src/service/record.service";
 import { Record } from "src/model/Record";
 import { GameRoom } from "src/model/GameRoom";
 import { Game } from "src/model/Game";
-import { Password } from "src/service/hash.service";
+import { AuthInfoService } from "src/service/auth-info.service";
+import { Player } from "src/model/Player";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-new-record',
@@ -18,15 +21,19 @@ export class NewRecordComponent implements OnInit {
 
     newRecordForm: FormGroup;
 
-    gameRooms: GameRoom[] = [new GameRoom(-1, 'roomname', '', new Password(''), [], []), new GameRoom(-1, 'roomname', '', new Password(''), [], [])];
-    games: Game[] = [new Game(-1, 'gamename', '', []), new Game(-1, 'gamename', '', [])];
+    gameRooms: GameRoom[] = [];
+    games: Game[] = [];
+    showError = false;
+    errorMessage = '';
 
 
     constructor(
         private formBuilder: FormBuilder,
         private gameRoomService: GameRoomService,
         private gameService: GameService,
-        private recordService: RecordService
+        private recordService: RecordService,
+        private authInfo: AuthInfoService,
+        private router: Router
     ) {
         this.newRecordForm = this.formBuilder.group({
             gameRoom: '',
@@ -38,16 +45,22 @@ export class NewRecordComponent implements OnInit {
 
 
     ngOnInit() {
+        this.newRecordForm.get('gameRoom')?.disable();
+        this.newRecordForm.get('game')?.disable();
+
         this.gameRoomService.getGameRooms().subscribe({
             next: gameRooms => {
+                this.newRecordForm.get('gameRoom')?.enable();
                 this.gameRooms = gameRooms;
             }
         });
     }
 
     getGames() {
-        this.gameRoomService.getGames(this.newRecordForm.get('gameRoom')?.value).subscribe({
+        this.newRecordForm.get('game')?.disable();
+        this.gameRoomService.getGames(this.newRecordForm.get('gameRoom')?.value.id).subscribe({
             next: games => {
+                this.newRecordForm.get('game')?.enable();
                 this.games = games;
             }
         });
@@ -64,14 +77,22 @@ export class NewRecordComponent implements OnInit {
         let score = this.newRecordForm.get('score')?.value;
         let date = this.newRecordForm.get('date')?.value;
 
-        let record = new Record(-1, undefined, gameRoom, game, date, score, false);
+        let record = new Record(-1, this.authInfo.user as Player, gameRoom, game, date, score, false);
         this.recordService.createRecord(record).subscribe({
             next: (response: Record) => {
+                this.showError = false;
                 record.game = response.game;
+                this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: error => {
-                console.error(error);
+                this.displayError(error);
             }
         });
+    }
+
+    private displayError(error: HttpErrorResponse) {
+        this.errorMessage = error.error;
+        this.showError = true;
+        console.error(error);
     }
 }
