@@ -1,6 +1,6 @@
 package it.unicam.cs.pawm.model
 
-import kotlinx.serialization.Contextual
+import it.unicam.cs.pawm.utils.LocalDateJsonSerializer
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.date
@@ -12,8 +12,8 @@ data class Event(
     val name: String,
     val description: String,
     val gameRoom: GameRoom,
-    @Contextual val startDate: LocalDate,
-    @Contextual val endDate: LocalDate,
+    @Serializable(with = LocalDateJsonSerializer::class) val startDate: LocalDate,
+    @Serializable(with = LocalDateJsonSerializer::class) val endDate: LocalDate,
     //Aggiungere altri campi
 )
 

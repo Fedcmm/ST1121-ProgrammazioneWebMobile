@@ -5,15 +5,11 @@ import {
     HttpEvent,
     HttpInterceptor, HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse
 } from '@angular/common/http';
-import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthInfoService } from "src/service/auth-info.service";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-
-    private isRefreshing = false;
-    private refreshTokenSubject = new BehaviorSubject<any>(null);
-
 
     constructor(
         private http: HttpClient,
@@ -22,9 +18,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authInfo.accessToken) {
-            request = this.addToken(request)
-        }
+        request = this.addToken(request)
 
         return next.handle(request).pipe(
             catchError(error => {
@@ -45,29 +39,19 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     }
 
     private refreshToken(request: HttpRequest<any>, next: HttpHandler) {
-        if (!this.isRefreshing) {
-            this.isRefreshing = true;
-            this.refreshTokenSubject.next(null);
+        let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'game-room';
 
-            let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'game-room';
-            return this.http.post<any>(`http://localhost:8080/${urlUserPart}/refresh`, {}, { withCredentials: true }).pipe(
-                switchMap((newToken) => {
-                    this.isRefreshing = false;
-
-                    this.authInfo.accessToken = newToken;
-                    this.refreshTokenSubject.next(this.authInfo.accessToken);
-
-                    return next.handle(this.addToken(request));
+        return this.http.post<any>(`http://localhost:8080/${urlUserPart}/refresh`, {}, { withCredentials: true }).pipe(
+            catchError(error => {
+                if (error instanceof HttpErrorResponse && error.status === 401) {
+                    this.authInfo.logout();
+                    return throwError(() => error);
                 }
-            ));
-        }
-
-        return this.refreshTokenSubject.pipe(
-            filter(token => token != null),
-            take(1),
-            switchMap((token) => {
+                return next.handle(request);
+            }),
+            switchMap(({ token }) => {
                 this.authInfo.accessToken = token;
-                return next.handle(this.addToken(request))
+                return next.handle(this.addToken(request));
             })
         );
     }

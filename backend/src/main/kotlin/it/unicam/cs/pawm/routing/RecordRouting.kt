@@ -30,9 +30,15 @@ fun Route.recordRouting() {
         }
 
         post("/") {
-            val record = call.receive<Record>()
-            val id = RecordService.add(record)
-            call.respond(HttpStatusCode.Created, id)
+            val record = try {
+                call.receive<Record>()
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid record")
+                return@post
+            }
+
+            RecordService.add(record)
+            call.respond(HttpStatusCode.Created)
         }
 
         patch("/{id}") {

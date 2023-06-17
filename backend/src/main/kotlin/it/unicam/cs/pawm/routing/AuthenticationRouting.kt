@@ -196,12 +196,13 @@ private data class Credentials(val email: String, val password: String)
 
 private fun ApplicationResponse.addRefreshCookie(refresh: String) {
     cookies.append(
-        Cookie("refresh_token", refresh, expires = GMTDate().plus(REFRESH_DURATION * 1000), httpOnly = true)
+        Cookie("refresh_token", value = refresh, expires = GMTDate().plus(REFRESH_DURATION * 1000),
+            httpOnly = true, secure = false)
     )
 }
 
 private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): DecodedJWT? {
-    val cookieToken = call.request.cookies["refresh_token"] ?: run {
+    val cookieToken = call.request.cookies.rawCookies["refresh_token"] ?: run {
         call.respondText("Refresh token is missing", status = HttpStatusCode.BadRequest)
         return null
     }
@@ -212,7 +213,7 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): De
 
     val dbToken = PlayerRefreshService.read(oldToken.getClaim("id").asInt())
     if (dbToken == null || dbToken.expiration < Instant.now().epochSecond) {
-        call.respondText("Token is expired", status = HttpStatusCode.Unauthorized)
+        call.respondText("Refresh token is expired", status = HttpStatusCode.Unauthorized)
         PlayerRefreshService.delete(oldToken.getClaim("id").asInt())
         return null
     }

@@ -1,6 +1,8 @@
 <div class="player-new-record">
     <h2>Create a Record</h2>
 
+    <div class="error" *ngIf="showError">{{ errorMessage }}</div>
+
     <form [formGroup]="newRecordForm" (ngSubmit)="createRecord()">
         <div class="error-form-element">
             <label for="gameRoom">Select Game Room:</label>
@@ -14,7 +16,7 @@
 
         <div class="error-form-element">
             <label for="game">Select Game:</label>
-            <select id="game" formControlName="game" [disabled]="newRecordForm.get('gameRoom')?.invalid == true" required>
+            <select id="game" formControlName="game" required>
                 <option disabled selected value="">-- Select an option --</option>
                 <option *ngFor="let game of games" [ngValue]="game">{{ game.name }}</option>
             </select>
