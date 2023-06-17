@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Record } from 'src/model/Record';
+import { Event } from "src/model/Event";
 
 @Injectable({
     providedIn: 'root'
 })
 export class RecordService {
 
-    private apiUrl = 'http://localhost:8080/record';
+    private apiUrl = 'url_to_be_replaced';
 
 
     constructor(
@@ -31,8 +32,8 @@ export class RecordService {
         return this.http.put<Record>(url, record);
     }
 
-    deleteRecord(record: Record): Observable<Record> {
-        const url = `${this.apiUrl}/${record.id}`;
-        return this.http.delete<Record>(url);
+    deleteRecords(recordsId: number []): Observable<Event>{
+        const url = `${this.apiUrl}/${recordsId}`;
+        return this.http.delete<Event>(url);
     }
 }

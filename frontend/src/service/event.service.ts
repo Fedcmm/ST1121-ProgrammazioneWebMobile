@@ -8,7 +8,7 @@ import { Event } from 'src/model/Event';
 })
 export class EventService {
 
-    private apiUrl = 'http://localhost:8080/event';
+    private apiUrl = 'url_to_be_replaced';
 
 
     constructor(
@@ -37,8 +37,8 @@ export class EventService {
         }
     */
 
-    deleteEvent(eventId: number | undefined): Observable<Event> {
-        const url = `${this.apiUrl}/${eventId}`;
+    deleteEvents(eventsId: number []): Observable<Event>{
+        const url = `${this.apiUrl}/${eventsId}`;
         return this.http.delete<Event>(url);
     }
 }

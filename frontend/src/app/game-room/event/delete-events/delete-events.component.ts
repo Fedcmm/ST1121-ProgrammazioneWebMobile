@@ -19,7 +19,8 @@ export class DeleteEventsComponent implements OnInit {
         private eventService: EventService,
         private gameRoomService: GameRoomService,
         private authInfo: AuthInfoService
-    ) {}
+    ) {
+    }
 
 
     ngOnInit() {
@@ -46,13 +47,17 @@ export class DeleteEventsComponent implements OnInit {
     }
 
     deleteSelectedEvents() {
-        this.eventsToDelete.forEach((event) => {
-            this.eventService.deleteEvent(event.id).subscribe(() => {
-                const index = this.events.indexOf(event);
-                if (index !== -1) {
-                    this.events.splice(index, 1);
-                }
-            });
+        this.eventService.deleteEvents(this.returnEventsId());
+        this.eventsToDelete = [];
+    }
+
+    returnEventsId(): number[]{
+        const idToReturn: number[] | undefined = [];
+        this.eventsToDelete.forEach(event => {
+            if (event.id != null) {
+                idToReturn.push(event.id);
+            }
         });
+        return idToReturn;
     }
 }

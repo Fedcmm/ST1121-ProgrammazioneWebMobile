@@ -46,13 +46,17 @@ export class GameRoomDeleteRecordsComponent implements OnInit {
     }
 
     deleteSelectedRecords() {
-        this.recordsToDelete.forEach((record) => {
-            this.recordService.deleteRecord(record).subscribe(() => {
-                const index = this.records.indexOf(record);
-                if (index !== -1) {
-                    this.records.splice(index, 1);
-                }
-            });
+        this.recordService.deleteRecords(this.returnEventsId());
+        this.recordsToDelete = [];
+    }
+
+    returnEventsId(): number[]{
+        const idToReturn: number[] | undefined = [];
+        this.recordsToDelete.forEach(record => {
+            if (record.id != null) {
+                idToReturn.push(record.id);
+            }
         });
+        return idToReturn;
     }
 }
