@@ -22,9 +22,19 @@ export class GameService {
         return this.http.get<Game>(url);
     }
 
+    getGames(): Observable<Game[]> {
+        const url = `${this.apiUrl}/all`;
+        return this.http.get<Game[]>(url);
+    }
+
     createGame(game: Game): Observable<Game> {
         const url = `${this.apiUrl}/`;
         return this.http.post<Game>(url, game);
+    }
+
+    addGame(gameId: number, gameRoomId: number): Observable<Game> {
+        const url = `${this.apiUrl}/${gameId}/${gameRoomId}`;
+        return this.http.post<Game>(url, null);
     }
 
     updateGame(game: Game): Observable<Game> {

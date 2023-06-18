@@ -1,0 +1,11 @@
+<div class="view-game">
+    <h2>{{ game?.name }}</h2>
+
+    <div class="label">Description:</div>
+    <div class="value">{{ game?.description }}</div>
+
+    <div *ngFor="let gameType of game?.gameTypes">
+        <div class="label">Score:</div>
+        <div class="value">{{ gameType.valueOf() }}</div>
+    </div>
+</div>

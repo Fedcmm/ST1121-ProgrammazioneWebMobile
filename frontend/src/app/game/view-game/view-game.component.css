@@ -1,0 +1,16 @@
+.view-game {
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.view-game a {
+    color: white;
+    text-decoration: none;
+}
+
+.view-game a:hover {
+    color: var(--accent-color);
+}
