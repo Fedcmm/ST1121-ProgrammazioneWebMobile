@@ -49,7 +49,7 @@ export class CreateEventComponent {
         let event = new Event(-1, name, description, this.authInfo.user as GameRoom, startDate, endDate);
         this.eventService.createEvent(event).subscribe({
             next: () => {
-                this.router.navigate(['/player/profile']).catch(console.error);
+                this.router.navigate(['/game-room/profile']).catch(console.error);
             },
             error: (error) => {
                 this.displayError(error)

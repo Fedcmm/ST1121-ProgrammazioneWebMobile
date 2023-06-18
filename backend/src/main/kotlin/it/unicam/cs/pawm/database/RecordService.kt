@@ -83,4 +83,12 @@ object RecordService : DatabaseService<Record, Int>(RecordTable) {
             }
         }
     }
+
+    suspend fun verifyRecord(id: Int) {
+        dbQuery {
+            RecordTable.update({ RecordTable.id eq id }) {
+                it[isVerified] = true
+            }
+        }
+    }
 }

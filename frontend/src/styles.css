@@ -13,6 +13,25 @@ body {
     font-family: "Press Start 2P", cursive;
 }
 
+h2 {
+    margin-bottom: 20px;
+    font-size: x-large;
+}
+
+h3 {
+    margin-top: 10px;
+    font-size: larger;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
 input[type="button"],
 input[type="submit"] {
     padding: 10px 20px;
@@ -28,4 +47,15 @@ input[type="button"]:disabled,
 input[type="submit"]:disabled {
     background-color: grey;
     cursor: auto;
+}
+
+.label {
+    margin-bottom: 5px;
+    font-size: medium;
+    display: block;
+}
+
+.value {
+    margin-bottom: 10px;
+    font-size: medium;
 }

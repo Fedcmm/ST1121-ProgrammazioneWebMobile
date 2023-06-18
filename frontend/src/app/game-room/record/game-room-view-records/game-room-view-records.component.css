@@ -2,32 +2,36 @@
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-    max-width: 300px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-.game-room-view-records h2 {
-    font-size: x-large;
-    margin-bottom: 20px;
+.game-room-view-records .record {
+    width: 330px;
+    padding: 20px;
+    margin: 5px;
+    text-align: start;
+    border: white thin solid;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.game-room-view-records ul {
-    list-style-type: none;
-    padding: 0;
+.game-room-view-records a {
+    color: white;
+    text-decoration: none;
 }
 
-.game-room-view-records li {
-    margin-bottom: 5px;
+.game-room-view-records a:hover {
+    color: var(--accent-color);
 }
 
-.game-room-view-records label {
-    margin-bottom: 5px;
-    font-size: medium;
-    display: block;
-}
-
-.game-room-view-records input[type="checkbox"] {
-    margin-right: 10px;
+.game-room-view-records .button-row {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .game-room-view-records input[type="button"] {
@@ -38,4 +42,9 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    display: inline-block;
+}
+
+#verifyBtn {
+    background-color: green;
 }

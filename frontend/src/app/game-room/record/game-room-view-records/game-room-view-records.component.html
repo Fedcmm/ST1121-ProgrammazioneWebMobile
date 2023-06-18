@@ -1,27 +1,32 @@
 <div class="game-room-view-records">
     <h2>Records</h2>
 
-    <ul>
-        <li *ngFor="let record of verifiedRecords">
-            <div class="GameRoom"> <strong>GameRoom:</strong>
-                <a [routerLink]="['/game-room/', record.gameRoom.id]" class="value"> {{ record.gameRoom.name }} </a>
-            </div>
+    <div *ngIf="records.length === 0">
+        <p>No records found.</p>
+    </div>
 
-            <div class="Game"> <strong>Game:</strong>
-                <a [routerLink]="['/game/', record.game.id]" class="value"> {{ record.game.name }} </a>
-            </div>
+    <div class="record" *ngFor="let record of records">
+        <div class="label">Player:
+            <a [routerLink]="['/player', record.player!.id]" class="value">{{ record.player!.name }}</a>
+        </div>
 
-            <div class="Player"> <strong>Player:</strong>
-                <a [routerLink]="['/player/', record.player!.id]" class="value"> {{ record.player!.name }} </a>
-            </div>
+        <div class="label" *ngIf="!isLoggedGameRoom">Game Room:
+            <a [routerLink]="['/game-room', record.gameRoom.id]" class="value">{{ record.gameRoom.name }}</a>
+        </div>
 
-            <div class="Score"> <strong>Score:</strong>
-                {{ record.score }}
-            </div>
+        <div class="label">Game:
+            <a [routerLink]="['/game', record.game.id]" class="value">{{ record.game.name }}</a>
+        </div>
 
-            <div class="Date"> <strong>Date:</strong>
-                {{ record.date }}
-            </div>
-        </li>
-    </ul>
+        <div class="label">Date:</div>
+        <div class="value">{{ record.date | date : "dd/MM/yyyy hh:mm" }}</div>
+
+        <div class="label">Score:</div>
+        <div class="value">{{ record.score }}</div>
+
+        <div class="button-row">
+            <input type="button" id="deleteBtn" value="Delete" *ngIf="isLoggedGameRoom" (click)="deleteRecord(record.id)">
+            <input type="button" id="verifyBtn" value="Verify" *ngIf="isLoggedGameRoom && !record.isVerified" (click)="verifyRecord(record.id)">
+        </div>
+    </div>
 </div>

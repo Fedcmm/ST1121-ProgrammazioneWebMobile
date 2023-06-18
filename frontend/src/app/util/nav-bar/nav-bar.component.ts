@@ -11,4 +11,9 @@ export class NavBarComponent {
     constructor(
         public authInfo: AuthInfoService,
     ) {}
+
+
+    getUsername() {
+        return this.authInfo.user?.username ?? '';
+    }
 }

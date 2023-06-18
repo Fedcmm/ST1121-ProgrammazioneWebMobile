@@ -1,13 +1,14 @@
 package it.unicam.cs.pawm.routing
 
 import io.ktor.http.*
-import io.ktor.server.response.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import it.unicam.cs.pawm.database.EventService
-
 import it.unicam.cs.pawm.model.Event
+import it.unicam.cs.pawm.plugins.getIdParameter
+import it.unicam.cs.pawm.utils.getIdFromToken
 
 fun Route.eventRouting() {
     route("/event") {
@@ -49,6 +50,22 @@ fun Route.eventRouting() {
             val event = call.receive<Event>()
 
             EventService.update(id, event)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        delete("/{id}") {
+            val id = call.getIdParameter() ?: return@delete
+
+            val event = EventService.read(id) ?: run {
+                call.respond(HttpStatusCode.NotFound, "Event not found")
+                return@delete
+            }
+            if (event.gameRoom.id != call.getIdFromToken()) {
+                call.respond(HttpStatusCode.Forbidden, "You can't delete this event")
+                return@delete
+            }
+
+            EventService.delete(id)
             call.respond(HttpStatusCode.OK)
         }
 

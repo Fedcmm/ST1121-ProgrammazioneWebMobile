@@ -52,7 +52,7 @@ export class DeleteEventsComponent implements OnInit {
     }
 
     returnEventsId(): number[]{
-        const idToReturn: number[] | undefined = [];
+        const idToReturn: number[] = [];
         this.eventsToDelete.forEach(event => {
             if (event.id != null) {
                 idToReturn.push(event.id);

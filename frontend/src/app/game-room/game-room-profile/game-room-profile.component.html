@@ -1,10 +1,16 @@
 <div class="game-room-profile">
-    <h2>GameRoom profile</h2>
+    <h3>Game room profile</h3>
 
     <h2>{{ gameRoom?.name }}</h2>
 
-    <div class="label">Total Records:</div>
-    <div class="value">{{ recordsLength }}</div>
+    <div class="records-row">
+        <div>
+            <div class="label">Total Records:</div>
+            <div class="value">{{ recordsLength }}</div>
+        </div>
+
+        <input type="button" value="View records" *ngIf="isLoggedUser" (click)="navigateToRecords()">
+    </div>
 
     <div class="label">Total events:</div>
     <div class="value">{{ events.length }}</div>

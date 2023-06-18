@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-root',
@@ -12,11 +11,9 @@ export class AppComponent implements OnInit {
 
 
     constructor(
-        private responsive: BreakpointObserver
     ) {}
 
 
     ngOnInit() {
-        this.responsive.observe(Breakpoints.HandsetLandscape);
     }
 }

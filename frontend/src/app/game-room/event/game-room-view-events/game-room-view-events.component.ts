@@ -47,7 +47,7 @@ export class GameRoomViewEventsComponent implements OnInit {
     }
 
     deleteEvent(event: Event) {
-        this.eventService.deleteEvents([event.id]).subscribe({
+        this.eventService.deleteEvent(event.id).subscribe({
             next: () => {
                 this.getEvents();
             },

@@ -10,23 +10,8 @@
     text-align: center;
 }
 
-.game-room-profile h3 {
-    margin-top: 10px;
-    font-size: larger;
-}
-
-.game-room-profile .label {
-    margin-bottom: 5px;
-    font-size: medium;
-    display: block;
-}
-
-.game-room-profile .value {
-    margin-bottom: 10px;
-    font-size: large;
-}
-
-.game-room-profile .events-header {
+.game-room-profile .events-header,
+.game-room-profile .records-row {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -34,11 +19,12 @@
     justify-content: space-between;
 }
 
-.game-room-profile .events-header input[type="button"] {
+.game-room-profile .records-row input[type="button"] {
     padding: 10px 20px;
+    height: 80%;
     background-color: var(--accent-color);
     color: white;
-    font-size: large;
+    font-size: medium;
     border: none;
     border-radius: 3px;
     cursor: pointer;

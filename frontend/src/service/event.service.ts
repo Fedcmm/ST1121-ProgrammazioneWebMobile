@@ -38,6 +38,11 @@ export class EventService {
         }
     */
 
+    deleteEvent(eventId: number): Observable<Event> {
+        const url = `${this.apiUrl}/${eventId}`;
+        return this.http.delete<Event>(url);
+    }
+
     deleteEvents(eventIds: number[]): Observable<Event> {
         const url = `${this.apiUrl}/`;
         return this.http.delete<Event>(url, { params: { ids: eventIds } });

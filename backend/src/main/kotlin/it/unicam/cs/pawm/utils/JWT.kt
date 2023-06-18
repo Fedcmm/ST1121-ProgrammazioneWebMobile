@@ -50,7 +50,7 @@ fun Application.createTokens(id: Int, email: String): TokenPair {
 /**
  * Returns the claim with name "id" from the access token of an authenticated [JWTPrincipal].
  */
-fun PipelineContext<Unit, ApplicationCall>.getIdFromToken(): Int {
-    val principal = call.principal<JWTPrincipal>()!!
+fun ApplicationCall.getIdFromToken(): Int {
+    val principal = principal<JWTPrincipal>()!!
     return principal.getClaim("id", Int::class)!!
 }

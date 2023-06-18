@@ -8,6 +8,8 @@ import io.ktor.server.routing.*
 import it.unicam.cs.pawm.database.RecordService
 
 import it.unicam.cs.pawm.model.Record
+import it.unicam.cs.pawm.plugins.getIdParameter
+import it.unicam.cs.pawm.utils.getIdFromToken
 
 fun Route.recordRouting() {
     route("/record") {
@@ -49,6 +51,33 @@ fun Route.recordRouting() {
             val record = call.receive<Record>()
 
             RecordService.update(id, record)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        patch("/{id}/verify") {
+            val id = call.parameters["id"]?.toInt() ?: run {
+                call.respond(HttpStatusCode.BadRequest)
+                return@patch
+            }
+
+            RecordService.verifyRecord(id)
+            call.respond(HttpStatusCode.OK)
+        }
+
+        delete("/{id}") {
+            val id = call.getIdParameter() ?: return@delete
+
+            val record = RecordService.read(id) ?: run {
+                call.respond(HttpStatusCode.NotFound, "Record not found")
+                return@delete
+            }
+            val userId = call.getIdFromToken()
+            if (record.player.id != userId || record.gameRoom.id != userId) {
+                call.respond(HttpStatusCode.Forbidden, "You can't delete this record")
+                return@delete
+            }
+
+            RecordService.delete(id)
             call.respond(HttpStatusCode.OK)
         }
 

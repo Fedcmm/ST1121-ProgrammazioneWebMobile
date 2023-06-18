@@ -4,14 +4,14 @@ import { Game } from "./Game";
 
 export class Record {
     id: number;
-    player?: Player; // TODO: remove optional?
+    player: Player;
     gameRoom: GameRoom;
     game: Game;
     date: Date;
     score: number;
     isVerified: boolean;
 
-    constructor(id: number, player: Player | undefined, gameRoom: GameRoom, game: Game, date: Date, score: number, isVerified: boolean) {
+    constructor(id: number, player: Player, gameRoom: GameRoom, game: Game, date: Date, score: number, isVerified: boolean) {
         this.id = id;
         this.player = player;
         this.gameRoom = gameRoom;

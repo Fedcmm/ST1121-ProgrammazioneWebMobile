@@ -31,6 +31,16 @@ export class RecordService {
         return this.http.put<Record>(url, record);
     }
 
+    deleteRecord(recordId: number): Observable<Record> {
+        const url = `${this.apiUrl}/${recordId}`;
+        return this.http.delete<Record>(url);
+    }
+
+    verifyRecord(recordId: number): Observable<Record> {
+        const url = `${this.apiUrl}/${recordId}/verify`;
+        return this.http.patch<Record>(url, {});
+    }
+
     deleteRecords(recordIds: number[]): Observable<Record>{
         const url = `${this.apiUrl}/`;
         return this.http.delete<Record>(url, { params: { ids: recordIds }});

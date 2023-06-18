@@ -6,20 +6,6 @@
     margin: 0 auto;
 }
 
-.game-room-games h2 {
-    margin-bottom: 20px;
-    font-size: x-large;
-}
-
-.game-room-games ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.game-room-games li {
-    margin-bottom: 5px;
-}
-
 .game-room-games a {
     color: white;
     text-decoration: none;

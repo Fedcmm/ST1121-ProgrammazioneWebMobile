@@ -51,14 +51,14 @@ fun Route.playerRouting() {
         //endregion
 
         patch("/") {
-            val id = getIdFromToken()
+            val id = call.getIdFromToken()
             val player = call.receive<Player>()
             PlayerService.update(id, player)
             call.respond(HttpStatusCode.OK)
         }
 
         delete("/") {
-            val id = getIdFromToken()
+            val id = call.getIdFromToken()
             PlayerService.delete(id)
             call.respond(HttpStatusCode.OK)
         }

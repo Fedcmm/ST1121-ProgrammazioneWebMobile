@@ -13,6 +13,7 @@ import it.unicam.cs.pawm.model.Event
 import it.unicam.cs.pawm.model.Game
 
 import it.unicam.cs.pawm.model.GameRoom
+import it.unicam.cs.pawm.plugins.getIdParameter
 import it.unicam.cs.pawm.utils.getIdFromToken
 
 fun Route.gameRoomRouting() {
@@ -20,10 +21,7 @@ fun Route.gameRoomRouting() {
 
         //region Get
         get("/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
+            val id = call.getIdParameter() ?: return@get
             val gameRoom = GameRoomService.read(id)
 
             if (gameRoom != null)
@@ -75,14 +73,14 @@ fun Route.gameRoomRouting() {
         //endregion
 
         patch("/") {
-            val id = getIdFromToken()
+            val id = call.getIdFromToken()
             val gameRoom = call.receive<GameRoom>()
             GameRoomService.update(id, gameRoom)
             call.respond(HttpStatusCode.OK)
         }
 
         delete("/") {
-            val id = getIdFromToken()
+            val id = call.getIdFromToken()
             GameRoomService.delete(id)
             call.respond(HttpStatusCode.OK)
         }
