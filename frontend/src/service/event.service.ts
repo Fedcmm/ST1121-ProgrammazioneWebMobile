@@ -8,15 +8,16 @@ import { Event } from 'src/model/Event';
 })
 export class EventService {
 
-    private apiUrl = 'url_to_be_replaced';
+    private apiUrl = 'http://localhost:8080/event';
 
 
     constructor(
         private http: HttpClient
     ) {}
 
+
     getEvents(): Observable<Event[]> {
-        const url = `${this.apiUrl}/events`;
+        const url = `${this.apiUrl}/`;
         return this.http.get<Event[]>(url);
     }
 
@@ -37,8 +38,8 @@ export class EventService {
         }
     */
 
-    deleteEvents(eventsId: number []): Observable<Event>{
-        const url = `${this.apiUrl}/${eventsId}`;
-        return this.http.delete<Event>(url);
+    deleteEvents(eventIds: number[]): Observable<Event> {
+        const url = `${this.apiUrl}/`;
+        return this.http.delete<Event>(url, { params: { ids: eventIds } });
     }
 }

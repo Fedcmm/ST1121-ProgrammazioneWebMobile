@@ -1,6 +1,5 @@
 import { Password } from "src/service/hash.service";
 import { Game } from "./Game";
-import { Event } from "./Event";
 
 export class GameRoom {
     id: number;
@@ -9,16 +8,14 @@ export class GameRoom {
     password: string;
     passwordSalt: string;
     games: Game[];
-    events: Event[];
 
-    constructor(id: number, name: string, email: string, password: Password, games?: Game[], events?: Event[]) {
+    constructor(id: number, name: string, email: string, password: Password, games?: Game[]) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password.passwordHash;
         this.passwordSalt = password.salt;
         this.games = games ? games : [];
-        this.events = events ? events : [];
     }
 
     get username(): string {

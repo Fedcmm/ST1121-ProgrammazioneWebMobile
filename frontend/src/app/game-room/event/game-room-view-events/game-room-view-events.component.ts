@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Event } from 'src/model/Event';
 import { AuthInfoService } from "src/service/auth-info.service";
 import { GameRoomService } from "src/service/game-room.service";
+import { EventService } from "src/service/event.service";
 
 @Component({
     selector: 'game-room-view-events',
@@ -20,19 +21,39 @@ export class GameRoomViewEventsComponent implements OnInit {
 
     constructor(
         private gameRoomService: GameRoomService,
+        private eventService: EventService,
         private authInfo: AuthInfoService,
         private route: ActivatedRoute
     ) {}
 
 
     ngOnInit() {
+        this.getEvents()
+    }
+
+    getEvents() {
         let id = this.route.snapshot.paramMap.get("id");
 
-        this.gameRoomService.getEvents(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
-            next: (events: Event[]) => {
-                this.events = events;
+        this.gameRoomService.getEvents(id ? parseInt(id) : this.authInfo.user!.id)
+            .subscribe({
+                next: (events: Event[]) => {
+                    this.events = events;
+                    this.receivedEvents.emit(events);
+                },
+                error: () => {
+                    console.error();
+                }
+            });
+    }
+
+    deleteEvent(event: Event) {
+        this.eventService.deleteEvents([event.id]).subscribe({
+            next: () => {
+                this.getEvents();
             },
-            error: console.error
+            error: error => {
+                console.error(error);
+            }
         });
     }
 }

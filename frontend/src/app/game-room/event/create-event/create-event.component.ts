@@ -5,6 +5,7 @@ import { EventService } from "src/service/event.service";
 import { AuthInfoService } from "src/service/auth-info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'game-room-create-event',
@@ -23,6 +24,7 @@ export class CreateEventComponent {
         private formBuilder: FormBuilder,
         private eventService: EventService,
         private authInfo: AuthInfoService,
+        private router: Router
     ) {
         this.newEventForm = formBuilder.group({
             name: '',
@@ -46,9 +48,8 @@ export class CreateEventComponent {
 
         let event = new Event(-1, name, description, this.authInfo.user as GameRoom, startDate, endDate);
         this.eventService.createEvent(event).subscribe({
-            next: (response: Event) => {
-                event.id = response.id;
-                console.log('Nuovo evento creato con ID:', event.id);
+            next: () => {
+                this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: (error) => {
                 this.displayError(error)

@@ -38,6 +38,7 @@ export class PlayerViewRecordsComponent implements OnInit {
             .subscribe({
                 next: verifiedRecords => {
                     this.verifiedRecords = verifiedRecords;
+                    this.receivedRecords.emit(verifiedRecords);
                 },
                 error: error => {
                     console.error(error);
@@ -46,6 +47,13 @@ export class PlayerViewRecordsComponent implements OnInit {
     }
 
     deleteRecord(record: Record) {
-        // Implementa la logica per eliminare il record
+        this.recordService.deleteRecords([record.id]).subscribe({
+            next: () => {
+                this.getVerifiedRecords();
+            },
+            error: error => {
+                console.error(error);
+            }
+        });
     }
 }

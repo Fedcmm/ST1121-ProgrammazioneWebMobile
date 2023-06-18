@@ -10,9 +10,7 @@ data class GameRoom(
     val email: String,
     val password: String,
     val passwordSalt: String,
-    val games: List<Game> = mutableListOf(),
-    val events: List<Event> = mutableListOf(),
-    val records: List<Record> = mutableListOf()
+    val games: List<Game> = mutableListOf()
     //Aggiungere altri campi
 )
 

@@ -10,11 +10,37 @@
     font-size: x-large;
 }
 
-.game-room-view-events ul {
-    list-style-type: none;
-    padding: 0;
+.game-room-view-events .event {
+    padding: 20px;
+    margin: 5px;
+    text-align: start;
+    border: white thin solid;
+    border-radius: 5px;
+    display: inline-block;
 }
 
-.game-room-view-events li {
+.game-room-view-events .label {
     margin-bottom: 5px;
+    font-size: small;
+    display: block;
+}
+
+.game-room-view-events .value {
+    margin-bottom: 10px;
+    font-size: medium;
+}
+
+.game-room-view-events p {
+    margin-top: 20px;
+    font-size: small;
+}
+
+.game-room-view-events input[type="button"] {
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: small;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }

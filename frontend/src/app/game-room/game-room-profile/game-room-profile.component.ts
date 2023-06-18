@@ -42,15 +42,10 @@ export class GameRoomProfileComponent implements OnInit {
                 error: console.error
             });
         }
+
         this.gameRoomService.getRecords(id).subscribe({
             next: (records: Record[]) => {
                 this.recordsLength = records.length;
-            },
-            error: console.error
-        });
-        this.gameRoomService.getEvents(id).subscribe({
-            next: (events: Event[]) => {
-                this.events = events;
             },
             error: console.error
         });

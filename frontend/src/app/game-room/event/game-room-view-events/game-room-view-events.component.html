@@ -1,14 +1,23 @@
 <div class="game-room-view-events">
     <h2 *ngIf="!isGameRoomProfile">Events</h2>
 
-    <div *ngFor="let event of events">
-        Name:
-        <span>{{ event.name }}</span>
-        Description:
-        <span>{{ event.description }}</span>
-        Start date:
-        <span>{{ event.startDate }}</span>
-        End date:
-        <span>{{ event.endDate }}</span>
+    <div *ngIf="events.length === 0">
+        <p>No events found.</p>
+    </div>
+
+    <div class="event" *ngFor="let event of events">
+        <div class="label">Name:</div>
+        <div class="value">{{ event.name }}</div>
+
+        <div class="label">Description:</div>
+        <div class="value">{{ event.description }}</div>
+
+        <div class="label">Start date:</div>
+        <div class="value">{{ event.startDate | date : "dd/MM/yyyy" }}</div>
+
+        <div class="label">End date:</div>
+        <div class="value">{{ event.endDate | date : "dd/MM/yyyy" }}</div>
+
+        <input type="button" value="Delete" *ngIf="isGameRoomProfile" (click)="deleteEvent(event)">
     </div>
 </div>

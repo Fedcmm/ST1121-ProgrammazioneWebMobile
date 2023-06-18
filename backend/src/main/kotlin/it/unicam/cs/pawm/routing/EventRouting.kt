@@ -30,7 +30,13 @@ fun Route.eventRouting() {
         }
 
         post("/") {
-            val event = call.receive<Event>()
+            val event = try {
+                call.receive<Event>()
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid event")
+                return@post
+            }
+
             val id = EventService.add(event)
             call.respond(HttpStatusCode.Created, id)
         }

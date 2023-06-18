@@ -79,9 +79,8 @@ export class NewRecordComponent implements OnInit {
 
         let record = new Record(-1, this.authInfo.user as Player, gameRoom, game, date, score, false);
         this.recordService.createRecord(record).subscribe({
-            next: (response: Record) => {
+            next: () => {
                 this.showError = false;
-                record.game = response.game;
                 this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: error => {

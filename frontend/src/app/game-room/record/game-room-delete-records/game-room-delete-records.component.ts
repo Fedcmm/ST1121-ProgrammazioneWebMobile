@@ -23,11 +23,7 @@ export class GameRoomDeleteRecordsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.gameRoomService.getRecords(this.authInfo.user!.id).subscribe({
-            next: (records: Record[]) => {
-                this.records = records;
-            }
-        });
+        this.getRecords();
     }
 
     /**
@@ -46,17 +42,22 @@ export class GameRoomDeleteRecordsComponent implements OnInit {
     }
 
     deleteSelectedRecords() {
-        this.recordService.deleteRecords(this.returnEventsId());
-        this.recordsToDelete = [];
-    }
-
-    returnEventsId(): number[]{
-        const idToReturn: number[] | undefined = [];
-        this.recordsToDelete.forEach(record => {
-            if (record.id != null) {
-                idToReturn.push(record.id);
+        this.recordService.deleteRecords(this.recordsToDelete.map(record => record.id)).subscribe({
+            next: () => {
+                this.recordsToDelete = [];
+                this.getRecords();
+            },
+            error: error => {
+                console.error(error);
             }
         });
-        return idToReturn;
+    }
+
+    private getRecords() {
+        this.gameRoomService.getRecords(this.authInfo.user!.id).subscribe({
+            next: (records: Record[]) => {
+                this.records = records;
+            }
+        });
     }
 }

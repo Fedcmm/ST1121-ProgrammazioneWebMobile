@@ -26,9 +26,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                GameService.getGameRoomGames(it[GameRoomTable.id]),
-                EventService.getGameRoomEvents(it[GameRoomTable.id]),
-                RecordService.getGameRoomRecords(it[GameRoomTable.id])
+                GameService.getGameRoomGames(it[GameRoomTable.id])
             )
         }.singleOrNull()
     }
@@ -41,7 +39,7 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.name],
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
-                it[GameRoomTable.passwordSalt],
+                it[GameRoomTable.passwordSalt]
             )
         }
     }

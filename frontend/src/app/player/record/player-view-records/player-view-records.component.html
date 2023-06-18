@@ -24,6 +24,6 @@
         <div class="label">Score:</div>
         <div class="value">{{ record.score }}</div>
 
-        <input type="button" value="Delete" *ngIf="record.isVerified" (click)="deleteRecord(record)">
+        <input type="button" value="Delete" *ngIf="isPlayerProfile && record.isVerified" (click)="deleteRecord(record)">
     </div>
 </div>

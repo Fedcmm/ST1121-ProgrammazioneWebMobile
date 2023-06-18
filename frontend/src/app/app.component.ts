@@ -6,13 +6,17 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+
     title = 'frontend';
+
 
     constructor(
         private responsive: BreakpointObserver
-    ){ }
-    ngOnInit(): void {
+    ) {}
+
+
+    ngOnInit() {
         this.responsive.observe(Breakpoints.HandsetLandscape);
     }
 }
