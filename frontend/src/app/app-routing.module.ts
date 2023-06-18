@@ -14,7 +14,6 @@ import { CreateEventComponent } from "./game-room/event/create-event/create-even
 
 import { ViewGameComponent } from './game/view-game/view-game.component';
 import { GameRoomProfileComponent } from "src/app/game-room/game-room-profile/game-room-profile.component";
-import { GameRoomViewRecordsComponent } from "src/app/game-room/record/game-room-view-records/game-room-view-records.component";
 import { HomeComponent } from "src/app/home/home.component";
 
 const routes: Routes = [
@@ -33,12 +32,12 @@ const routes: Routes = [
         component: SignInPlayerComponent
     },
     {
-        path: 'player/profile',
-        component: PlayerProfileComponent
-    },
-    {
         path: 'player/new-record',
         component: NewRecordComponent
+    },
+    {
+        path: 'player/profile',
+        component: PlayerProfileComponent
     },
     {
         path: 'player/:id',
@@ -58,10 +57,6 @@ const routes: Routes = [
     {
         path: 'game-room/create-event',
         component: CreateEventComponent
-    },
-    {
-        path: 'game-room/view-records',
-        component: GameRoomViewRecordsComponent
     },
     {
         path: 'game-room/profile',
