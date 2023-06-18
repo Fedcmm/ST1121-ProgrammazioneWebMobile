@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterOutlet } from "@angular/router";
+import { NgOptimizedImage } from "@angular/common";
 
 import { NavBarComponent } from "./util/nav-bar/nav-bar.component";
 import { AuthenticationInterceptorProvider } from "./util/authentication.interceptor";
@@ -20,14 +21,12 @@ import { PlayerProfileComponent } from './player/player-profile/player-profile.c
 import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
-import { DeleteEventsComponent } from './game-room/event/delete-events/delete-events.component';
 import { GameRoomProfileComponent } from './game-room/game-room-profile/game-room-profile.component';
 import { GameRoomGamesComponent } from './game-room/games/game-room-games.component';
-import { GameRoomViewRecordsComponent } from 'src/app/game-room/record/game-room-view-records/game-room-view-records.component';
-import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
-import { GameRoomDeleteRecordsComponent } from 'src/app/game-room/record/game-room-delete-records/game-room-delete-records.component';
-import { GameRoomViewEventsComponent } from "src/app/game-room/event/game-room-view-events/game-room-view-events.component";
-import { NgOptimizedImage } from "@angular/common";
+import { GameRoomViewRecordsComponent } from './game-room/record/game-room-view-records/game-room-view-records.component';
+import { GameRoomViewEventsComponent } from "./game-room/event/game-room-view-events/game-room-view-events.component";
+
+import { ViewGameComponent } from './game/view-game/view-game.component';
 
 
 @NgModule({
@@ -47,13 +46,14 @@ import { NgOptimizedImage } from "@angular/common";
         SignUpGameRoomComponent,
         SignInGameRoomComponent,
         CreateEventComponent,
-        VerifyRecordComponent,
         GameRoomProfileComponent,
         GameRoomGamesComponent,
         GameRoomViewRecordsComponent,
-        DeleteEventsComponent,
-        GameRoomDeleteRecordsComponent,
-        GameRoomViewEventsComponent
+        GameRoomViewEventsComponent,
+        //endregion
+
+        //region Game
+        ViewGameComponent
         //endregion
     ],
     imports: [

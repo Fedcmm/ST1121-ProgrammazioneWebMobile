@@ -7,14 +7,13 @@ import { SignUpPlayerComponent } from "./player/sign-up/sign-up.component";
 import { SignInPlayerComponent } from "./player/sign-in/sign-in.component";
 import { PlayerProfileComponent } from "./player/player-profile/player-profile.component";
 import { NewRecordComponent } from "./player/record/new-record/new-record.component";
-import { PlayerViewRecordsComponent } from "./player/record/player-view-records/player-view-records.component";
 
-import { SignUpGameRoomComponent } from "./game-room/sign-up/sign-up.component";
+import { SignUpGameRoomComponent } from "src/app/game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
-import { VerifyRecordComponent } from "./game-room/record/verify-record/verify-record.component";
-import { GameRoomProfileComponent } from "src/app/game-room/game-room-profile/game-room-profile.component";
-import { GameRoomViewRecordsComponent } from "src/app/game-room/record/game-room-view-records/game-room-view-records.component";
+import { GameRoomProfileComponent } from "./game-room/game-room-profile/game-room-profile.component";
+
+import { ViewGameComponent } from './game/view-game/view-game.component';
 
 const routes: Routes = [
     {
@@ -33,16 +32,8 @@ const routes: Routes = [
         component: SignInPlayerComponent
     },
     {
-        path: 'player/profile',
-        component: PlayerProfileComponent
-    },
-    {
         path: 'player/new-record',
         component: NewRecordComponent
-    },
-    {
-        path: 'player/view-records',
-        component: PlayerViewRecordsComponent
     },
     {
         path: 'player/:id',
@@ -64,20 +55,15 @@ const routes: Routes = [
         component: CreateEventComponent
     },
     {
-        path: 'game-room/verify-record',
-        component: VerifyRecordComponent
-    },
-    {
-        path: 'game-room/view-records',
-        component: GameRoomViewRecordsComponent
-    },
-    {
-        path: 'game-room/profile',
-        component: GameRoomProfileComponent
-    },
-    {
         path: 'game-room/:id',
         component: GameRoomProfileComponent
+    },
+    //endregion
+
+    //region Game
+    {
+      path: 'game/:id',
+        component: ViewGameComponent
     },
     //endregion
 
