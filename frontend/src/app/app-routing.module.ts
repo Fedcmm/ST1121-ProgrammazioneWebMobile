@@ -36,6 +36,10 @@ const routes: Routes = [
         component: NewRecordComponent
     },
     {
+        path: 'player/profile',
+        component: PlayerProfileComponent
+    },
+    {
         path: 'player/:id',
         component: PlayerProfileComponent
     },
@@ -53,6 +57,10 @@ const routes: Routes = [
     {
         path: 'game-room/create-event',
         component: CreateEventComponent
+    },
+    {
+        path: 'game-room/profile',
+        component: GameRoomProfileComponent
     },
     {
         path: 'game-room/:id',
