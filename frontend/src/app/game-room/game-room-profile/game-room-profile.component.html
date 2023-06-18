@@ -9,7 +9,7 @@
             <div class="value">{{ recordsLength }}</div>
         </div>
 
-        <input type="button" value="View records" *ngIf="isLoggedUser" (click)="navigateToRecords()">
+        <input type="button" value="View records" *ngIf="isLoggedUser" routerLink="/game-room/view-records" [queryParams]="{ id: gameRoom!.id }" (click)="navigateToRecords()">
     </div>
 
     <div class="label">Total events:</div>

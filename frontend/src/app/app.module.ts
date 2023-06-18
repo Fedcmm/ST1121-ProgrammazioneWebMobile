@@ -23,6 +23,9 @@ import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
 import { GameRoomProfileComponent } from './game-room/game-room-profile/game-room-profile.component';
 import { GameRoomGamesComponent } from './game-room/games/game-room-games.component';
+import { GameRoomViewRecordsComponent } from 'src/app/game-room/record/game-room-view-records/game-room-view-records.component';
+import { GameRoomViewEventsComponent } from "src/app/game-room/event/game-room-view-events/game-room-view-events.component";
+import { HomeComponent } from './home/home.component';
 import { GameRoomViewRecordsComponent } from './game-room/record/game-room-view-records/game-room-view-records.component';
 import { GameRoomViewEventsComponent } from "./game-room/event/game-room-view-events/game-room-view-events.component";
 
@@ -49,6 +52,7 @@ import { ViewGameComponent } from './game/view-game/view-game.component';
         GameRoomProfileComponent,
         GameRoomGamesComponent,
         GameRoomViewRecordsComponent,
+        HomeComponent,
         GameRoomViewEventsComponent,
         //endregion
 

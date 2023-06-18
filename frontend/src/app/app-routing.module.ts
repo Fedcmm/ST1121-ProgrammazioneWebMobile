@@ -11,15 +11,16 @@ import { NewRecordComponent } from "./player/record/new-record/new-record.compon
 import { SignUpGameRoomComponent } from "src/app/game-room/sign-up/sign-up.component";
 import { SignInGameRoomComponent } from "./game-room/sign-in/sign-in.component";
 import { CreateEventComponent } from "./game-room/event/create-event/create-event.component";
-import { GameRoomProfileComponent } from "./game-room/game-room-profile/game-room-profile.component";
 
 import { ViewGameComponent } from './game/view-game/view-game.component';
+import { GameRoomProfileComponent } from "src/app/game-room/game-room-profile/game-room-profile.component";
+import { GameRoomViewRecordsComponent } from "src/app/game-room/record/game-room-view-records/game-room-view-records.component";
+import { HomeComponent } from "src/app/home/home.component";
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'player/sign-in',
-        pathMatch: 'full'
+        component: HomeComponent,
     },
 
     //region Player
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
         path: 'player/sign-in',
         component: SignInPlayerComponent
+    },
+    {
+        path: 'player/profile',
+        component: PlayerProfileComponent
     },
     {
         path: 'player/new-record',
@@ -53,6 +58,14 @@ const routes: Routes = [
     {
         path: 'game-room/create-event',
         component: CreateEventComponent
+    },
+    {
+        path: 'game-room/view-records',
+        component: GameRoomViewRecordsComponent
+    },
+    {
+        path: 'game-room/profile',
+        component: GameRoomProfileComponent
     },
     {
         path: 'game-room/:id',

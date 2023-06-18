@@ -16,4 +16,9 @@ export class NavBarComponent {
     getUsername() {
         return this.authInfo.user?.username ?? '';
     }
+
+    getProfileUrl() {
+        let urlUserPart = this.authInfo.userType == 'player' ? 'player' : 'game-room';
+        return `/${urlUserPart}/profile`;
+    }
 }

@@ -1,14 +1,15 @@
 <nav class="nav-bar">
-    <div class="logo">
-        <a>
-            <img ngSrc="#" width="50" height="50" alt="Logo">
+    <div>
+        <a routerLink="/">
+            <!--suppress CheckImageSize -->
+            <img ngSrc="/assets/images/NeonArcadeTr.png" width="80" height="80" alt="Logo" priority>
         </a>
-        <h2>{{ getUsername() }}</h2>
+
+        <a [routerLink]="getProfileUrl()">{{ getUsername() }}</a>
     </div>
 
     <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a routerLink="/games">Games</a></li>
+        <li><a routerLink="/">Home</a></li>
         <li><a (click)="authInfo.logout()">Sign Out</a></li>
     </ul>
 </nav>

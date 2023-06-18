@@ -11,9 +11,8 @@ import it.unicam.cs.pawm.model.TokenPair
 import it.unicam.cs.pawm.property
 import java.time.Instant
 
-const val REFRESH_DURATION = 120L // seconds
-const val ACCESS_DURATION = 30000L // seconds
-// TODO (17/06/23): Revert to 30L
+const val REFRESH_DURATION = 600L // seconds
+const val ACCESS_DURATION = 60L // seconds
 
 
 /**

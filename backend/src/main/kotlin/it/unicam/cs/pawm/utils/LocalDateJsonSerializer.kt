@@ -1,5 +1,6 @@
 package it.unicam.cs.pawm.utils
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -10,6 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalSerializationApi::class)
 @Serializer(forClass = LocalDate::class)
 class LocalDateJsonSerializer : KSerializer<LocalDate> {
 
