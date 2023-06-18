@@ -55,10 +55,6 @@ export class GameRoomProfileComponent implements OnInit {
         this.events = events;
     }
 
-    navigateToRecords() {
-        this.router.navigate(['/game-room/view-records'], { queryParams: { id: this.gameRoom!.id } }).catch(console.error);
-    }
-
     createEvent() {
         this.router.navigate(['/game-room/create-event']).catch(console.error);
     }

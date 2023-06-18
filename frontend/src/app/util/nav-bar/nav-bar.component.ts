@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthInfoService } from "src/service/auth-info.service";
+import { GameRoom } from "src/model/GameRoom";
 
 @Component({
     selector: 'app-nav-bar',
@@ -14,6 +15,9 @@ export class NavBarComponent {
 
 
     getUsername() {
+        if (this.authInfo.userType == 'game-room') {
+            return (this.authInfo.user as GameRoom)!.name;
+        }
         return this.authInfo.user?.username ?? '';
     }
 

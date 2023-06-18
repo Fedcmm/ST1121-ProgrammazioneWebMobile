@@ -25,11 +25,6 @@ export class GameRoomViewRecordsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.route.queryParams.subscribe({
-            next: (params) => {
-                console.log(params)
-            }
-        });
         let id = parseInt(this.route.snapshot.queryParamMap.get("id")!);
 
         if (id == this.authInfo.user!.id) {

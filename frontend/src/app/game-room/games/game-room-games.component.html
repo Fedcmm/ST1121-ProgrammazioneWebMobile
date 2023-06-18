@@ -1,11 +1,16 @@
 <div class="game-room-games">
-
     <h2>Games</h2>
 
-    <div *ngFor="let game of games">
-        <a [routerLink]="['/game', game.id]" class="value">{{ game.name }}</a>
+    <div *ngIf="games.length === 0">
+        <p>No events found.</p>
+    </div>
 
-        <span>Description:</span>
-        <span>{{ game.description }}</span>
+    <div class="view-element" *ngFor="let game of games">
+        <div class="label">Game:
+            <a [routerLink]="['/game', game.id]" class="value">{{ game.name }}</a>
+        </div>
+
+        <div class="label">Description:</div>
+        <div class="value">{{ game.description }}</div>
     </div>
 </div>

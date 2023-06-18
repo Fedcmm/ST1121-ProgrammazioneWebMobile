@@ -14,7 +14,9 @@ import { CreateEventComponent } from "./game-room/event/create-event/create-even
 
 import { ViewGameComponent } from './game/view-game/view-game.component';
 import { GameRoomProfileComponent } from "src/app/game-room/game-room-profile/game-room-profile.component";
+import { GameRoomViewRecordsComponent } from "src/app/game-room/record/game-room-view-records/game-room-view-records.component";
 import { HomeComponent } from "src/app/home/home.component";
+import { GameRoomGamesComponent } from "src/app/game-room/games/game-room-games.component";
 
 const routes: Routes = [
     {
@@ -30,6 +32,10 @@ const routes: Routes = [
     {
         path: 'player/sign-in',
         component: SignInPlayerComponent
+    },
+    {
+        path: 'player/profile',
+        component: PlayerProfileComponent
     },
     {
         path: 'player/new-record',
@@ -59,6 +65,14 @@ const routes: Routes = [
         component: CreateEventComponent
     },
     {
+        path: 'game-room/records',
+        component: GameRoomViewRecordsComponent
+    },
+    {
+        path: 'game-room/games',
+        component: GameRoomGamesComponent
+    },
+    {
         path: 'game-room/profile',
         component: GameRoomProfileComponent
     },
@@ -70,7 +84,7 @@ const routes: Routes = [
 
     //region Game
     {
-      path: 'game/:id',
+        path: 'game/:id',
         component: ViewGameComponent
     },
     //endregion

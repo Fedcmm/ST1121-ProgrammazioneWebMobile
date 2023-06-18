@@ -22,7 +22,7 @@ export class GameRoomGamesComponent implements OnInit {
 
 
     ngOnInit() {
-        let id = this.route.snapshot.paramMap.get("id");
+        let id = this.route.snapshot.queryParamMap.get("id")!;
 
         this.gameRoomService.getGames(id ? parseInt(id) : this.authInfo.user!.id).subscribe({
             next: (games: Game[]) => {

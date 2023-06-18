@@ -6,17 +6,6 @@
     margin: 0 auto;
 }
 
-.game-room-view-records .record {
-    width: 330px;
-    padding: 20px;
-    margin: 5px;
-    text-align: start;
-    border: white thin solid;
-    border-radius: 5px;
-    display: inline-block;
-    vertical-align: top;
-}
-
 .game-room-view-records a {
     color: white;
     text-decoration: none;

@@ -3,17 +3,25 @@
 
     <h2>{{ gameRoom?.name }}</h2>
 
-    <div class="records-row">
+    <div class="spaced-button">
         <div>
             <div class="label">Total Records:</div>
             <div class="value">{{ recordsLength }}</div>
         </div>
 
-        <input type="button" value="View records" *ngIf="isLoggedUser" routerLink="/game-room/view-records" [queryParams]="{ id: gameRoom!.id }" (click)="navigateToRecords()">
+        <input type="button" value="View records" *ngIf="isLoggedUser"
+               routerLink="/game-room/records" [queryParams]="{ id: gameRoom!.id }">
     </div>
 
-    <div class="label">Total events:</div>
-    <div class="value">{{ events.length }}</div>
+    <div class="spaced-button">
+        <div>
+            <div class="label">Total events:</div>
+            <div class="value">{{ events.length }}</div>
+        </div>
+
+        <input type="button" value="View games" *ngIf="isLoggedUser"
+               routerLink="/game-room/games" [queryParams]="{ id: gameRoom!.id }">
+    </div>
 
     <div class="events-header">
         <h3>Events</h3>

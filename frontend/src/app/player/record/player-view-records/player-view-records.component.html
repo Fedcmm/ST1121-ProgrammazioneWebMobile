@@ -5,7 +5,7 @@
         <p>No verified records found.</p>
     </div>
 
-    <div class="record" *ngFor="let record of verifiedRecords">
+    <div class="view-element" *ngFor="let record of verifiedRecords">
         <div class="label" *ngIf="!isPlayerProfile">Player:
             <a [routerLink]="['/player', record.player!.id]" class="value">{{ record.player!.name }}</a>
         </div>
