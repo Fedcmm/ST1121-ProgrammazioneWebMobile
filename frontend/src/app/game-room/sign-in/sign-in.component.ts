@@ -46,12 +46,12 @@ export class SignInGameRoomComponent {
                         this.setUser(id);
                     },
                     error: error => {
-                        this.displayError(error)
+                        this.displayError(error);
                     }
                 });
             },
             error: error => {
-                console.error(error)
+                this.displayError(error);
             }
         })
     }
@@ -70,7 +70,7 @@ export class SignInGameRoomComponent {
                 this.router.navigate(['/game-room/profile']).catch(console.error);
             },
             error: error => {
-                console.error(error);
+                this.displayError(error);
             }
         });
     }

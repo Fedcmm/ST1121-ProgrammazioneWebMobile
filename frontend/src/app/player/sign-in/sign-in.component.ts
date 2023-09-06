@@ -47,12 +47,12 @@ export class SignInPlayerComponent {
                         this.setUser(id);
                     },
                     error: error => {
-                        this.displayError(error)
+                        this.displayError(error);
                     }
                 });
             },
             error: error => {
-                this.displayError(error)
+                this.displayError(error);
             }
         })
     }
@@ -65,7 +65,7 @@ export class SignInPlayerComponent {
                 this.router.navigate(['/player/profile']).catch(console.error);
             },
             error: error => {
-                this.displayError(error)
+                this.displayError(error);
             }
         });
     }
@@ -73,6 +73,6 @@ export class SignInPlayerComponent {
     private displayError(error: HttpErrorResponse) {
         this.errorMessage = error.error;
         this.showError = true;
-        console.error(error)
+        console.error(error);
     }
 }

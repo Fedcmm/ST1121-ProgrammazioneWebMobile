@@ -26,7 +26,6 @@ object GameRoomService : DatabaseService<GameRoom, Int>(GameRoomTable) {
                 it[GameRoomTable.email],
                 it[GameRoomTable.password],
                 it[GameRoomTable.passwordSalt],
-                GameService.getGameRoomGames(it[GameRoomTable.id])
             )
         }.singleOrNull()
     }

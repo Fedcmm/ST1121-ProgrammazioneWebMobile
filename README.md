@@ -20,7 +20,7 @@ L'applicazione è stata sviluppata per il corso di Programmazione Applicazioni W
 
 ### Funzionalità
 * #### Admin
-L'utente *Admin* è un' entità che rappresenta un amministratore del sito.
+L'utente *Admin* è un'entità che rappresenta un amministratore del sito.
 * #### Player
 L'utente *Player* deve essere autenticato, quindi necessita di un account, una volta
   registrato e autenticato potrà: inserire, modificare ed eliminare i punteggi di un gioco Arcade.
@@ -29,7 +29,7 @@ L'utente *Player* deve essere autenticato, quindi necessita di un account, una v
 L'utente *GameRoom* rappresenta una sala giochi.
 Potrà convalidare i punteggi inseriti dagli utenti *Player* e pubblicare eventi o news.
 * #### Game
-*Game* è un' entità che rappresenta un gioco Arcade, verrà gestita nel database
+*Game* è un'entità che rappresenta un gioco Arcade, verrà gestita nel database
   dall'utente *Admin*, potrà essere seguita dagli utenti *Player* e le *GameRoom* potranno includerla nel loro catalogo di giochi.
 
 

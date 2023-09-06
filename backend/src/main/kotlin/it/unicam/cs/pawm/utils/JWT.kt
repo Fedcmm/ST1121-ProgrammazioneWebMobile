@@ -6,13 +6,12 @@ import com.auth0.jwt.interfaces.DecodedJWT
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
-import io.ktor.util.pipeline.*
 import it.unicam.cs.pawm.model.TokenPair
 import it.unicam.cs.pawm.property
 import java.time.Instant
 
 const val REFRESH_DURATION = 600L // seconds
-const val ACCESS_DURATION = 60L // seconds
+const val ACCESS_DURATION = 20L // seconds
 
 
 /**

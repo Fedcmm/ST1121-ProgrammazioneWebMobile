@@ -211,10 +211,18 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.validateRefresh(): De
         return null
     }
 
-    val dbToken = PlayerRefreshService.read(oldToken.getClaim("id").asInt())
+    val isPlayer = call.request.uri.contains("player")
+    val dbToken =
+        if (isPlayer)
+            PlayerRefreshService.read(oldToken.getClaim("id").asInt())
+        else
+            GameRoomRefreshService.read(oldToken.getClaim("id").asInt())
     if (dbToken == null || dbToken.expiration < Instant.now().epochSecond) {
         call.respondText("Refresh token is expired", status = HttpStatusCode.Unauthorized)
-        PlayerRefreshService.delete(oldToken.getClaim("id").asInt())
+        if (isPlayer)
+            PlayerRefreshService.delete(oldToken.getClaim("id").asInt())
+        else
+            GameRoomRefreshService.delete(oldToken.getClaim("id").asInt())
         return null
     }
 

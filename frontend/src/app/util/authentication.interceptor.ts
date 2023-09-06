@@ -22,7 +22,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
         return next.handle(request).pipe(
             catchError(error => {
-                if (error instanceof HttpErrorResponse && error.status === 401 && !request.url.includes('/login')) {
+                if (error instanceof HttpErrorResponse && error.status === 401 &&
+                    !request.url.includes('/login') && !request.url.includes('/refresh') && !request.url.includes('/logout')) {
                     return this.refreshToken(request, next);
                 } else {
                     return throwError(() => error);

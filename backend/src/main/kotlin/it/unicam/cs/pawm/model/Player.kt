@@ -12,7 +12,6 @@ data class Player(
     val email: String,
     val password: String,
     val passwordSalt: String,
-    //Aggiungere altri campi
 )
 
 object PlayerTable : Table() {

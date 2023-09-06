@@ -23,7 +23,7 @@ export class GameRoomService {
 
 
     getSalt(email: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email} })
+        return this.http.get(`${this.apiUrl}/salt`, { params: {"email": email } })
     }
 
     getGameRooms(): Observable<GameRoom[]> {
@@ -53,7 +53,7 @@ export class GameRoomService {
     }
     
     signUp(name: string, email: string, password: Password): Observable<any> {
-        return this.http.post(`${this.apiUrl}/signup`, new GameRoom(-1, name, email, password, []));
+        return this.http.post(`${this.apiUrl}/signup`, new GameRoom(-1, name, email, password));
     }
 
     singIn(email: string, password: string, salt: string): Observable<any> {

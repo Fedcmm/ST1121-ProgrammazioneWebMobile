@@ -14,7 +14,6 @@ data class Event(
     val gameRoom: GameRoom,
     @Serializable(with = LocalDateJsonSerializer::class) val startDate: LocalDate,
     @Serializable(with = LocalDateJsonSerializer::class) val endDate: LocalDate,
-    //Aggiungere altri campi
 )
 
 object EventTable : Table() {

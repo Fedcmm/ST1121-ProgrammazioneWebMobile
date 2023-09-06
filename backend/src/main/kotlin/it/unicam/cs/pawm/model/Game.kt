@@ -9,7 +9,6 @@ data class Game(
     val name: String,
     val description: String,
     val gameTypes: List<GameType>
-    //Aggiungere altri campi
 )
 
 object GameTable : Table() {
@@ -21,8 +20,8 @@ object GameTable : Table() {
 }
 
 object GamesOfGameRoomTable : Table() {
-    val gameId = integer("gameId")
-    val gameRoomId = integer("gameRoomId")
+    val gameId = reference("GAMEID", GameTable.id)
+    val gameRoomId = reference("GAMEROOMID", GameRoomTable.id)
 
     override val primaryKey = PrimaryKey(gameId, gameRoomId)
 }

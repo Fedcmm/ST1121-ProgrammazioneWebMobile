@@ -13,7 +13,6 @@ enum class GameType {
     MUSIC,
     PUZZLE,
     ADVENTURE
-    //TODO add more types
 }
 
 object GameTypeTable : Table() {
